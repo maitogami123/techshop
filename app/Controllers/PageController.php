@@ -11,7 +11,7 @@ class PageController
 	public function indexAction(RouteCollection $routes)
 	{
 		$routeToProduct = str_replace('{id}', 1, $routes->get('product')->getPath());
-
-        require_once APP_ROOT . '/views/home.php';
+		$name = 'home';
+    require_once APP_ROOT . '/views/layout.view.php';
 	}
 }
