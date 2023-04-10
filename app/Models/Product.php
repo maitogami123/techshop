@@ -1,8 +1,9 @@
-<?php 
+<?php
 
 namespace App\Models;
+use PDO;
 
-class Product
+class Product extends DataProvider
 {
     protected $id;
     protected $title;
@@ -74,15 +75,27 @@ class Product
 
     }
 
-    public function read(int $id)
+    public function read(string $id)
     {
-        $this->title = 'My first Product';
-        $this->description = 'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum ';
-        $this->price = 2.56;
-        $this->sku = 'MVC-SP-PHP-01';
-        $this->image = 'https://via.placeholder.com/150';
+        $db = $this->connect(DB);
 
-        return $this;
+        $query = ('SELECT * FROM product WHERE Product_Line = :id');
+        $statement = $db->prepare($query);
+        $statement->bindParam(':id', $id, PDO::PARAM_STR);
+        $statement->execute();
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        
+        if ($data) {
+            $this->id = $data['Product_Line'];
+            $this->title = $data['Product_Name'];
+            $this->price = $data['Price'];
+            $this->sku = $data['Created_by'];
+            $this->image = $data['BrandID'];
+            $this->description = $data['Created_at'];
+            return $this;
+        } else {
+            echo "The publisher with id $id was not found.";
+        }
     }
 
     public function update(int $id, array $data)

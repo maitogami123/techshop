@@ -8,7 +8,7 @@ use Symfony\Component\Routing\RouteCollection;
 class ProductController
 {
     // Show the product attributes based on the id.
-	public function showAction(int $id, RouteCollection $routes)
+	public function showAction(string $id, RouteCollection $routes)
 	{
         $product = new Product();
         $product->read($id);
