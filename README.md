@@ -19,8 +19,8 @@ This project created for **study** purpose!
 # Naming convention:
 - PascalCase for class
 - camelCase for variables
-- <Name>Controller.php for controller
-- <Name>.view.php for view
+- *ControllerName*Controller.php for controller
+- *ViewName*.view.php for view
 
 # Documentary and reference:
 - Project MVC template from GM 👉[Link](https://www.giuseppemaccario.com/how-to-build-a-simple-php-mvc-framework/)
