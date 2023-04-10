@@ -8,6 +8,7 @@ class DataProvider {
   
   protected function query($sql, $sql_param = [])
   {
+    // TODO: Create query method
     // $db = $this->connect();
 
     // if ($db === null)
@@ -31,6 +32,7 @@ class DataProvider {
 
   protected function execute($sql, $sql_param)
   {
+    // TODO: Create execute method
     // $db = $this->connect();
 
     // if ($db == null) {
