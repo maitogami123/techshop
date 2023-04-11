@@ -9,7 +9,7 @@ class DataProvider {
   protected function query($sql, $sql_param = [])
   {
     // TODO: Create query method
-    // $db = $this->connect();
+    // $db = $this->connect(DB);
 
     // if ($db === null)
     //   return [];

@@ -72,7 +72,37 @@ class Product extends DataProvider
     // CRUD OPERATIONS
     public function create(array $data)
     {
+        $db = $this->connect(DB);
 
+        $productLine = 'KB.FL.ES.De';
+        $productName = 'Bàn Phím Cơ Fuhlen Eraser LED Switch Quang Học (Đen)';
+        $price = 780000;
+        $createdBy = 'testadmin1';
+        $brand = 'MSI';
+        $category = '3';
+
+        $sql = ("INSERT INTO `product` (`Product_Line`, `Product_Name`, `Price`, `Discount`, `Created_at`, 
+        `Modified_at`, `Deleted_at`, `Created_by`, `BrandID`, `Category`) 
+        VALUES (:productLine, :productName, :price, :discount, 
+        :createdAt, :modifiedAt, :deletedAt, :createdBy, :brand, :category)");
+
+        $statement = $db->prepare($sql);
+
+        $statement->execute([
+            ':productLine' => $productLine,
+            ':productName' => $productName,
+            ':price' => $price,
+            ':discount' => 0,
+            ':createdAt' => date("Y-m-d H:i:s", time()),
+            ':modifiedAt' => NULL,
+            ':deletedAt' => NULL,
+            ':createdBy' => $createdBy,
+            ':brand' => $brand,
+            ':category' => $category
+        ]);
+
+        $db = null;
+        $sql = null;
     }
 
     public function read(string $id)
@@ -96,11 +126,14 @@ class Product extends DataProvider
         } else {
             echo "The publisher with id $id was not found.";
         }
+
+        $db = null;
+        $query = null;
     }
 
     public function update(int $id, array $data)
     {
-
+        
     }
 
     public function delete(int $id)

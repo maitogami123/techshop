@@ -36,3 +36,4 @@ This project created for **study** purpose!
 - If there is a new merge happened on main branch **PULL** and **REBASE** before continue coding
 - There will be *conflict* happen while *rebase* with main branch, you will have to **RESOLVE CONFLICT** by yourself or ask team members
 - Create **PULL REQUEST** when your task is done
+- **DO NOT** merge the branch by yourself

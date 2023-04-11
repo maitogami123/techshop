@@ -23,7 +23,7 @@
     <header class="header">
       <div class="header__container">
         <div class="header__logo">
-          <img src="/techshop/public/images/Logo.svg" alt="Logo Techshop" class="logo" />
+          <img src="/techshop/public/images/page/Logo.svg" alt="Logo Techshop" class="logo" />
         </div>
         <form class="search__form">
           <input type="text" class="fontAwesome search__input" name="searchInformation"
@@ -44,7 +44,7 @@
     <footer class="footer">
       <div class="footer__container">
         <div class="footer__left">
-          <img src="./img/Logo.svg" alt="" class="logo" />
+          <img src="/techshop/public/images/page/Logo.svg" alt="" class="logo" />
           <p class="footer__detail para--sm u-margin-bottom-big">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
             facilis labore ab blanditiis deleniti consequuntur recusandae quod

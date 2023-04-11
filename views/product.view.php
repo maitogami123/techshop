@@ -7,4 +7,4 @@
         <li><?php echo $product->getImage(); ?></li>
     </ul>
     <a href="<?php echo $routes->get('homepage')->getPath(); ?>">Back to homepage</a>
-    <a href="<?php echo $routeToProductDetail?>">See details</a>
+    <a href="<?php echo $routes->get('create')->getPath(); ?>">Create</a>
