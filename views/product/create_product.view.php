@@ -1,7 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12 text-center">
-      <h1 class="mt-5"><?php echo $category ?></h1>
+      <h1 class="mt-5">
+        <?php echo $_SESSION['role']?>
+      </h1>
     </div>
   </div>
   <div class="row">
@@ -25,10 +27,10 @@
       <div class="form-group">
         <label for="brand" class="form-label">Brand</label>
         <select id="brand" name="brand" class="form-select">
-          <option selected>---Choose---</option>
-          <option>MSI</option>
-          <option>ACER</option>
-          <option>HP</option>
+          <option>---Choose---</option>
+          <?php foreach ($brands->brandList as $brand): ?>
+            <option value=<?php echo $brand->id ?>><?php echo $brand->name ?></option>
+          <?php endforeach;?>
         </select>
       </div>
       <div class="form-group">

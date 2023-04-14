@@ -8,6 +8,7 @@ define('URL_ROOT', '/');
 define('URL_SUBFOLDER', '/techshop');
 
 //DB Params
+
 define('DB', 'mysql:dbname=<dbName>;host=<DbHost>;port=<DbPort>');
 define('DB_USER', '<dbUser>');
 define('DB_PASS', '<dbPass>');

@@ -3,7 +3,7 @@
 namespace App\Models;
 use PDO;
 
-class Product extends DataProvider
+class Product
 {
     protected $id;
     protected $title;
@@ -72,7 +72,7 @@ class Product extends DataProvider
     // CRUD OPERATIONS
     public function create(array $data)
     {
-        $db = $this->connect(DB);
+        $db = connect();
 
         $productLine = 'KB.FL.ES.De';
         $productName = 'Bàn Phím Cơ Fuhlen Eraser LED Switch Quang Học (Đen)';
@@ -107,7 +107,7 @@ class Product extends DataProvider
 
     public function read(string $id)
     {
-        $db = $this->connect(DB);
+        $db = connect();
 
         $query = ('SELECT * FROM product WHERE Product_Line = :id');
         $statement = $db->prepare($query);
