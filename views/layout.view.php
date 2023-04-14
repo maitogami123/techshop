@@ -38,9 +38,7 @@
         </nav>
       </div>
     </header>
-      <section>
-        <?php require("$name.view.php"); ?>
-      </section>
+    <?php require("$name.view.php"); ?>
     <footer class="footer">
       <div class="footer__container">
         <div class="footer__left">
@@ -119,5 +117,6 @@
   </div>
 </body>
 <script src="/techshop/public/js/jquery.min.js"></script>
+<script src="/techshop/public/js/index.js"></script>
 
 </html>

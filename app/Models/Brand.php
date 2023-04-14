@@ -4,7 +4,7 @@ namespace App\Models;
 
 use PDO;
 
-class Brand extends DataProvider
+class Brand
 {
   protected $id;
   protected $name;

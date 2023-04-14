@@ -8,3 +8,12 @@ function redirect($url) {
     header("Location: $url");
     die();
 }
+
+function connect($source = DB)
+{
+    try {
+        return new PDO($source, DB_USER, DB_PASS);
+    } catch (PDOException $e) {
+        return null;
+    }
+}

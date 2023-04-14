@@ -476,7 +476,7 @@ fieldset {
 
 .nav {
   display: flex;
-  justify-self: end;
+  justify-content: flex-end;
   gap: 1rem; }
   .nav__link {
     text-decoration: none;

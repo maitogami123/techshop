@@ -4,13 +4,12 @@ namespace App\Models;
 
 use PDO;
 
-class Brands extends DataProvider
+class Brands
 {
   public $brandList = [];
   public function readAll()
   {
-    $db = $this->connect(DB);
-
+    $db = connect();
     $query = ('SELECT * FROM brand');
     $statement = $db->prepare($query);
     $statement->execute();
