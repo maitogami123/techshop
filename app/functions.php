@@ -12,8 +12,33 @@ function redirect($url) {
 function connect($source = DB)
 {
     try {
-        return new PDO($source, DB_USER, DB_PASS);
+        $dbConnection = new PDO($source, DB_USER, DB_PASS);
+        $dbConnection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $dbConnection;
     } catch (PDOException $e) {
         return null;
     }
 }
+
+function debug_to_console($data) {
+    $output = $data;
+    if (is_array($output))
+        $output = implode(',', $output);
+    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+}
+
+function isLoggedIn() {
+
+}
+
+function keepAlive() {
+
+}
+
+function startSession() {
+    session_start();
+    $_SESSION['showNav'] = true;
+}
+
+//TODO: Make a format money string

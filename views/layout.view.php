@@ -1,3 +1,14 @@
+<?php 
+  use App\Models\User;
+
+  if (!isset($_SESSION['isLoggedIn'])) {
+      $_SESSION['isLoggedIn'] = false;
+  }
+  if ($_SESSION['isLoggedIn'] == true) {
+      $user = new User();
+      $user = unserialize($_SESSION['user']);
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,26 +26,40 @@
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/techshop/public/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/techshop/public/css/simple-notify.min.css" />
   <link rel="stylesheet" href="/techshop/public/css/index.css">
+  <script src="/techshop/public/js/jquery.min.js"></script>
+  <script src="/techshop/public/js/simple-notify.min.js"></script>
 </head>
-
 <body>
   <div id="app">
     <header class="header">
       <div class="header__container">
         <div class="header__logo">
-          <img src="/techshop/public/images/page/Logo.svg" alt="Logo Techshop" class="logo" />
+          <a href="<?php echo $routes->get('homepage')->getPath(); ?>">
+            <img src="/techshop/public/images/page/Logo.svg" alt="Logo Techshop" class="logo" />
+          </a>
         </div>
         <form class="search__form">
-          <input type="text" class="fontAwesome search__input" name="searchInformation"
-            placeholder="&#xf002;   Search" />
-          <!-- <button class="search__button" type="submit">
-              <i class="fa-sharp fa-solid fa-paper-plane"></i>
-            </button> -->
+          <?php if ($_SESSION['showNav'] == true): ?>
+            <input type="text" class="fontAwesome search__input" name="searchInformation"
+              placeholder="&#xf002;   Search" />
+            <!-- <button class="search__button" type="submit">
+                <i class="fa-sharp fa-solid fa-paper-plane"></i>
+              </button> -->
+          <?php endif ?>
         </form>
         <nav class="nav-user">
-          <a href="./sign-in.html" class="btn btn__secondary">Đăng nhập</a>
-          <a href="./register.html" class="btn btn__secondary btn__secondary--active">Đăng kí</a>
+          <?php if ($_SESSION['isLoggedIn'] == true): ?>
+            <div>
+              <?php echo $user->getUsername(); ?>
+            </div>
+            <a href="logout" class="btn btn__secondary btn__secondary--active">Logout</a>
+          <?php endif ?>
+          <?php if ($_SESSION['isLoggedIn'] == false): ?>
+            <a href="login" class="btn btn__secondary">Đăng nhập</a>
+            <a href="register" class="btn btn__secondary btn__secondary--active">Đăng kí</a>
+          <?php endif ?>
         </nav>
       </div>
     </header>
@@ -55,20 +80,15 @@
                 <use xlink:href="img/symbol-defs.svg#icon-facebook"></use>
               </svg>
             </a>
-            <a href="#" class="social__icon instagram__icon"
-              ><svg class="svg--icon">
-                <use
-                  xlink:href="img/symbol-defs.svg#icon-instagram-with-circle"
-                ></use>
+            <a href="#" class="social__icon instagram__icon"><svg class="svg--icon">
+                <use xlink:href="img/symbol-defs.svg#icon-instagram-with-circle"></use>
               </svg>
             </a>
-            <a href="#" class="social__icon linkedin__icon"
-              ><svg class="svg--icon">
+            <a href="#" class="social__icon linkedin__icon"><svg class="svg--icon">
                 <use xlink:href="img/symbol-defs.svg#icon-linkedin"></use>
               </svg>
             </a>
-            <a href="#" class="social__icon twitter__icon"
-              ><svg class="svg--icon">
+            <a href="#" class="social__icon twitter__icon"><svg class="svg--icon">
                 <use xlink:href="img/symbol-defs.svg#icon-twitter"></use>
               </svg>
             </a>
@@ -78,34 +98,21 @@
           <div class="footer__contact">
             <h3 class="heading__territory u-margin-bottom-big">Techshop</h3>
 
-            <a href="#" class="para--sm text--hover u-margin-bottom-small"
-              >About Us</a
-            >
-            <a href="#" class="para--sm text--hover u-margin-bottom-small"
-              >Contact Us</a
-            >
-            <a href="#" class="para--sm text--hover u-margin-bottom-small"
-              >FAQ</a
-            >
+            <a href="#" class="para--sm text--hover u-margin-bottom-small">About Us</a>
+            <a href="#" class="para--sm text--hover u-margin-bottom-small">Contact Us</a>
+            <a href="#" class="para--sm text--hover u-margin-bottom-small">FAQ</a>
           </div>
           <div class="footer__contact">
             <h3 class="heading__territory u-margin-bottom-big">Legal</h3>
 
-            <a href="#" class="para--sm text--hover u-margin-bottom-small"
-              >Terms and Condition</a
-            >
-            <a href="#" class="para--sm text--hover u-margin-bottom-small"
-              >Privacy Policy</a
-            >
+            <a href="#" class="para--sm text--hover u-margin-bottom-small">Terms and Condition</a>
+            <a href="#" class="para--sm text--hover u-margin-bottom-small">Privacy Policy</a>
           </div>
           <div class="footer__contact">
             <h3 class="heading__territory u-margin-bottom-big">Techshop</h3>
 
-            <a href="#" class="para--sm text--hover u-margin-bottom-small"
-              >support@techshop.com</a
-            >
-            <a href="#" class="para--sm text--hover u-margin-bottom-small"
-              >The
+            <a href="#" class="para--sm text--hover u-margin-bottom-small">support@techshop.com</a>
+            <a href="#" class="para--sm text--hover u-margin-bottom-small">The
             </a>
           </div>
         </div>
@@ -116,7 +123,5 @@
     </footer>
   </div>
 </body>
-<script src="/techshop/public/js/jquery.min.js"></script>
 <script src="/techshop/public/js/index.js"></script>
-
 </html>
