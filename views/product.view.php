@@ -1,5 +1,8 @@
+<?php
+?>
+
 <div class="breadcrumb container">
-    <a href="<?php echo $routes->get('homepage')->getPath();?>" class="breadcrumb__link text-color--1 font-size-2">
+    <a href="<?php echo $routes->get('homepage')->getPath(); ?>" class="breadcrumb__link text-color--1 font-size-2">
         <svg class="icon">
             <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-home"></use>
         </svg>
@@ -9,35 +12,25 @@
         <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-chevron-right"></use>
     </svg>
     <a href="" class="breadcrumb__link">
-        <span class="para--sm text-color--1">Acer</span>
+        <span class="para--sm text-color--1"><?php echo $product->getBrandID()?></span>
     </a>
     <svg class="icon text-color--2">
         <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-chevron-right"></use>
     </svg>
-    <a href="" class="breadcrumb__link">
-        <span class="para--sm text-color--2">Nitro 5</span>
-    </a>
+    <span class="breadcrumb__link">
+        <span class="para--sm text-color--2"><?php echo $product->getProductName()?></span>
+    </span>
 </div>
 <section class="container product-detail__areas u-margin-bottom-huge">
     <div class="product__img--default">
-        <img src="/techshop/public/images/productImg/Image.png" alt="" />
+        <img src="<?php echo "/techshop/public/images/productImg/". $product->getProductLine(). "/" . $product->getImages()[0]?>" alt="" />
     </div>
     <div class="product__img-slide-list">
-        <div class="product__img-slide-item">
-            <img src="/techshop/public/images/productImg/Image.png" alt="" class="product__img-item" />
-        </div>
-        <div class="product__img-slide-item">
-            <img src="/techshop/public/images/productImg/Image.png" alt="" class="product__img-item" />
-        </div>
-        <div class="product__img-slide-item">
-            <img src="/techshop/public/images/productImg/Image.png" alt="" class="product__img-item" />
-        </div>
-        <div class="product__img-slide-item">
-            <img src="/techshop/public/images/productImg/Image.png" alt="" class="product__img-item" />
-        </div>
-        <div class="product__img-slide-item">
-            <img src="/techshop/public/images/productImg/Image.png" alt="" class="product__img-item" />
-        </div>
+        <?php foreach($product->getImages() as $image):?>
+            <div class="product__img-slide-item">
+                <img src="<?php echo "/techshop/public/images/productImg/". $product->getProductLine(). "/" . $image?>" alt="" class="product__img-item" />
+            </div>
+        <?php endforeach;?>
         <div class="slide__arrow slide__container">
             <svg class="arrow__item">
                 <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-chevron-left"></use>
@@ -49,49 +42,33 @@
     </div>
     <div class="product__detail--container">
         <h3 class="heading__secondary">
-            <?php echo $product->getProductName()?>
+            <?php echo $product->getProductName() ?>
         </h3>
         <div class="product__details">
-            <div class="product__detail">
-                <svg class="icon">
-                    <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-checkmark-outline"></use>
-                </svg>
-                <p class="para--sm text-color--2">
-                    Thiết kế đậm chất gaming cứng cáp, hầm hố và có độ hoàn thiện
-                    cao
-                </p>
-            </div>
-            <div class="product__detail">
-                <svg class="icon">
-                    <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-checkmark-outline"></use>
-                </svg>
-                <p class="para--sm text-color--2">
-                    Thiết kế đậm chất gaming cứng cáp, hầm hố và có độ hoàn thiện
-                    cao
-                </p>
-            </div>
-            <div class="product__detail">
-                <svg class="icon">
-                    <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-checkmark-outline"></use>
-                </svg>
-                <p class="para--sm text-color--2">
-                    Thiết kế đậm chất gaming cứng cáp, hầm hố và có độ hoàn thiện
-                    cao
-                </p>
-            </div>
-            <div class="product__detail">
-                <svg class="icon">
-                    <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-checkmark-outline"></use>
-                </svg>
-                <p class="para--sm text-color--2">
-                    Thiết kế đậm chất gaming cứng cáp, hầm hố và có độ hoàn thiện
-                    cao
-                </p>
-            </div>
+            <?php foreach ($product->getInfor() as $productInfo): ?>
+                <div class="product__detail">
+                    <svg class="icon">
+                        <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-checkmark-outline"></use>
+                    </svg>
+                    <p class="para--sm text-color--2">
+                        <?php echo $productInfo?>
+                    </p>
+                </div>
+            <?php endforeach ?>
         </div>
         <div class="product__prices">
-            <div class="product__price--1 heading__secondary"><?php echo $product->getPrice()?>₫</div>
-            <div class="product__price--2">₫26.490.000</div>
+            <?php if($product->getDiscount() != 0): ?>
+                <div class="product__price--1 heading__secondary">
+                    <?php echo number_format($product->getPrice() * ($product->getDiscount() / 100)) ?>₫
+                </div>
+                <div class="product__price--2"><?php echo number_format($product->getPrice()) ?>₫</div>
+            <?php endif?>
+            <?php if($product->getDiscount() == 0): ?>
+                <div class="product__price--1 heading__secondary">
+                    <?php echo number_format($product->getPrice()) ?>₫
+                </div>
+            <?php endif?>
+            
         </div>
         <a href="./shopping-cart.html" class="btn btn__primary btn__primary--active u-center-text">Thêm vào giỏ hàng
         </a>

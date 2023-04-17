@@ -22,6 +22,7 @@ class Products
       $product = new Product();
       $product->setProductLine($item['Product_Line']);
       $product->setProductName($item['Product_Name']);
+      $product->setThumbNail($item['ThumbNail']);
       $product->setPrice($item['Price']);
       $product->setDiscount($item['Discount']);
       $product->setCreatedAt($item['Created_at']);

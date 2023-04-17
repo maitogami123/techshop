@@ -3,9 +3,11 @@
 namespace App\Controllers;
 
 use App\Models\Brands;
+use App\Models\Categories;
 use App\Models\Product;
-use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\RouteCollection;
 
 class ProductController
 {
@@ -13,19 +15,24 @@ class ProductController
     public function showAction(string $id, RouteCollection $routes)
     {
         startSession();
-        $product = new Product();
-        $product->read($id);
         $name = 'product';
+        $product = new Product();
+        try {
+            $product->read($id);
+        } catch (ResourceNotFoundException $err) {
+            redirect($routes->get('homepage')->getPath());
+        }   
         require_once APP_ROOT . '/views/layout.view.php';
     }
 
-    public function showCreateForm(RouteCollection $routes)
+    public function showCreateForm(RouteCollection $routes, Request $request)
     {
         startSession();
-        $category = $_POST['category'] ?? 'Temp';
         $brands = new Brands();
         $brands->readAll();
-        $name = 'product/create_product';
+        $categories = new Categories();
+        $categories->readAll();
+        $name = 'admin/product/create';
         // create product instance then call create method with data get from post method
         require_once APP_ROOT . '/views/layout.view.php';
     }

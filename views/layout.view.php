@@ -54,7 +54,7 @@
             <div>
               <?php echo $user->getUsername(); ?>
             </div>
-            <a href="logout" class="btn btn__secondary btn__secondary--active">Logout</a>
+            <a href="<?php echo $routes->get('logout')->getPath()?>" class="btn btn__secondary btn__secondary--active">Logout</a>
           <?php endif ?>
           <?php if ($_SESSION['isLoggedIn'] == false): ?>
             <a href="login" class="btn btn__secondary">Đăng nhập</a>
@@ -77,19 +77,19 @@
           <div class="socials">
             <a href="#" class="social__icon facebook__icon">
               <svg class="svg--icon">
-                <use xlink:href="img/symbol-defs.svg#icon-facebook"></use>
+                <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-facebook"></use>
               </svg>
             </a>
             <a href="#" class="social__icon instagram__icon"><svg class="svg--icon">
-                <use xlink:href="img/symbol-defs.svg#icon-instagram-with-circle"></use>
+                <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-instagram-with-circle"></use>
               </svg>
             </a>
             <a href="#" class="social__icon linkedin__icon"><svg class="svg--icon">
-                <use xlink:href="img/symbol-defs.svg#icon-linkedin"></use>
+                <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-linkedin"></use>
               </svg>
             </a>
             <a href="#" class="social__icon twitter__icon"><svg class="svg--icon">
-                <use xlink:href="img/symbol-defs.svg#icon-twitter"></use>
+                <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-twitter"></use>
               </svg>
             </a>
           </div>
