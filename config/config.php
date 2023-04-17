@@ -7,7 +7,6 @@ define('APP_ROOT', dirname(dirname(__FILE__)));
 define('URL_ROOT', '/');
 define('URL_SUBFOLDER', '/techshop');
 
-//DB Params
-define('DB', 'mysql:dbname=techshopdb;host=localhost;port=3306;charset=utf8mb4');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB', 'mysql:dbname=<dbName>;host=<DbHost>;port=<DbPort>;charset=utf8mb4');
+define('DB_USER', '<dbUser>');
+define('DB_PASS', '<dbPass>');
