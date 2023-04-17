@@ -1,19 +1,20 @@
-<?php 
+<?php
 
 namespace App\Controllers;
 
-use App\Models\Product;
+use App\Models\Products;
 use Symfony\Component\Routing\RouteCollection;
 
 class PageController
 {
-    // Homepage action
+	// Homepage action
 	public function indexAction(RouteCollection $routes)
 	{
-		session_start();
-		$_SESSION['role'] = 'Admin';
-		$routeToProduct = str_replace('{id}', 'MSI_GF65_2', $routes->get('product')->getPath());
+		startSession();
+		$productList = new Products();
+		$brand = 'MSI';
+		$productList->readByBrand($brand);
 		$name = 'home';
-    require_once APP_ROOT . '/views/layout.view.php';
+		require_once APP_ROOT . '/views/layout.view.php';
 	}
 }

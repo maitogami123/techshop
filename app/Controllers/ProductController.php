@@ -1,38 +1,39 @@
-<?php 
+<?php
 
 namespace App\Controllers;
 
-use App\Models\Brand;
 use App\Models\Brands;
+use App\Models\Categories;
 use App\Models\Product;
-use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\RouteCollection;
 
 class ProductController
 {
     // Show the product attributes based on the id.
-	public function showAction(string $id, RouteCollection $routes)
-	{
-        $product = new Product();
-        $product->read($id);
+    public function showAction(string $id, RouteCollection $routes)
+    {
+        startSession();
         $name = 'product';
+        $product = new Product();
+        try {
+            $product->read($id);
+        } catch (ResourceNotFoundException $err) {
+            redirect($routes->get('homepage')->getPath());
+        }   
         require_once APP_ROOT . '/views/layout.view.php';
-	}
-
-    private function debug_to_console($data) {
-        $output = $data;
-        if (is_array($output))
-            $output = implode(',', $output);
-        echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
     }
 
-    public function showCreateForm(RouteCollection $routes) {
-        session_start();
-        $category = $_POST['category'] ?? 'Temp';
+    public function showCreateForm(RouteCollection $routes, Request $request)
+    {
+        startSession();
         $brands = new Brands();
         $brands->readAll();
-        $name = 'product/create_product';
+        $categories = new Categories();
+        $categories->readAll();
+        $name = 'admin/product/create';
         // create product instance then call create method with data get from post method
-        require_once APP_ROOT . '/views/layout.view.php';        
+        require_once APP_ROOT . '/views/layout.view.php';
     }
 }
