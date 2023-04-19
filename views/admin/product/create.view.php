@@ -1,5 +1,5 @@
 <?php
-if ($_SESSION['isLoggedIn'] === false || !in_array('P_Create', $user->getPermissions()))
+if (!isLoggedIn() || !in_array('P_Create', $user->getPermissions()))
   redirect($routes->get('homepage')->getPath())
     ?>
 
@@ -12,7 +12,7 @@ if ($_SESSION['isLoggedIn'] === false || !in_array('P_Create', $user->getPermiss
       </div>
     </div>
     <div class="row">
-      <form action="" method="POST">
+      <form id="create-form" action="" method="POST" enctype="multipart/form-data">
         <div class="form-group">
           <label for="product_line" class="form-label">Product Line</label>
           <input class="form-control" name='product_line' type='text' id="product_line">
@@ -25,7 +25,14 @@ if ($_SESSION['isLoggedIn'] === false || !in_array('P_Create', $user->getPermiss
           <label for="information" class="form-label">Information</label>
           <button id='add-info'>More info</button>
           <div id="information-group">
-            <input class="form-control" name='information' type='text' id="information">
+            <input class="form-control" name='information[]' type='text' id="information">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="serial_number" class="form-label">Serial Number</label>
+          <button id='add-info'>More S/N</button>
+          <div id="serial_number-group">
+            <input class="form-control" name='serial_number[]' type='text' id="serial_number">
           </div>
         </div>
         <div class="form-group">
@@ -34,11 +41,15 @@ if ($_SESSION['isLoggedIn'] === false || !in_array('P_Create', $user->getPermiss
         </div>
         <div class="form-group">
           <label for="image" class="form-label">Image</label>
-          <input type="file" multiple class="form-control" name='image' type='text' id="image">
+          <input type="file" multiple class="form-control" name='image[]' id="image">
+        </div>
+        <div class="form-group">
+          <label for="thumbnail" class="form-label">Thumbnail</label>
+          <input type="file" multiple class="form-control" name='thumbnail' id="thumbnail">
         </div>
         <div class="form-group">
           <label for="discount" class="form-label">Discount</label>
-          <input type="text" class="form-control" name='discount' type='text' id="discount">
+          <input type="text" class="form-control" name='discount' id="discount">
         </div>
         <div class="form-group">
           <label for="brand" class="form-label">Brand</label>
@@ -52,25 +63,39 @@ if ($_SESSION['isLoggedIn'] === false || !in_array('P_Create', $user->getPermiss
       <div class="form-group">
         <label for="category" class="form-label">Category</label>
         <select id="category" name="category" class="form-select">
-          <option selected>---Choose---</option>
+          <option>---Choose---</option>
           <?php foreach ($categories->categories as $category): ?>
             <option value=<?php echo $category->getCategoryID() ?>><?php echo $category->getCategoryName() ?></option>
           <?php endforeach; ?>
         </select>
       </div>
       <div class="form-group">
-        <input type="submit" value="Create New Product"></input>
+        <input type="submit" id="submit" value="Create New Product"></input>
       </div>
     </form>
   </div>
 </div>
 <script>
-  //TODO: handle form client side
   $(document).ready(() => {
     $('#add-info').click((e) => {
       e.preventDefault();
-      let newRow = `<input class="form-control" name='information' type='text' id="information">`
+      let newRow = `<input class="form-control" name='information[]' type='text' id="information">`
       $('#information-group').append(newRow);
+    })
+    $('#create-form').submit(function(e) {
+      e.preventDefault();
+      var formData = new FormData(this);
+      formData.append('userID', '<?php echo $user->getUsername()?>');
+      $.ajax({
+        type: "POST",
+        url: "<?php echo getPath($routes, 'create') ?>",
+        data: formData,
+        success: function(res) {
+          console.log(res)
+        },
+        contentType: false,
+        processData: false
+      })
     })
   })
 </script>

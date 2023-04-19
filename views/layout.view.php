@@ -1,10 +1,10 @@
 <?php 
   use App\Models\User;
 
-  if (!isset($_SESSION['isLoggedIn'])) {
+  if (!isLoggedIn()) {
       $_SESSION['isLoggedIn'] = false;
   }
-  if ($_SESSION['isLoggedIn'] == true) {
+  if (isLoggedIn()) {
       $user = new User();
       $user = unserialize($_SESSION['user']);
   }

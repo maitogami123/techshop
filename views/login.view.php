@@ -38,7 +38,6 @@
       url: "<?php echo $routes->get('login')->getPath() ?>",
       data: searchString,
       success: function (res) {
-        console.log(res)
         resData = JSON.parse(res)
         if (resData.status === 'fail') {
           new Notify({

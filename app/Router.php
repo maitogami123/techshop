@@ -36,11 +36,12 @@ class Router
             $className = '\\App\\Controllers\\' . $matcher['controller'];
             $classInstance = new $className();
             // Add routes as paramaters to the next class
-            if ($context->getMethod() === 'POST') {
-                $params = array_merge(array_slice($matcher, 2, -1), array('routes' => $routes, 'request' => $request));
-            } else {
-                $params = array_merge(array_slice($matcher, 2, -1), array('routes' => $routes));
-            }
+            // if ($context->getMethod() === 'POST') {
+            //    $params = array_merge(array_slice($matcher, 2, -1), array('routes' => $routes, 'request' => $request));
+            // } else {
+            //     $params = array_merge(array_slice($matcher, 2, -1), array('routes' => $routes));
+            // }
+            $params = array_merge(array_slice($matcher, 2, -1), array('routes' => $routes, 'request' => $request));
             call_user_func_array(array($classInstance, $matcher['method']), $params);
 
         } catch (MethodNotAllowedException $e) {

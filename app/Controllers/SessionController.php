@@ -10,11 +10,11 @@ use Symfony\Component\Routing\RouteCollection;
 class SessionController
 {
     // Homepage action
-	public function loginAction(RouteCollection $routes, Request $request = null)
+	public function loginAction(RouteCollection $routes, Request $request)
 	{
 		startSession();
 		$_SESSION['showNav'] = false;
-		if ($request != null && isset($_POST['username']) && isset($_POST['password'])) {
+		if (isset($_POST['username']) && isset($_POST['password'])) {
 			$username = $_POST['username'];
 			$pwd = $_POST['password'];
 			$user = new User();
@@ -28,15 +28,15 @@ class SessionController
 			}
 			$package = ['status' => $status ?? '', 'message' => $errMsg ?? ''];
 			echo json_encode($package);
-		} else if ($_SESSION['isLoggedIn'] == true){
-			redirect($routes->get('homepage')->getPath());
+		} else if (isLoggedIn()){
+			redirect(getPath($routes, 'homepage'));
 		} else {
 			$name = 'login';
 			require_once APP_ROOT . '/views/layout.view.php';
 		}
 	}
 
-	public function logoutAction(RouteCollection $routes) {
+	public function logoutAction(RouteCollection $routes, Request $request) {
 		session_start();
 		session_destroy();
 		redirect($routes->get('homepage')->getPath());
