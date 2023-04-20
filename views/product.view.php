@@ -1,5 +1,3 @@
-<?php
-?>
 
 <div class="breadcrumb container">
     <a href="<?php echo $routes->get('homepage')->getPath(); ?>" class="breadcrumb__link text-color--1 font-size-2">

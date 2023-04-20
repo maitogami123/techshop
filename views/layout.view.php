@@ -1,10 +1,10 @@
 <?php 
   use App\Models\User;
 
-  if (!isset($_SESSION['isLoggedIn'])) {
+  if (!isLoggedIn()) {
       $_SESSION['isLoggedIn'] = false;
   }
-  if ($_SESSION['isLoggedIn'] == true) {
+  if (isLoggedIn()) {
       $user = new User();
       $user = unserialize($_SESSION['user']);
   }
@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="/techshop/public/css/index.css">
   <script src="/techshop/public/js/jquery.min.js"></script>
   <script src="/techshop/public/js/simple-notify.min.js"></script>
+  <script src="/techshop/public/js/sweetalert2.all.min.js"></script>
 </head>
 <body>
   <div id="app">

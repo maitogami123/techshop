@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\Routing\RouteCollection;
 
 function view($name, $model='') {
     require_once APP_ROOT . '/views/layout.view.php';
@@ -7,6 +8,10 @@ function view($name, $model='') {
 function redirect($url) {
     header("Location: $url");
     die();
+}
+
+function getPath(RouteCollection $routes, $name) {
+    return $routes->get($name)->getPath();
 }
 
 function connect($source = DB)
@@ -29,11 +34,13 @@ function debug_to_console($data) {
 }
 
 function isLoggedIn() {
-
+    if (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] == false)
+        return false;
+    return true;
 }
 
-function keepAlive() {
-
+function permissionCheck() {
+    
 }
 
 function startSession() {
