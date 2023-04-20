@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Brands;
 use App\Models\Categories;
 use App\Models\Product;
+use App\Models\Products;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\RouteCollection;
@@ -29,16 +30,7 @@ class ProductController
     {
         startSession();
         if ($request->isMethod('post')) {
-
-            // foreach ($_FILES["image"]["error"] as $key => $error) {
-            //     if ($error == UPLOAD_ERR_OK) {
-            //         $tmp_name = $_FILES["image"]["tmp_name"][$key];
-            //         $name = basename($_FILES["image"]["name"][$key]);
-            //         move_uploaded_file($tmp_name, APP_ROOT . "/public/images/$name");
-            //     }
-            // }
             $product = new Product();
-            
             $product->create($_POST, $_FILES);
         } else {
             $brands = new Brands();
@@ -46,8 +38,26 @@ class ProductController
             $categories = new Categories();
             $categories->readAll();
             $name = 'admin/product/create';
-            // create product instance then call create method with data get from post method
             require_once APP_ROOT . '/views/layout.view.php';
         }
     }
-}
+
+    public function indexAction(RouteCollection $routes, Request $request) {
+        startSession();
+        $productList = new Products();
+        $productList->getAll();
+        $name = 'admin/product/index';
+        require_once APP_ROOT . '/views/layout.view.php';
+    }
+
+    public function editAction(string $id, RouteCollection $routes, Request $request) {
+        startSession();
+        $name = 'admin/product/edit';
+        require_once APP_ROOT . '/views/layout.view.php';
+    }
+
+    public function deleteAction(string $id, RouteCollection $routes, Request $request) {
+        $product = new Product();
+        $product->delete($id);
+    }
+}   

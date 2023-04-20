@@ -417,8 +417,14 @@ class Product
 
   }
 
-  public function delete()
+  public function delete(string $id)
   {
+    $db = connect();
 
+    $query = "UPDATE `product` SET `Deleted_at` = current_timestamp() WHERE `product`.`Product_Line` = :id";
+    $statement = $db->prepare($query);
+    $statement->bindParam(':id', $id, PDO::PARAM_STR);
+    $statement->execute();
+    
   }
 }

@@ -1,9 +1,8 @@
 <?php
-if (!isLoggedIn() || !in_array('P_Create', $user->getPermissions()))
+if (!isLoggedIn() || !in_array('P_Edit', $user->getPermissions()))
   redirect($routes->get('homepage')->getPath())
 ?>
-
-  <div class="container">
+<div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
         <h1 class="mt-5">
@@ -70,32 +69,8 @@ if (!isLoggedIn() || !in_array('P_Create', $user->getPermissions()))
         </select>
       </div>
       <div class="form-group">
-        <input type="submit" id="submit" value="Create New Product"></input>
+        <input type="submit" id="submit" value="Commit Change Product"></input>
       </div>
     </form>
   </div>
 </div>
-<script>
-  $(document).ready(() => {
-    $('#add-info').click((e) => {
-      e.preventDefault();
-      let newRow = `<input class="form-control" name='information[]' type='text' id="information">`
-      $('#information-group').append(newRow);
-    })
-    $('#create-form').submit(function(e) {
-      e.preventDefault();
-      var formData = new FormData(this);
-      formData.append('userID', '<?php echo $user->getUsername()?>');
-      $.ajax({
-        type: "POST",
-        url: "<?php echo getPath($routes, 'createProduct') ?>",
-        data: formData,
-        success: function(res) {
-          console.log(res)
-        },
-        contentType: false,
-        processData: false
-      })
-    })
-  })
-</script>
