@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+      integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+    <title>Techshop</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <div class="header__container">
+          <div class="header__logo">
+            <img src="./img/Logo.svg" alt="Logo Techshop" class="logo" />
+          </div>
+          <form class="search__form">
+            <input
+              type="text"
+              class="fontAwesome search__input"
+              name="searchInformation"
+              placeholder="&#xf002;   Search"
+            />
+            <!-- <button class="search__button" type="submit">
+                  <i class="fa-sharp fa-solid fa-paper-plane"></i>
+                </button> -->
+          </form>
+          <nav class="nav-user">
+            <div class="nav-user__icon-box">
+              <svg class="icon">
+                <use
+                  xlink:href="img/symbol-defs.svg#icon-location-shopping"
+                ></use>
+              </svg>
+            </div>
+            <div class="nav-user__user">
+              <img
+                src="img/Image.png"
+                alt="User photo"
+                class="nav-user__user-photo"
+              />
+            </div>
+          </nav>
+        </div>
+      </header>
+      <div class="breadcrumb container">
+        <a
+          href="./home.html"
+          class="breadcrumb__link text-color--1 font-size-2"
+        >
+          <svg class="icon">
+            <use xlink:href="img/symbol-defs.svg#icon-home"></use>
+          </svg>
+          <span class="para--sm">Trang chủ</span>
+        </a>
+        <svg class="icon text-color--2">
+          <use xlink:href="img/symbol-defs.svg#icon-chevron-right"></use>
+        </svg>
+        <a href="" class="breadcrumb__link">
+          <span class="para--sm text-color--1">Acer</span>
+        </a>
+        <svg class="icon text-color--2">
+          <use xlink:href="img/symbol-defs.svg#icon-chevron-right"></use>
+        </svg>
+        <a href="" class="breadcrumb__link">
+          <span class="para--sm text-color--2">Nitro 5</span>
+        </a>
+      </div>
+      <section class="container product-detail__areas u-margin-bottom-huge">
+        <div class="product__img-display">
+          <!-- <img src="./img/Image.png" alt="" /> -->
+        </div>
+        <div class="product__img-slide-list">
+          <ul class="product__img-slide"></ul>
+          <div class="slide__arrow slide__container">
+            <!-- <svg class="arrow__item">
+              <use xlink:href="img/symbol-defs.svg#icon-chevron-left"></use>
+            </svg>
+            <svg class="arrow__item">
+              <use xlink:href="img/symbol-defs.svg#icon-chevron-right"></use>
+            </svg> -->
+          </div>
+        </div>
+
+        <div class="product__detail--container">
+          <h3 class="heading__secondary">
+            Laptop Gaming Acer Nitro 5 Eagle AN515-57-54MV
+          </h3>
+          <div class="product__details">
+            <div class="product__detail">
+              <svg class="icon">
+                <use
+                  xlink:href="img/symbol-defs.svg#icon-checkmark-outline"
+                ></use>
+              </svg>
+              <p class="para--sm text-color--2">
+                Thiết kế đậm chất gaming cứng cáp, hầm hố và có độ hoàn thiện
+                cao Thiết kế đậm chất gaming cứng cáp, hầm hố và có độ hoàn
+                thiện cao
+              </p>
+            </div>
+            <div class="product__detail">
+              <svg class="icon">
+                <use
+                  xlink:href="img/symbol-defs.svg#icon-checkmark-outline"
+                ></use>
+              </svg>
+              <p class="para--sm text-color--2">
+                Thiết kế đậm chất gaming cứng cáp, hầm hố và có độ hoàn thiện
+                cao
+              </p>
+            </div>
+            <div class="product__detail">
+              <svg class="icon">
+                <use
+                  xlink:href="img/symbol-defs.svg#icon-checkmark-outline"
+                ></use>
+              </svg>
+              <p class="para--sm text-color--2">
+                Thiết kế đậm chất gaming cứng cáp, hầm hố và có độ hoàn thiện
+                cao
+              </p>
+            </div>
+            <div class="product__detail">
+              <svg class="icon">
+                <use
+                  xlink:href="img/symbol-defs.svg#icon-checkmark-outline"
+                ></use>
+              </svg>
+              <p class="para--sm text-color--2">
+                Thiết kế đậm chất gaming cứng cáp, hầm hố và có độ hoàn thiện
+                cao
+              </p>
+            </div>
+          </div>
+          <!-- <div class="product__color--wrapper">
+            <h4 class="font-size-1 text-color--2">
+              Màu sắc:
+              <span class="heading__territory color-selection"> Đen</span>
+            </h4>
+            <div class="product__colors">
+              <span
+                class="product__color product__color--select color--0"
+              ></span>
+              <span class="product__color color--1"></span>
+              <span class="product__color color--2"></span>
+            </div>
+          </div> -->
+          <div class="product__prices">
+            <div class="product__price--1 heading__secondary">₫20.990.000</div>
+            <div class="product__price--2">₫26.490.000</div>
+          </div>
+          <a
+            href="./shopping-cart.html"
+            class="btn btn__primary btn__primary--active u-center-text"
+          >
+            Thêm vào giỏ hàng
+          </a>
+        </div>
+      </section>
+      <section class="product-preview__random container">
+        <h2 class="heading__secondary u-margin-bottom-medium">
+          Có thể bạn tìm kiếm
+        </h2>
+        <div class="product__container grid-4-col" id="preview_product">
+          <div class="cart">
+            <a href="./product-detail.html" class="cart__item">
+              <svg class="cart__sale">
+                <use xlink:href="img/symbol-defs.svg#icon-sale"></use>
+              </svg>
+              <img src="./img/Image.png" alt="" class="cart__img" />
+              <div class="cart__wrapper">
+                <h3 class="cart__name font-size-1">
+                  MacBook Air M1 Chip Lorem ipsum dolor sit, amet consectetur
+                  adipisicing elit.
+                </h3>
+                <span class="cart__price font-color-1">Đ23.771.205</span>
+                <button
+                  class="btn btn__primary btn__primary--active add-to-cart"
+                >
+                  Thêm vào giỏ
+                </button>
+              </div></a
+            >
+          </div>
+          <div class="cart">
+            <a href="./product-detail.html" class="cart__item">
+              <svg class="cart__sale">
+                <use xlink:href="img/symbol-defs.svg#icon-sale"></use>
+              </svg>
+              <img src="./img/Image.png" alt="" class="cart__img" />
+              <div class="cart__wrapper">
+                <h3 class="cart__name font-size-1">
+                  MacBook Air M1 Chip Lorem ipsum dolor sit, amet consectetur
+                  adipisicing elit.
+                </h3>
+                <span class="cart__price font-color-1">Đ23.771.205</span>
+                <button
+                  class="btn btn__primary btn__primary--active add-to-cart"
+                >
+                  Thêm vào giỏ
+                </button>
+              </div></a
+            >
+          </div>
+          <div class="cart">
+            <a href="./product-detail.html" class="cart__item">
+              <svg class="cart__sale">
+                <use xlink:href="img/symbol-defs.svg#icon-sale"></use>
+              </svg>
+              <img src="./img/Image.png" alt="" class="cart__img" />
+              <div class="cart__wrapper">
+                <h3 class="cart__name font-size-1">
+                  MacBook Air M1 Chip Lorem ipsum dolor sit, amet consectetur
+                  adipisicing elit.
+                </h3>
+                <span class="cart__price font-color-1">Đ23.771.205</span>
+                <button
+                  class="btn btn__primary btn__primary--active add-to-cart"
+                >
+                  Thêm vào giỏ
+                </button>
+              </div></a
+            >
+          </div>
+          <div class="cart">
+            <a href="./product-detail.html" class="cart__item">
+              <svg class="cart__sale">
+                <use xlink:href="img/symbol-defs.svg#icon-sale"></use>
+              </svg>
+              <img src="./img/Image.png" alt="" class="cart__img" />
+              <div class="cart__wrapper">
+                <h3 class="cart__name font-size-1">
+                  MacBook Air M1 Chip Lorem ipsum dolor sit, amet consectetur
+                  adipisicing elit.
+                </h3>
+                <span class="cart__price font-color-1">Đ23.771.205</span>
+                <button
+                  class="btn btn__primary btn__primary--active add-to-cart"
+                >
+                  Thêm vào giỏ
+                </button>
+              </div></a
+            >
+          </div>
+          <div class="slide__arrow slide__container">
+            <svg class="arrow__item">
+              <use xlink:href="img/symbol-defs.svg#icon-chevron-left"></use>
+            </svg>
+            <svg class="arrow__item">
+              <use xlink:href="img/symbol-defs.svg#icon-chevron-right"></use>
+            </svg>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="./js/renderSlide.js"></script>
+    <script src="./js/previewPoduct.js"></script>
+  </body>
+</html>

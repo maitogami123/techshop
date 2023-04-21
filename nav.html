@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+    <title>Techshop</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Navigation default -->
+      <header class="header">
+        <div class="header__container">
+          <div class="header__logo">
+            <img src="./img/Logo.svg" alt="Logo Techshop" class="logo" />
+          </div>
+          <div class="header__dropdown">
+            <h3 class="font-size-2 text-color--3">Danh mục sản phẩm</h3>
+            <ul class="dropdown__list">
+              <li class="dropdown__item">
+                <a href="#" class="dropdown__link font-size-2"
+                  >Máy tính xách tay
+                </a>
+              </li>
+              <li class="dropdown__item">
+                <a href="#" class="dropdown__link font-size-2"
+                  >Máy tính để bàn</a
+                >
+              </li>
+              <li class="dropdown__item">
+                <a href="#" class="dropdown__link font-size-2">Bàn phím</a>
+              </li>
+              <li class="dropdown__item">
+                <a href="#" class="dropdown__link font-size-2">Chuột</a>
+              </li>
+              <li class="dropdown__item">
+                <a href="#" class="dropdown__link font-size-2">Tai nghe</a>
+              </li>
+            </ul>
+          </div>
+          <form class="search__form">
+            <input
+              type="text"
+              class="fontAwesome search__input"
+              name="searchInformation"
+              placeholder="Search Product"
+            />
+            <button class="search__button" type="submit">
+              <i class="fa-solid fa-magnifying-glass text-color--2"></i>
+            </button>
+          </form>
+          <nav class="nav-user">
+            <a href="./sign-in.html" class="btn btn__secondary">Đăng nhập</a>
+            <a
+              href="./register.html"
+              class="btn btn__secondary btn__secondary--active"
+              >Đăng kí</a
+            >
+          </nav>
+        </div>
+      </header>
+
+      <!-- Navigation register -->
+      <div class="header u-margin-top-big">
+        <div class="header__container">
+          <div class="header__logo">
+            <img src="./img/Logo.svg" alt="Logo Techshop" class="logo" />
+          </div>
+          <!-- <div class="header__dropdown">
+            <h3 class="font-size-2 text-color--3">Danh mục sản phẩm</h3>
+            <ul class="dropdown__list">
+              <li class="dropdown__item">
+                <a href="#" class="dropdown__link font-size-2"
+                  >Laptop - Macbook Macbook
+                </a>
+              </li>
+              <li class="dropdown__item">
+                <a href="#" class="dropdown__link font-size-2"
+                  >Laptop - Macbook</a
+                >
+              </li>
+              <li class="dropdown__item">
+                <a href="#" class="dropdown__link font-size-2"
+                  >Laptop - Macbook</a
+                >
+              </li>
+            </ul>
+          </div>
+          <form class="search__form">
+            <input
+              type="text"
+              class="fontAwesome search__input"
+              name="searchInformation"
+              placeholder="Search Product"
+            />
+            <button class="search__button" type="submit">
+              <i class="fa-solid fa-magnifying-glass text-color--2"></i>
+            </button>
+          </form>
+          <nav class="nav-user">
+            <a href="./sign-in.html" class="btn btn__secondary">Đăng nhập</a>
+            <a
+              href="./register.html"
+              class="btn btn__secondary btn__secondary--active"
+              >Đăng kí</a
+            >
+          </nav>-->
+        </div>
+      </div>
+
+      <!-- Navigation user log in -->
+      <div class="header u-margin-top-big">
+        <div class="header__container">
+          <div class="header__logo">
+            <img src="./img/Logo.svg" alt="Logo Techshop" class="logo" />
+          </div>
+          <div class="header__dropdown">
+            <h3 class="font-size-2 text-color--3">Danh mục sản phẩm</h3>
+            <ul class="dropdown__list">
+              <li class="dropdown__item">
+                <a href="#" class="dropdown__link font-size-2"
+                  >Máy tính xách tay
+                </a>
+              </li>
+              <li class="dropdown__item">
+                <a href="#" class="dropdown__link font-size-2"
+                  >Máy tính để bàn</a
+                >
+              </li>
+              <li class="dropdown__item">
+                <a href="#" class="dropdown__link font-size-2">Bàn phím</a>
+              </li>
+              <li class="dropdown__item">
+                <a href="#" class="dropdown__link font-size-2">Chuột</a>
+              </li>
+              <li class="dropdown__item">
+                <a href="#" class="dropdown__link font-size-2">Tai nghe</a>
+              </li>
+            </ul>
+          </div>
+          <form class="search__form">
+            <input
+              type="text"
+              class="fontAwesome search__input"
+              name="searchInformation"
+              placeholder="Search Product"
+            />
+            <button class="search__button" type="submit">
+              <i class="fa-solid fa-magnifying-glass text-color--2"></i>
+            </button>
+          </form>
+          <nav class="nav-user">
+            <a class="nav-user__icon-box" href="shopping-cart.html">
+              <svg class="icon">
+                <use
+                  xlink:href="img/symbol-defs.svg#icon-location-shopping"
+                ></use>
+              </svg>
+            </a>
+            <div class="nav-user__user">
+              <img
+                src="img/Image.png"
+                alt="User photo"
+                class="nav-user__user-photo"
+              />
+              <ul class="nav-user__dropdown">
+                <li class="nav-user__user-info">
+                  <h3 class="nav-user__user-name font-size-4 text-color--1">
+                    Hà Quốc Vĩ
+                  </h3>
+                  <span class="nav-user__user-email font-size-3 text-color--4">
+                    quocvi1701@gmail.com
+                  </span>
+                </li>
+                <li class="nav-user__options">
+                  <a
+                    href="./userOrder.html"
+                    class="nav-user__option font-size-2"
+                    >Đơn hàng</a
+                  >
+                  <a
+                    href="./userInfomation.html"
+                    class="nav-user__option font-size-2"
+                    >Thông tin cá nhân</a
+                  >
+                </li>
+                <li class="nav-user__log-out">
+                  <button class="log-out btn">
+                    <i
+                      class="fa-solid fa-right-from-bracket color--red font-size-1"
+                    ></i>
+                    <span class="color--red font-size-2">Sign Out</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+    <title>Techshop</title>
+    <script src="./js/app.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <div class="header__container">
+          <div class="header__logo">
+            <img src="./img/Logo.svg" alt="Logo Techshop" class="logo" />
+          </div>
+          <form class="search__form">
+            <input
+              type="text"
+              class="fontAwesome search__input"
+              name="searchInformation"
+              placeholder="&#xf002;   Search"
+            />
+            <!-- <button class="search__button" type="submit">
+                  <i class="fa-sharp fa-solid fa-paper-plane"></i>
+                </button> -->
+          </form>
+          <nav class="nav-user">
+            <a href="#" class="btn btn__secondary">Đăng nhập</a>
+            <a href="#" class="btn btn__secondary btn__secondary--active"
+              >Đăng kí</a
+            >
+          </nav>
+        </div>
+      </header>
+      <div class="breadcrumb container">
+        <a href="./home.html" class="breadcrumb__link text-color--1">
+          <svg class="icon">
+            <use xlink:href="img/symbol-defs.svg#icon-home"></use>
+          </svg>
+          <span class="para--sm">Trang chủ</span>
+        </a>
+        <svg class="icon text-color--2">
+          <use xlink:href="img/symbol-defs.svg#icon-chevron-right"></use>
+        </svg>
+        <a href="" class="breadcrumb__link">
+          <span class="para--sm text-color--2">Giỏ hàng</span>
+        </a>
+      </div>
+      <section class="shopping-cart container div-8-col">
+        <div class="shopping-cart__empty">
+          <img src="./img/cart-illustartion.svg" alt="" />
+          <h3 class="heading__secondary">Giỏ hàng của bạn trống</h3>
+          <p class="para--sm text-color--2 u-margin-bottom-medium">
+            Có vẻ bạn chưa thêm mặt hàng nào vào giỏ
+          </p>
+          <a
+            href="./product.html"
+            class="btn btn__primary btn__primary--active u-center-text"
+          >
+            Tiếp tục mua sắm
+          </a>
+        </div>
+      </section>
+      <section class="product-preview__random container">
+        <h2 class="heading__secondary u-margin-bottom-medium">
+          Có thể bạn tìm kiếm
+        </h2>
+        <div class="product__container grid-4-col">
+          <div class="cart">
+            <img src="./img/Image.png" alt="" class="cart__img" />
+            <div class="cart__wrapper">
+              <h3 class="cart__name font-size-1">
+                MacBook Air M1 Chip Lorem ipsum dolor sit, amet consectetur
+                adipisicing elit.
+              </h3>
+              <span class="cart__price font-color-1">Đ23.771.205</span>
+              <button class="btn btn__primary btn__primary--active add-to-cart">
+                Thêm vào giỏ
+              </button>
+            </div>
+          </div>
+          <div class="cart">
+            <img src="./img/Image.png" alt="" class="cart__img" />
+            <div class="cart__wrapper">
+              <h3 class="cart__name font-size-1">
+                MacBook Air M1 Chip Lorem ipsum dolor sit, amet consectetur
+                adipisicing elit.
+              </h3>
+              <span class="cart__price font-color-1">Đ23.771.205</span>
+              <button class="btn btn__primary btn__primary--active add-to-cart">
+                Thêm vào giỏ
+              </button>
+            </div>
+          </div>
+          <div class="cart">
+            <img src="./img/Image.png" alt="" class="cart__img" />
+            <div class="cart__wrapper">
+              <h3 class="cart__name font-size-1">
+                MacBook Air M1 Chip Lorem ipsum dolor sit, amet consectetur
+                adipisicing elit.
+              </h3>
+              <span class="cart__price font-color-1">Đ23.771.205</span>
+              <button class="btn btn__primary btn__primary--active add-to-cart">
+                Thêm vào giỏ
+              </button>
+            </div>
+          </div>
+          <div class="cart">
+            <img src="./img/Image.png" alt="" class="cart__img" />
+            <div class="cart__wrapper">
+              <h3 class="cart__name font-size-1">
+                MacBook Air M1 Chip Lorem ipsum dolor sit, amet consectetur
+                adipisicing elit.
+              </h3>
+              <span class="cart__price font-color-1">Đ23.771.205</span>
+              <button class="btn btn__primary btn__primary--active add-to-cart">
+                Thêm vào giỏ
+              </button>
+            </div>
+          </div>
+          <div class="slide__arrow slide__container">
+            <svg class="arrow__item">
+              <use xlink:href="img/symbol-defs.svg#icon-chevron-left"></use>
+            </svg>
+            <svg class="arrow__item">
+              <use xlink:href="img/symbol-defs.svg#icon-chevron-right"></use>
+            </svg>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

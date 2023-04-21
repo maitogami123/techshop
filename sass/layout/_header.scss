@@ -1,0 +1,28 @@
+.header {
+  background-color: $color-white;
+  box-shadow: $box-shadow;
+  padding: 2.6rem 0;
+  &__container {
+    gap: 2rem;
+  }
+  &__logo {
+    grid-column: 1 / 2;
+    justify-self: start;
+  }
+  &__dropdown {
+    grid-column: 2 / 4;
+    background-color: $color-background;
+    padding: 1rem 1.8rem;
+    font-size: $default-font-size;
+    border-radius: $border-radius;
+    cursor: pointer;
+    position: relative;
+    width: fit-content;
+  }
+  .search__form {
+    grid-column: 4 / 7;
+  }
+  .nav-user {
+    grid-column: 7 / 9;
+  }
+}

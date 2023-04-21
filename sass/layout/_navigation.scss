@@ -1,0 +1,43 @@
+.nav {
+  display: flex;
+  justify-self: end;
+  gap: 1rem;
+  &__link {
+    text-decoration: none;
+    color: $color-font-secondary;
+    font-size: inherit;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+  }
+
+  &-user {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & > * {
+      margin-left: 2rem;
+      cursor: pointer;
+    }
+    &__user {
+      height: 5rem;
+      width: 5rem;
+      &-photo {
+        height: 100%;
+        border-radius: 100px;
+      }
+    }
+    &__icon-box {
+      border: 1px solid $color-btn-secondary;
+      color: $color-btn-secondary;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 5rem;
+      width: 5rem;
+      border-radius: 100px;
+      overflow: hidden;
+    }
+  }
+}

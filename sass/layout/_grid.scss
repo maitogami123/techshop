@@ -1,0 +1,31 @@
+#app {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(6rem, 1.5fr) [app-start] repeat(
+      8,
+      [col-start] minmax(min-content, 1fr) [col-end]
+    )
+    [app-end] minmax(6rem, 1.5fr) [full-end];
+}
+.header,
+.footer {
+  grid-column: full-start / full-end;
+  display: grid;
+  grid-template-columns:
+    minmax(6rem, 1.5fr) [app-start] repeat(
+      8,
+      [col-start] minmax(min-content, 1fr) [col-end]
+    )
+    [app-end] minmax(6rem, 1.5fr);
+  &__container {
+    display: grid;
+    grid-column: app-start / app-end;
+    grid-template-columns: repeat(
+      8,
+      [col-start] minmax(min-content, 1fr) [col-end]
+    );
+    height: 100%;
+    align-items: center;
+    justify-items: center;
+  }
+}

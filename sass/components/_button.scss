@@ -1,0 +1,53 @@
+.btn {
+  &,
+  &:link,
+  &:visited {
+    // text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.2s;
+    position: relative;
+    font-size: $default-font-size;
+    font-weight: 500;
+    color: $color-font-secondary;
+    line-height: 1.6;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  &__primary {
+    padding: 1rem 1.8rem;
+    &--active,
+    &:hover {
+      background-color: $color-btn-primary;
+      color: $color-white !important;
+      outline: none;
+    }
+  }
+  &__secondary {
+    padding: 1rem 1.8rem;
+    &--active,
+    &:hover {
+      background-color: $color-btn-secondary;
+      color: $color-white !important;
+      outline: none;
+    }
+  }
+  &__territory {
+    padding: 1.5rem 2.6rem;
+    background-color: $color-background;
+    color: $color-font-primary !important;
+    &--active,
+    &:hover {
+      background-color: $color-btn-primary;
+      color: $color-white !important;
+      outline: none;
+    }
+  }
+  &--size-1 {
+    padding: 1rem 1.8rem;
+    color: $color-font-primary;
+    background-color: $color-background;
+  }
+}

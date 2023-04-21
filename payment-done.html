@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+    <title>Techshop</title>
+    <script src="./js/app.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <div class="header__container">
+          <div class="header__logo">
+            <img src="./img/Logo.svg" alt="Logo Techshop" class="logo" />
+          </div>
+          <form class="search__form">
+            <input
+              type="text"
+              class="fontAwesome search__input"
+              name="searchInformation"
+              placeholder="&#xf002;   Search"
+            />
+          </form>
+          <nav class="nav-user">
+            <a href="#" class="btn btn__secondary">Đăng nhập</a>
+            <a href="#" class="btn btn__secondary btn__secondary--active"
+              >Đăng kí</a
+            >
+          </nav>
+        </div>
+      </header>
+      <div class="breadcrumb container">
+        <a href="./home.html" class="breadcrumb__link text-color--1">
+          <svg class="icon">
+            <use xlink:href="img/symbol-defs.svg#icon-home"></use>
+          </svg>
+          <span class="para--sm">Trang chủ</span>
+        </a>
+        <svg class="icon text-color--1">
+          <use xlink:href="img/symbol-defs.svg#icon-chevron-right"></use>
+        </svg>
+        <a href="" class="breadcrumb__link">
+          <span class="para--sm text-color--1">Giỏ hàng</span>
+        </a>
+        <svg class="icon text-color--2">
+          <use xlink:href="img/symbol-defs.svg#icon-chevron-right"></use>
+        </svg>
+        <a href="" class="breadcrumb__link">
+          <span class="para--sm text-color--2">Thanh toán</span>
+        </a>
+      </div>
+      <section class="shopping-cart container div-8-col h-80vh">
+        <div class="shopping-cart__empty">
+          <img src="./img/cart-illustartion.svg" alt="" />
+          <h3 class="heading__secondary">Đặt hàng thành công</h3>
+          <p class="para--sm text-color--2 u-margin-bottom-medium">
+            Đặt hàng thành công, các sản phẩm sẽ đến với bạn sau ít ngày giao
+            hàng
+          </p>
+          <a
+            href="./product.html"
+            class="btn btn__primary btn__primary--active u-center-text"
+          >
+            Tiếp tục mua sắm
+          </a>
+        </div>
+      </section>
+      <footer class="footer">
+        <div class="footer__container">
+          <div class="footer__left">
+            <img src="./img/Logo.svg" alt="" class="logo" />
+            <p class="footer__detail para--sm u-margin-bottom-big">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
+              facilis labore ab blanditiis deleniti consequuntur recusandae quod
+              inventore, sint illum eligendi expedita dolores possimus,
+              voluptatum, omnis sunt. Accusamus, repellendus aliquid?
+            </p>
+            <div class="socials">
+              <a href="#" class="social__icon facebook__icon">
+                <svg class="svg--icon">
+                  <use xlink:href="img/symbol-defs.svg#icon-facebook"></use>
+                </svg>
+              </a>
+              <a href="#" class="social__icon instagram__icon"
+                ><svg class="svg--icon">
+                  <use
+                    xlink:href="img/symbol-defs.svg#icon-instagram-with-circle"
+                  ></use>
+                </svg>
+              </a>
+              <a href="#" class="social__icon linkedin__icon"
+                ><svg class="svg--icon">
+                  <use xlink:href="img/symbol-defs.svg#icon-linkedin"></use>
+                </svg>
+              </a>
+              <a href="#" class="social__icon twitter__icon"
+                ><svg class="svg--icon">
+                  <use xlink:href="img/symbol-defs.svg#icon-twitter"></use>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div class="footer__right">
+            <div class="footer__contact">
+              <h3 class="heading__territory u-margin-bottom-big">Techshop</h3>
+
+              <a href="#" class="para--sm text--hover u-margin-bottom-small"
+                >About Us</a
+              >
+              <a href="#" class="para--sm text--hover u-margin-bottom-small"
+                >Contact Us</a
+              >
+              <a href="#" class="para--sm text--hover u-margin-bottom-small"
+                >FAQ</a
+              >
+            </div>
+            <div class="footer__contact">
+              <h3 class="heading__territory u-margin-bottom-big">Legal</h3>
+
+              <a href="#" class="para--sm text--hover u-margin-bottom-small"
+                >Terms and Condition</a
+              >
+              <a href="#" class="para--sm text--hover u-margin-bottom-small"
+                >Privacy Policy</a
+              >
+            </div>
+            <div class="footer__contact">
+              <h3 class="heading__territory u-margin-bottom-big">Techshop</h3>
+
+              <a href="#" class="para--sm text--hover u-margin-bottom-small"
+                >support@techshop.com</a
+              >
+              <a href="#" class="para--sm text--hover u-margin-bottom-small"
+                >The
+              </a>
+            </div>
+          </div>
+          <div class="copyright u-margin-top-big">
+            &copy; 2023. All rights reserved
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

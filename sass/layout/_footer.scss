@@ -1,0 +1,87 @@
+.footer {
+  background-color: $color-white;
+  &__container {
+    grid-template-rows: repeat(2, min-content);
+    gap: 2rem;
+    padding: 8rem 0 2rem;
+  }
+  &__left {
+    display: grid;
+    grid-column: 1 / span 2;
+    gap: 3rem;
+    & .logo {
+      width: max-content;
+      margin-top: -0.5rem;
+    }
+  }
+  &__right {
+    grid-column: 4 / span 5;
+    align-self: start;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+  &__contact {
+    display: flex;
+    flex-direction: column;
+  }
+  .copyright {
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
+.socials {
+  display: flex;
+  & > * {
+    margin-right: 2rem;
+  }
+  .social__icon {
+    height: 5rem;
+    width: 5rem;
+    border-radius: 100px;
+    color: $color-font-secondary;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .twitter__icon {
+    &:hover,
+    &:focus {
+      color: #00aced;
+      box-shadow: 0 0 24px 0 #00aced;
+    }
+  }
+  .facebook__icon {
+    &:hover,
+    &:focus {
+      color: #3b5998;
+      box-shadow: 0 0 24px 0 #3b5998;
+    }
+  }
+  .linkedin__icon {
+    &:hover,
+    &:focus {
+      color: #0077b5;
+      box-shadow: 0 0 24px 0 #0077b5;
+    }
+  }
+  .instagram__icon {
+    &:hover,
+    &:focus {
+      color: #ca2286;
+      box-shadow: 0 0 24px 0 #ca2286;
+    }
+  }
+
+  .svg--icon {
+    height: 2.4ren;
+    width: 2.4rem;
+    fill: currentColor;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

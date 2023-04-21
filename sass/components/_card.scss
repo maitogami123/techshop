@@ -1,0 +1,55 @@
+.cart {
+  border-radius: $border-radius;
+  background-color: $color-white;
+  color: $color-font-primary;
+  overflow: hidden;
+  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0px 2px 4px -2px rgba(0, 0, 0, 0.05);
+  &__wrapper {
+    padding: 2rem;
+    display: grid;
+    gap: 3rem 1rem;
+    grid-template: repeat(2, min-content) / repeat(2, 1fr);
+    grid-template-areas:
+      "name name"
+      "price btn";
+  }
+  &__item {
+    color: inherit;
+    position: relative;
+    display: block;
+  }
+  &__sale {
+    fill: $color-red;
+    background-color: $color-white;
+    height: 5rem;
+    width: 5rem;
+    border-radius: 5px;
+    position: absolute;
+    right: 10px;
+    top: -0.3rem;
+  }
+  &__img {
+    height: 20rem;
+  }
+  &__name {
+    grid-area: name;
+    flex: 1 1 100%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  &__price {
+    display: grid;
+    grid-area: price;
+    align-self: center;
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  .add-to-cart {
+    grid-area: btn;
+    align-self: center;
+  }
+}

@@ -1,0 +1,14 @@
+.breadcrumb {
+  display: flex;
+  padding: 4rem 0;
+  gap: 2rem;
+  justify-content: start;
+  align-items: center;
+  &__link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-size: 1.4rem;
+  }
+}

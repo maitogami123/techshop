@@ -1,0 +1,15 @@
+.user {
+  &__sidebar {
+    grid-column: 1/3;
+    align-self: start;
+  }
+  &__container {
+    grid-column: 3/9;
+    align-self: start;
+    justify-self: start;
+    background-color: $color-white;
+    width: 100%;
+    padding: 3rem 5rem;
+    border-radius: $border-radius;
+  }
+}

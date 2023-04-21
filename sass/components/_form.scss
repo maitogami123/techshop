@@ -1,0 +1,95 @@
+.password {
+  position: relative;
+  padding-top: 10rem;
+}
+.form {
+  width: 100%;
+  padding: 2rem;
+  background-color: $color-background-light;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  display: grid;
+  &__container {
+    &--right {
+      grid-column: 6 / span 3;
+      width: 100%;
+    }
+    &--center {
+      grid-column: 3 / span 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 80vh;
+      width: 60%;
+    }
+  }
+  &-request-code {
+    width: max-content;
+  }
+  &__field {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    color: $color-font-primary;
+    &-box {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(min-content, 1fr));
+      gap: 2rem;
+    }
+  }
+  &__input {
+    display: block;
+    border: 1px solid $color-border;
+    background-color: inherit;
+    border-radius: $border-radius;
+    padding: 1.5rem;
+    &:focus {
+      outline: none;
+    }
+    &:focus::-webkit-input-placeholder {
+      opacity: 0;
+    }
+    &::-webkit-input-placeholder {
+      opacity: 1;
+      transition: all 0.1s;
+    }
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
+    & + & {
+      margin-left: 1rem;
+    }
+  }
+  &__option {
+    font-size: $default-font-size;
+    color: $color-font-secondary;
+  }
+  &__label {
+    display: block;
+  }
+  & button {
+    width: 100%;
+  }
+  & a {
+    margin: 0 auto;
+  }
+}
+.radio {
+  &__group {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: start;
+  }
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+  }
+}

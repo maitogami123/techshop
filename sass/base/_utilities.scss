@@ -1,0 +1,144 @@
+.u-center-text {
+  text-align: center !important;
+}
+
+.u-margin-bottom-small {
+  margin-bottom: 1rem !important;
+}
+.u-margin-bottom-medium {
+  margin-bottom: 2rem !important;
+}
+
+.u-margin-bottom-big {
+  margin-bottom: 4rem !important;
+}
+.u-margin-bottom-huge {
+  margin-bottom: 8rem !important;
+}
+
+.u-margin-top-sm {
+  margin-top: 1rem !important;
+}
+.u-margin-top-big {
+  margin-top: 4rem !important;
+}
+.u-margin-top-huge {
+  margin-top: 8rem !important;
+}
+.container {
+  display: grid;
+  grid-column: app-start / app-end;
+}
+.div-8-col {
+  display: grid;
+  grid-template-columns: repeat(
+    8,
+    [col-start] minmax(min-content, 1fr) [col-end]
+  );
+  align-items: center;
+  justify-items: center;
+}
+.div-16-col {
+  display: grid;
+  grid-template-columns: repeat(
+    16,
+    [col-start] minmax(min-content, 1fr) [col-end]
+  );
+}
+img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.icon {
+  height: 2rem;
+  width: 2rem;
+  fill: currentColor;
+}
+a {
+  text-decoration: none;
+  color: $color-font-secondary;
+}
+
+fieldset {
+  border: none;
+  display: flex;
+  & input {
+    height: 5rem;
+    width: 5rem;
+    text-align: center;
+  }
+}
+.text--hover {
+  cursor: pointer;
+  &:hover {
+  }
+}
+.text-color--1 {
+  color: $color-font-primary !important;
+}
+.text-color--2 {
+  color: $color-font-secondary !important;
+}
+.text-color--3 {
+  color: $color-font-territory !important;
+}
+.text-color--4 {
+  color: $color-font-quaternary !important;
+}
+.font-size-1 {
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+.font-size-2 {
+  font-weight: 500;
+  font-size: $default-font-size;
+}
+.font-size-3 {
+  font-weight: 400;
+  font-size: 1.4rem;
+}
+.font-size-4 {
+  font-weight: 600;
+  font-size: $default-font-size;
+}
+
+.h-100vh {
+  height: 100vh;
+}
+.h-80vh {
+  height: 80vh;
+}
+.w-full {
+  width: 100% !important;
+}
+.grid-full-app {
+  grid-column: 1 / -1;
+}
+.grid-4-col-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  width: 100%;
+}
+.grid-4-col {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.line {
+  border: 1px solid $color-background;
+}
+.color--0 {
+  background-color: $color-black;
+}
+.color--1 {
+  background-color: $color-white;
+}
+.color--2 {
+  background-color: $color-font-secondary;
+}
+.color--btn {
+  color: $color-btn-secondary;
+}
+.color--red {
+  color: #f05252;
+}
