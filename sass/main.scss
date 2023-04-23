@@ -11,11 +11,13 @@
 @import "components/button";
 @import "components/card";
 @import "components/dropdown.scss";
+@import "components/filter";
 @import "components/product-preview";
 @import "components/search";
 @import "components/slide-show";
 @import "components/form";
 @import "components/order";
+@import "components/pagination";
 
 @import "layout/footer";
 @import "layout/grid";
@@ -23,6 +25,7 @@
 @import "layout/navigation";
 
 @import "pages/home";
+@import "pages/order";
 @import "pages/product";
 @import "pages/payment";
 @import "pages/shopping-cart";

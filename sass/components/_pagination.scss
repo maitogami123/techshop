@@ -1,0 +1,27 @@
+.pagination {
+  list-style: none;
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 3rem;
+  padding: 5rem;
+  font-size: 1.8rem;
+  &--rounded {
+    border-radius: 30px !important;
+    margin: 0 3px !important;
+    border: none;
+  }
+  .page-link {
+    padding: 0.5rem 1rem;
+    transition: all 0.2s;
+    text-align: center;
+    &:hover,
+    &--active {
+      background-color: $color-btn-primary;
+      border-radius: 100px;
+      color: $color-white;
+    }
+  }
+}
