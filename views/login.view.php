@@ -30,6 +30,7 @@
   </div>
 </section>
 <script>
+  console.log('<?php echo $routes->get('login')->getPath() ?>');
   $('#login-btn').click((e) => {
     e.preventDefault();
     let searchString = "&username=" + $("#username").val() + "&password=" + $("#password").val();

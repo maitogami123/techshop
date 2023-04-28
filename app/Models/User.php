@@ -160,10 +160,38 @@ class User
 
   // Crud function
 
-  public function create()
+  public function createAccount($username, $password)
   {
-
+    $db = connect();
+    $q_Account = "INSERT INTO `account`(`Username`, `Password`, `Created_at`) VALUES (:username,:password,current_timestamp())";
+    $result = $db->prepare($q_Account);
+    $result -> bindParam(':username', $username);
+    $result -> bindParam(':password', $password);
+    $result -> execute();
   }
+
+  public function createUserDetail($username, $FirstName, $LastName, $Email)
+  {
+    $db = connect();
+    $sql= "INSERT INTO userdetail(username, FirstName, LastName, Email) Values('$username', '$FirstName', '$LastName', '$Email')";
+    echo $sql;
+    $result = $db->prepare($sql);
+    $result -> execute();
+  }
+
+
+  public function createAccountGroup($username)
+  {
+    $db = connect();
+    $q_AccountGroup = "INSERT INTO `accountgroup`(`username`, `accountypeid`) VALUES (:username,'CUSTOMER')";
+    $result = $db->prepare($q_AccountGroup);
+    $result -> bindParam(':username', $username);
+    // $result -> bindParam(':accountypeid', $accountypid);
+    $result -> execute();
+  }
+
+
+
   public function read(string $username, string $password)
   {
     $db = connect();
@@ -215,6 +243,14 @@ class User
   }
   public function delete()
   {
+
+  }
+  
+  public function getAccountInDB(){
+    $db = connect();
+    $sql = "SELECT Username,Password FROM account";
+    $stm = $db->query($sql);
+    return $stm->fetchAll(PDO::FETCH_ASSOC);
 
   }
 }
