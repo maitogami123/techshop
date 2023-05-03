@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class Product
 {
-
   protected $productLine;
   protected $productName;
   protected $thumbnail;

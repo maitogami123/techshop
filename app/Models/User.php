@@ -15,6 +15,14 @@ class User
   protected $deletedAt;
   protected $userGroup;
   protected $permissions = [];
+  protected $firstName;
+  protected $lastName;
+  protected $email;
+  protected $detailedAddress;
+  protected $ward;
+  protected $district;
+  protected $province;
+  protected $phoneNumber;
 
   /**
    * Get the value of username
@@ -157,6 +165,171 @@ class User
     return $this;
   }
 
+  
+
+  /**
+   * Get the value of firstName
+   */ 
+  public function getFirstName()
+  {
+    return $this->firstName;
+  }
+
+  /**
+   * Set the value of firstName
+   *
+   * @return  self
+   */ 
+  public function setFirstName($firstName)
+  {
+    $this->firstName = $firstName;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of lastName
+   */ 
+  public function getLastName()
+  {
+    return $this->lastName;
+  }
+
+  /**
+   * Set the value of lastName
+   *
+   * @return  self
+   */ 
+  public function setLastName($lastName)
+  {
+    $this->lastName = $lastName;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of email
+   */ 
+  public function getEmail()
+  {
+    return $this->email;
+  }
+
+  /**
+   * Set the value of email
+   *
+   * @return  self
+   */ 
+  public function setEmail($email)
+  {
+    $this->email = $email;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of detailedAddress
+   */ 
+  public function getDetailedAddress()
+  {
+    return $this->detailedAddress;
+  }
+
+  /**
+   * Set the value of detailedAddress
+   *
+   * @return  self
+   */ 
+  public function setDetailedAddress($detailedAddress)
+  {
+    $this->detailedAddress = $detailedAddress;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of ward
+   */ 
+  public function getWard()
+  {
+    return $this->ward;
+  }
+
+  /**
+   * Set the value of ward
+   *
+   * @return  self
+   */ 
+  public function setWard($ward)
+  {
+    $this->ward = $ward;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of district
+   */ 
+  public function getDistrict()
+  {
+    return $this->district;
+  }
+
+  /**
+   * Set the value of district
+   *
+   * @return  self
+   */ 
+  public function setDistrict($district)
+  {
+    $this->district = $district;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of province
+   */ 
+  public function getProvince()
+  {
+    return $this->province;
+  }
+
+  /**
+   * Set the value of province
+   *
+   * @return  self
+   */ 
+  public function setProvince($province)
+  {
+    $this->province = $province;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of phoneNumber
+   */ 
+  public function getPhoneNumber()
+  {
+    return $this->phoneNumber;
+  }
+
+  /**
+   * Set the value of phoneNumber
+   *
+   * @return  self
+   */ 
+  public function setPhoneNumber($phoneNumber)
+  {
+    $this->phoneNumber = $phoneNumber;
+
+    return $this;
+  }
+
+  public function getFullName() {
+    return $this->firstName." ".$this->lastName;
+  }
 
   // Crud function
 
@@ -179,7 +352,6 @@ class User
     $result -> execute();
   }
 
-
   public function createAccountGroup($username)
   {
     $db = connect();
@@ -189,8 +361,6 @@ class User
     // $result -> bindParam(':accountypeid', $accountypid);
     $result -> execute();
   }
-
-
 
   public function read(string $username, string $password)
   {
@@ -231,6 +401,22 @@ class User
     foreach ($data as $item) {
       $this->permissions[] = $item['PermissionID'];
     }
+
+    $sql = "SELECT * FROM `userdetail` WHERE `username` = :username";
+    $statement = $db -> prepare($sql);
+    $statement -> bindParam(':username', $username);
+    $statement->execute();
+
+    $data = $statement->fetch(PDO::FETCH_ASSOC);
+
+    $this->firstName = $data['FirstName'];
+    $this->lastName = $data['LastName'];
+    $this->email = $data['Email'];
+    $this->detailedAddress = $data['detailedAddress'];
+    $this->ward = $data['Ward/Village'];
+    $this->district = $data['District'];
+    $this->province = $data['City/Province'];
+    $this->phoneNumber = $data['Phone_Number'];
 
     $sql = null;
     $db = null;

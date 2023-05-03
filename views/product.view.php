@@ -1,4 +1,3 @@
-
 <div class="breadcrumb container">
     <a href="<?php echo $routes->get('homepage')->getPath(); ?>" class="breadcrumb__link text-color--1 font-size-2">
         <svg class="icon">
@@ -10,25 +9,31 @@
         <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-chevron-right"></use>
     </svg>
     <a href="" class="breadcrumb__link">
-        <span class="para--sm text-color--1"><?php echo $product->getBrandID()?></span>
+        <span class="para--sm text-color--1">
+            <?php echo $product->getBrandID() ?>
+        </span>
     </a>
     <svg class="icon text-color--2">
         <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-chevron-right"></use>
     </svg>
     <span class="breadcrumb__link">
-        <span class="para--sm text-color--2"><?php echo $product->getProductName()?></span>
+        <span class="para--sm text-color--2">
+            <?php echo $product->getProductName() ?>
+        </span>
     </span>
 </div>
 <section class="container product-detail__areas u-margin-bottom-huge">
     <div class="product__img--default">
-        <img src="<?php echo "/techshop/public/images/productImg/". $product->getProductLine(). "/" . $product->getImages()[0]?>" alt="" />
+        <img src="<?php echo "/techshop/public/images/productImg/" . $product->getProductLine() . "/" . $product->getImages()[0] ?>"
+            alt="" />
     </div>
     <div class="product__img-slide-list">
-        <?php foreach($product->getImages() as $image):?>
+        <?php foreach ($product->getImages() as $image): ?>
             <div class="product__img-slide-item">
-                <img src="<?php echo "/techshop/public/images/productImg/". $product->getProductLine(). "/" . $image?>" alt="" class="product__img-item" />
+                <img src="<?php echo "/techshop/public/images/productImg/" . $product->getProductLine() . "/" . $image ?>"
+                    alt="" class="product__img-item" />
             </div>
-        <?php endforeach;?>
+        <?php endforeach; ?>
         <div class="slide__arrow slide__container">
             <svg class="arrow__item">
                 <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-chevron-left"></use>
@@ -49,29 +54,61 @@
                         <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-checkmark-outline"></use>
                     </svg>
                     <p class="para--sm text-color--2">
-                        <?php echo $productInfo?>
+                        <?php echo $productInfo ?>
                     </p>
                 </div>
             <?php endforeach ?>
         </div>
         <div class="product__prices">
-            <?php if($product->getDiscount() != 0): ?>
+            <?php if ($product->getDiscount() != 0): ?>
                 <div class="product__price--1 heading__secondary">
                     <?php echo number_format($product->getPrice() * ($product->getDiscount() / 100)) ?>₫
                 </div>
-                <div class="product__price--2"><?php echo number_format($product->getPrice()) ?>₫</div>
-            <?php endif?>
-            <?php if($product->getDiscount() == 0): ?>
+                <div class="product__price--2">
+                    <?php echo number_format($product->getPrice()) ?>₫
+                </div>
+            <?php endif ?>
+            <?php if ($product->getDiscount() == 0): ?>
                 <div class="product__price--1 heading__secondary">
                     <?php echo number_format($product->getPrice()) ?>₫
                 </div>
-            <?php endif?>
-            
+            <?php endif ?>
+
         </div>
-        <a href="./shopping-cart.html" class="btn btn__primary btn__primary--active u-center-text">Thêm vào giỏ hàng
-        </a>
+        <button type="button" data-id="<?php echo $product->getProductLine()?>" class="add-to-cart btn btn__primary btn__primary--active u-center-text" >
+            Thêm vào giỏ hàng
+        </button>
     </div>
 </section>
+<script>
+    $(document).ready(function(e) {
+    let cart = {};
+    if (localStorage.getItem('cart')) {
+      cart = JSON.parse(localStorage.getItem('cart'))
+    }
+    
+    $('.add-to-cart').click(function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const productId = $(this).attr('data-id')
+      if (Object.keys(cart).find(key => key === productId)) {
+        cart[productId] = +cart[productId] + 1
+      } else {
+        cart[productId] = 1
+      }
+      localStorage.setItem('cart', JSON.stringify(cart))
+
+      Swal.fire({
+        toast: true,
+        icon: 'success',
+        position: 'top-end',
+        title: 'Thêm sản phẩm vào giỏ hàng thành công!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
+  })
+</script>
 <section class="product-preview__random container">
     <h2 class="heading__secondary u-margin-bottom-medium">
         Có thể bạn tìm kiếm
