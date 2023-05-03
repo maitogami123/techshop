@@ -17,7 +17,7 @@ class Products
     $statement->bindParam(':brand', $brand, PDO::PARAM_STR);
     $statement->execute();
     $data = $statement->fetchAll(PDO::FETCH_ASSOC);
-    
+
     foreach ($data as $item) {
       if ($item['Deleted_at'] != null) {
         continue;
@@ -39,14 +39,92 @@ class Products
     return $this->productList;
   }
 
-  public function getAll() {
+  public function readByCategory(string $category){
+    $db = connect();
+
+    $query = ('
+      SELECT `product`.*, `category`.*
+      FROM `product` 
+      LEFT JOIN `category` ON `product`.`Category` = `category`.`CategoryID`
+      WHERE `category`.`CategoryName` = :category
+    ;');
+    $statement = $db->prepare($query);
+    $statement->bindParam(':category', $category, PDO::PARAM_STR);
+    $statement->execute();
+    $data = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($data as $item) {
+      if ($item['Deleted_at'] != null) {
+        continue;
+      }
+      $product = new Product();
+      $product->setProductLine($item['Product_Line']);
+      $product->setProductName($item['Product_Name']);
+      $product->setThumbNail($item['Thumbnail']);
+      $product->setPrice($item['Price']);
+      $product->setDiscount($item['Discount']);
+      $product->setCreatedAt($item['Created_at']);
+      $product->setModifiedAt($item['Modified_at']);
+      $product->setDeletedAt($item['Deleted_at']);
+      $product->setCreatedBy($item['Created_by']);
+      $this->productList[] = $product;
+    }
+    $db = null;
+    $query = null;
+    return $this->productList;
+  }
+
+  public function getAll()
+  {
     $db = connect();
 
     $query = ('SELECT * FROM product');
     $statement = $db->prepare($query);
     $statement->execute();
     $data = $statement->fetchAll(PDO::FETCH_ASSOC);
-    
+
+    foreach ($data as $item) {
+      if ($item['Deleted_at'] != null) {
+        continue;
+      }
+      $product = new Product();
+      $product->setProductLine($item['Product_Line']);
+      $product->setProductName($item['Product_Name']);
+      $product->setThumbNail($item['Thumbnail']);
+      $product->setBrandID($item['BrandID']);
+      $product->setCategory($item['Category']);
+      $product->setPrice($item['Price']);
+      $product->setDiscount($item['Discount']);
+      $product->setCreatedAt($item['Created_at']);
+      $product->setModifiedAt($item['Modified_at']);
+      $product->setDeletedAt($item['Deleted_at']);
+      $product->setCreatedBy($item['Created_by']);
+      $this->productList[] = $product;
+    }
+    $db = null;
+    $query = null;
+    return $this->productList;
+  }
+
+  public function search(string $searchStr)
+  {
+    $db = connect();
+    $search = "%$searchStr%";
+    $query = ("SELECT `product`.*
+    FROM `product` 
+      LEFT JOIN `productinfo` ON `productinfo`.`Product_Line` = `product`.`Product_Line` 
+      LEFT JOIN `brand` ON `product`.`BrandID` = `brand`.`BrandID` 
+      LEFT JOIN `category` ON `product`.`Category` = `category`.`CategoryID`
+      WHERE `product`.`Product_Line` LIKE '$search' OR
+            `product`.`Product_Name` LIKE '$search' OR
+            `productinfo`.`Product_Information` LIKE '$search' OR
+            `category`.`CategoryName` LIKE '$search' OR
+            `brand`.`BrandName` LIKE '$search'
+      GROUP BY `product`.`Product_Line`;");
+    $statement = $db->prepare($query);
+    // $statement->bindParam(':searchStr', $search, PDO::PARAM_STR);
+    $statement->execute();
+    $data = $statement->fetchAll(PDO::FETCH_ASSOC);
     foreach ($data as $item) {
       if ($item['Deleted_at'] != null) {
         continue;

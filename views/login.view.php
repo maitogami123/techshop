@@ -30,7 +30,6 @@
   </div>
 </section>
 <script>
-  console.log('<?php echo $routes->get('login')->getPath() ?>');
   $('#login-btn').click((e) => {
     e.preventDefault();
     let searchString = "&username=" + $("#username").val() + "&password=" + $("#password").val();
@@ -39,6 +38,7 @@
       url: "<?php echo $routes->get('login')->getPath() ?>",
       data: searchString,
       success: function (res) {
+        console.log(res)
         resData = JSON.parse(res)
         if (resData.status === 'fail') {
           new Notify({

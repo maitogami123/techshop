@@ -31,7 +31,8 @@ class RegisterController
 
 	public function createAccount($user)
 	{
-		if (isset($_POST['userName']) && isset($_POST['fistName']) && isset($_POST['lastName']) && isset($_POST['Email']) && isset($_POST['Password'])) {
+		if (isset($_POST['userName']) && isset($_POST['fistName']) 
+		&& isset($_POST['lastName']) && isset($_POST['Email']) && isset($_POST['Password'])) {
 			$username= $_POST['userName'];
 			$FirstNname= $_POST['fistName'];
 			$password = $_POST['Password'];

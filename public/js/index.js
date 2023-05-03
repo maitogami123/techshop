@@ -65,3 +65,11 @@ function renderSlide(slideIndex) {
 function handleChangeSlide(slideIndex) {
   renderSlide(slideIndex);
 }
+
+function formatPrice(price) {
+  var formatter = new Intl.NumberFormat('vi-VN', {
+      style:  'currency',
+      currency:  'VND',
+  });
+  return formatter.format(price); 
+}
