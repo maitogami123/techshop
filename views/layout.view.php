@@ -1,13 +1,13 @@
-<?php
-use App\Models\User;
+<?php 
+  use App\Models\User;
 
-if (!isLoggedIn()) {
-  $_SESSION['isLoggedIn'] = false;
-}
-if (isLoggedIn()) {
-  $user = new User();
-  $user = unserialize($_SESSION['user']);
-}
+  if (!isLoggedIn()) {
+      $_SESSION['isLoggedIn'] = false;
+  }
+  if (isLoggedIn()) {
+      $user = new User();
+      $user = unserialize($_SESSION['user']);
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,14 +25,14 @@ if (isLoggedIn()) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="/techshop/public/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../techshop/public/css/bootstrap.min.css">
   <link rel="stylesheet" href="/techshop/public/css/simple-notify.min.css" />
   <link rel="stylesheet" href="/techshop/public/css/index.css">
+  <link rel="stylesheet" href="../techshop/public/css/style1.css"/>
   <script src="/techshop/public/js/jquery.min.js"></script>
   <script src="/techshop/public/js/simple-notify.min.js"></script>
   <script src="/techshop/public/js/sweetalert2.all.min.js"></script>
 </head>
-
 <body>
   <div id="app">
     <header class="header">
@@ -44,7 +44,12 @@ if (isLoggedIn()) {
         </div>
         <form class="search__form">
           <?php if ($_SESSION['showNav'] == true): ?>
-            <input type="text" class="fontAwesome search__input" placeholder="&#xf002;   Search" />
+          
+            <input type="text" class="fontAwesome search__input" name="searchInformation"
+              placeholder="&#xf002;   Search" />
+            <!-- <button class="search__button" type="submit">
+                <i class="fa-sharp fa-solid fa-paper-plane"></i>
+              </button> -->
           <?php endif ?>
         </form>
         <nav class="nav-user">
@@ -59,30 +64,14 @@ if (isLoggedIn()) {
               <ul class="nav-user__dropdown">
                 <li class="nav-user__user-info">
                   <h3 class="nav-user__user-name font-size-4 text-color--1">
-                    <?php echo $user->getUsername(); ?>
-                  </h3>
-                  <span class="nav-user__user-email font-size-3 text-color--4">
-                    <?php echo $user->getEmail(); ?>
-                  </span>
-                </li>
-                <li class="nav-user__options">
-                  <a href="<?php echo $routes->get('viewOrders')->getPath() ?>" class="nav-user__option font-size-2">Đơn hàng</a>
-                  <a href="<?php echo $routes->get('viewPersonalInfo')->getPath() ?>" class="nav-user__option font-size-2">Thông tin cá nhân</a>
-                </li>
-                <li class="nav-user__log-out">
-                  <a href="<?php echo $routes->get('logout')->getPath() ?>" class="log-out btn">
-                    <i class="fa-solid fa-right-from-bracket color--red font-size-1"></i>
-                    <span class="color--red font-size-2">Sign Out</span>
-                  </a>
-                </li>
-              </ul>
+              <?php echo $user->getUsername(); ?>
             </div>
-          </nav>
-        <?php endif ?>
-        <?php if ($_SESSION['isLoggedIn'] == false): ?>
-          <a href="login" class="btn btn__secondary">Đăng nhập</a>
-          <a href="register" class="btn btn__secondary btn__secondary--active">Đăng kí</a>
-        <?php endif ?>
+            <a href="<?php echo $routes->get('logout')->getPath()?>" class="btn btn__secondary btn__secondary--active">Logout</a>
+          <?php endif ?>
+          <?php if ($_SESSION['isLoggedIn'] == false): ?>
+            <a href="login" class="btn btn__secondary">Đăng nhập</a>
+            <a href="register" class="btn btn__secondary btn__secondary--active">Đăng kí</a>
+          <?php endif ?>
         </nav>
       </div>
     </header>
@@ -147,15 +136,4 @@ if (isLoggedIn()) {
   </div>
 </body>
 <script src="/techshop/public/js/index.js"></script>
-<script>
-  $(document).ready(function(e) {
-    $('.search__form').submit(function(e) {
-      e.preventDefault();
-      let searchString = $('.search__input').val()
-      let url = "<?php echo getPath($routes, 'search') ?>"
-      window.location.replace(url.replace('{searchStr}', `${searchString}`));
-    })
-  })
-
-</script>
 </html>
