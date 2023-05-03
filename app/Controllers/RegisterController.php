@@ -13,6 +13,11 @@ class RegisterController
 		return $user->getAccountInDB();
 	}
 
+	public function getGmailInDB(){
+		$user = new User();
+		return $user->getGmailInDB();
+	}
+
 	public function indexAction(RouteCollection $routes, Request $request)
 	{
 		startSession();

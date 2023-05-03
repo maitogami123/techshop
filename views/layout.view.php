@@ -65,8 +65,10 @@
                 <li class="nav-user__user-info">
                   <h3 class="nav-user__user-name font-size-4 text-color--1">
               <?php echo $user->getUsername(); ?>
+
             </div>
-            <a href="<?php echo $routes->get('logout')->getPath()?>" class="btn btn__secondary btn__secondary--active">Logout</a>
+          <!-- </nav> -->
+
           <?php endif ?>
           <?php if ($_SESSION['isLoggedIn'] == false): ?>
             <a href="login" class="btn btn__secondary">Đăng nhập</a>

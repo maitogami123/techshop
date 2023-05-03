@@ -439,4 +439,13 @@ class User
     return $stm->fetchAll(PDO::FETCH_ASSOC);
 
   }
+
+  public function getGmailInDB(){
+    $db = connect();
+    $sql = "SELECT Email FROM userdetail";
+    $stm = $db->query($sql);
+    return $stm->fetchAll(PDO::FETCH_ASSOC);
+
+  }
+
 }

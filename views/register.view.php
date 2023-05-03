@@ -91,11 +91,15 @@ $user = new RegisterController();
 <script>
 <?php
     $name = $user -> getAccountInDB();//getAccountInDB
-    $json_Value = json_encode($name);
+    $json_Value_user = json_encode($name);
+    $Gmail = $user -> getGmailInDB();
+    $json_Value_Gmail = json_encode($Gmail);
     ?>
     
-    let arr = [<?php echo $json_Value ?>]
-    let accountArray = arr[0] 
+    let arr = [<?php echo $json_Value_user ?>]
+    let accountArray = arr[0]
+    let gmailList = [<?php echo $json_Value_Gmail ?>]
+    let gmailArray = gmailList[0]
     let fistName = document.querySelector('#fist-name');
     let lastName = document.querySelector('#Last-name');
     let Email = document.querySelector('#email');
@@ -105,6 +109,7 @@ $user = new RegisterController();
     Validator({
       form:"#form-Register",
       Account: accountArray,
+      Gmail:gmailArray,
       fistName:fistName,
       lastName:lastName,
       Email:Email,
