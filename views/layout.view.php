@@ -92,7 +92,14 @@ if (isLoggedIn()) {
         <?php endif ?>
 =======
 
-            <a class="nav-user__icon-box" href="#">
+
+            <div>
+              <?php echo $user->getUsername(); ?>
+            </div>
+            <a href="<?php echo $routes->get('logout')->getPath()?>" class="btn btn__secondary btn__secondary--active">Logout</a>
+
+            
+            <!-- <a class="nav-user__icon-box" href="#">
               <svg class="icon">
                 <use
                   xlink:href="../techshop/public/images/img/symbol-defs.svg#icon-location-shopping"
@@ -135,7 +142,7 @@ if (isLoggedIn()) {
                   </button>
                 </li>
               </ul>
-            </div>
+            </div> -->
           <!-- </nav> -->
 
           <?php endif ?>
