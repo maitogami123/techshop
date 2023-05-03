@@ -17,6 +17,7 @@ class SessionController
 		if (isset($_POST['username']) && isset($_POST['password'])) {
 			$username = $_POST['username'];
 			$pwd = $_POST['password'];
+			$_SESSION['username'] = $username;
 			$user = new User();
 			try {
 				$user->read($username, $pwd);
