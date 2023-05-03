@@ -114,8 +114,11 @@ Validator.isEmail = function (selector) {
                 let regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
                 if (!regex.test(value)) {
                     return "Email vừa nhập không đúng. Vui lòng nhập lại!"
-                }else if (option.Gmail == value){
-                    return "Email này đã tồn tại. Vui lòng nhập email khác!"
+                }
+                for (let index = 0; index < option.Gmail.length; index++) {
+                    if (option.Gmail[index].Email === value) {
+                        return "Email này đã tồn tại. Vui lòng nhập email khác!"
+                    }                    
                 }
             }   
             return undefined
