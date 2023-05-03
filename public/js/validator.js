@@ -120,7 +120,6 @@ Validator.isEmail = function (selector) {
                     if (option.Gmail[index].Email === value) {
                         return "Email này đã tồn tại. Vui lòng nhập email khác!"
                     }                    
-
                 }
             }   
             return undefined
