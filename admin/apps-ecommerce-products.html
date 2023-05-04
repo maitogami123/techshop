@@ -214,12 +214,14 @@
                   <div class="card-body">
                     <div class="row mb-2">
                       <div class="col-sm-4">
-                        <a
-                          href="javascript:void(0);"
-                          class="btn btn-danger mb-2"
-                          ><i class="mdi mdi-plus-circle me-2"></i> Add
-                          Products</a
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#add-new-product"
                         >
+                          Add product
+                        </button>
                       </div>
 
                       <!-- end col-->
@@ -246,7 +248,9 @@
                                 >
                               </div>
                             </th>
+                            <!-- <th style="width: 100px">Image</th> -->
                             <th class="all">Product</th>
+
                             <th>Category</th>
                             <th>Added Date</th>
                             <th>Price</th>
@@ -271,33 +275,28 @@
                                 >
                               </div>
                             </td>
+
                             <td>
                               <img
-                                src="assets/images/products/product-1.jpg"
+                                src="/img/Image.png"
                                 alt="contact-img"
                                 title="contact-img"
                                 class="rounded me-3"
                                 height="48"
                               />
                               <p
-                                class="m-0 d-inline-block align-middle font-16"
+                                class="m-0 d-inline-block align-middle font-16 text-wrap w-75"
                               >
-                                <a
-                                  href="apps-ecommerce-products-details.html"
-                                  class="text-body"
-                                  >Amazing Modern Chair</a
-                                >
-                                <br />
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Quisquam veniam cupiditate
+                                minima iste? Laborum rem explicabo numquam
+                                suscipit id, soluta quia fugit odit voluptatem
+                                quis. Ducimus blanditiis illo veniam eaque.
                               </p>
                             </td>
-                            <td>Aeron Chairs</td>
+                            <td>1</td>
                             <td>09/12/2018</td>
-                            <td>$148.66</td>
+                            <td>10.000.000đ</td>
 
                             <td>254</td>
                             <td>
@@ -305,325 +304,26 @@
                             </td>
 
                             <td class="table-action">
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-square-edit-outline"></i
-                              ></a>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-delete"></i
-                              ></a>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="customCheck3"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="customCheck3"
-                                  >&nbsp;</label
-                                >
-                              </div>
-                            </td>
-                            <td>
-                              <img
-                                src="assets/images/products/product-4.jpg"
-                                alt="contact-img"
-                                title="contact-img"
-                                class="rounded me-3"
-                                height="48"
-                              />
-                              <p
-                                class="m-0 d-inline-block align-middle font-16"
+                              <button
+                                type="button"
+                                class="action-icon btn"
+                                data-bs-toggle="modal"
+                                data-bs-target=""
                               >
-                                <a
-                                  href="apps-ecommerce-products-details.html"
-                                  class="text-body"
-                                  >Biblio Plastic Armchair</a
-                                >
-                                <br />
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span
-                                  class="text-warning mdi mdi-star-half"
-                                ></span>
-                              </p>
-                            </td>
-                            <td>Wooden Chairs</td>
-                            <td>09/08/2018</td>
-                            <td>$8.99</td>
+                                <i class="mdi mdi-eye"></i>
+                              </button>
 
-                            <td>1,874</td>
-                            <td>
-                              <span class="badge bg-success">Active</span>
-                            </td>
-                            <td class="table-action">
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-square-edit-outline"></i
-                              ></a>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-delete"></i
-                              ></a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="customCheck4"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="customCheck4"
-                                  >&nbsp;</label
-                                >
-                              </div>
-                            </td>
-                            <td>
-                              <img
-                                src="assets/images/products/product-3.jpg"
-                                alt="contact-img"
-                                title="contact-img"
-                                class="rounded me-3"
-                                height="48"
-                              />
-                              <p
-                                class="m-0 d-inline-block align-middle font-16"
+                              <button
+                                type="button"
+                                class="action-icon btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#change-product"
                               >
-                                <a
-                                  href="apps-ecommerce-products-details.html"
-                                  class="text-body"
-                                  >Branded Wooden Chair</a
-                                >
-                                <br />
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span
-                                  class="text-warning mdi mdi-star-outline"
-                                ></span>
-                              </p>
-                            </td>
-                            <td>Dining Chairs</td>
-                            <td>09/05/2018</td>
-                            <td>$68.32</td>
-
-                            <td>2,541</td>
-                            <td>
-                              <span class="badge bg-success">Active</span>
-                            </td>
-
-                            <td class="table-action">
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-square-edit-outline"></i
-                              ></a>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-delete"></i
-                              ></a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="customCheck5"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="customCheck5"
-                                  >&nbsp;</label
-                                >
-                              </div>
-                            </td>
-                            <td>
-                              <img
-                                src="assets/images/products/product-4.jpg"
-                                alt="contact-img"
-                                title="contact-img"
-                                class="rounded me-3"
-                                height="48"
-                              />
-                              <p
-                                class="m-0 d-inline-block align-middle font-16"
-                              >
-                                <a
-                                  href="apps-ecommerce-products-details.html"
-                                  class="text-body"
-                                  >Designer Awesome Chair</a
-                                >
-                                <br />
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span
-                                  class="text-warning mdi mdi-star-half"
-                                ></span>
-                                <span
-                                  class="text-warning mdi mdi-star-outline"
-                                ></span>
-                              </p>
-                            </td>
-                            <td>Baby Chairs</td>
-                            <td>08/23/2018</td>
-                            <td>$112.00</td>
-
-                            <td>3,540</td>
-                            <td>
-                              <span class="badge bg-success">Active</span>
-                            </td>
-
-                            <td class="table-action">
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-square-edit-outline"></i
-                              ></a>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-delete"></i
-                              ></a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="customCheck6"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="customCheck6"
-                                  >&nbsp;</label
-                                >
-                              </div>
-                            </td>
-                            <td>
-                              <img
-                                src="assets/images/products/product-5.jpg"
-                                alt="contact-img"
-                                title="contact-img"
-                                class="rounded me-3"
-                                height="48"
-                              />
-                              <p
-                                class="m-0 d-inline-block align-middle font-16"
-                              >
-                                <a
-                                  href="apps-ecommerce-products-details.html"
-                                  class="text-body"
-                                  >Cardan Armchair</a
-                                >
-                                <br />
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                              </p>
-                            </td>
-                            <td>Plastic Armchair</td>
-                            <td>08/02/2018</td>
-                            <td>$59.69</td>
-
-                            <td>26</td>
-                            <td>
-                              <span class="badge bg-success">Active</span>
-                            </td>
-
-                            <td class="table-action">
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-square-edit-outline"></i
-                              ></a>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-delete"></i
-                              ></a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="customCheck7"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="customCheck7"
-                                  >&nbsp;</label
-                                >
-                              </div>
-                            </td>
-                            <td>
-                              <img
-                                src="assets/images/products/product-3.jpg"
-                                alt="contact-img"
-                                title="contact-img"
-                                class="rounded me-3"
-                                height="48"
-                              />
-                              <p
-                                class="m-0 d-inline-block align-middle font-16"
-                              >
-                                <a
-                                  href="apps-ecommerce-products-details.html"
-                                  class="text-body"
-                                  >Bootecos Plastic Armchair</a
-                                >
-                                <br />
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span class="text-warning mdi mdi-star"></span>
-                                <span
-                                  class="text-warning mdi mdi-star-half"
-                                ></span>
-                              </p>
-                            </td>
-                            <td>Wing Chairs</td>
-                            <td>07/15/2018</td>
-                            <td>$148.66</td>
-
-                            <td>485</td>
-                            <td>
-                              <span class="badge bg-danger">Deactive</span>
-                            </td>
-
-                            <td class="table-action">
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-square-edit-outline"></i
-                              ></a>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-delete"></i
-                              ></a>
+                                <i class="mdi mdi-square-edit-outline"></i>
+                              </button>
+                              <button type="button" class="action-icon btn">
+                                <i class="mdi mdi-delete"></i>
+                              </button>
                             </td>
                           </tr>
                         </tbody>
@@ -823,7 +523,235 @@
         <!-- end padding-->
       </div>
     </div>
+    <div
+      id="add-new-product"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header modal-colored-header bg-info">
+            <h4 class="modal-title" id="fill-info-modalLabel">
+              Add new product
+            </h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-hidden="true"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="ps-3 pe-3" action="#">
+              <div class="mb-3">
+                <label for="product-line" class="form-label">Line</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="product-line"
+                  required=""
+                  placeholder=""
+                />
+              </div>
+              <div class="mb-3">
+                <label for="product-name" class="form-label">Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="product-name"
+                  required=""
+                  placeholder=""
+                />
+              </div>
 
+              <div class="mb-3">
+                <label class="form-label" for="product-thumbnail">Image</label>
+                <input
+                  class="form-control"
+                  type="file"
+                  id="product-thumbnail"
+                  accept="image/*"
+                />
+              </div>
+              <div class="row g-2 mb-3">
+                <div class="col-sm-6">
+                  <label class="form-label" for="product-price">Price</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    id="product-price"
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="product-discount" class="form-label"
+                    >Discount</label
+                  >
+                  <input
+                    class="form-control"
+                    type="number"
+                    id="product-discount"
+                  />
+                </div>
+              </div>
+              <div class="row g-2 mb-3">
+                <div class="col-sm-6">
+                  <label class="form-label" for="product-brand-id"
+                    >Brand Id</label
+                  >
+                  <input
+                    class="form-control"
+                    type="tex"
+                    id="product-brand-id"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="product-category" class="form-label"
+                    >Category</label
+                  >
+                  <input
+                    class="form-control"
+                    type="number"
+                    id="product-category"
+                  />
+                </div>
+              </div>
+              <div class="mb-3 modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-light"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button class="btn btn-primary" type="submit">
+                  Add new product
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <div
+      id="change-product"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header modal-colored-header bg-info">
+            <h4 class="modal-title" id="fill-info-modalLabel">
+              Change product's information
+            </h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-hidden="true"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="ps-3 pe-3" action="#">
+              <div class="mb-3">
+                <label for="product-line" class="form-label">Line</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="product-line"
+                  required=""
+                  placeholder=""
+                />
+              </div>
+              <div class="mb-3">
+                <label for="product-name" class="form-label">Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="product-name"
+                  required=""
+                  placeholder=""
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="product-thumbnail">Image</label>
+                <input
+                  class="form-control"
+                  type="file"
+                  id="product-thumbnail"
+                  accept="image/*"
+                />
+              </div>
+              <div class="row g-2 mb-3">
+                <div class="col-sm-6">
+                  <label class="form-label" for="product-price">Price</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    id="product-price"
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="product-discount" class="form-label"
+                    >Discount</label
+                  >
+                  <input
+                    class="form-control"
+                    type="number"
+                    id="product-discount"
+                  />
+                </div>
+              </div>
+              <div class="row g-2 mb-3">
+                <div class="col-sm-6">
+                  <label class="form-label" for="product-brand-id"
+                    >Brand Id</label
+                  >
+                  <input
+                    class="form-control"
+                    type="tex"
+                    id="product-brand-id"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="product-category" class="form-label"
+                    >Category</label
+                  >
+                  <input
+                    class="form-control"
+                    type="number"
+                    id="product-category"
+                  />
+                </div>
+              </div>
+              <div class="mb-3 modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-light"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button class="btn btn-primary" type="submit">
+                  Change product's info
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
     <!-- <div class="rightbar-overlay"></div> -->
     <!-- /End-bar -->
 
