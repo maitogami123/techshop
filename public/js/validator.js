@@ -113,8 +113,6 @@ Validator.isEmail = function (selector) {
             }else {
                 let regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
                 if (!regex.test(value)) {
-<<<<<<< HEAD
-
                     return "Email vừa nhập không đúng. Vui lòng nhập lại!"
                 }
                 for (let index = 0; index < option.Gmail.length; index++) {
@@ -122,7 +120,6 @@ Validator.isEmail = function (selector) {
                         return "Email này đã tồn tại. Vui lòng nhập email khác!"
                     }                    
                 }
-=======
                     return "Email vừa nhập không đúng. Vui lòng nhập lại!"
                 }
                 for (let index = 0; index < option.Gmail.length; index++) {
@@ -130,8 +127,6 @@ Validator.isEmail = function (selector) {
                         return "Email này đã tồn tại. Vui lòng nhập email khác!"
                     }                    
                 }
->>>>>>> c69c1ac (Update Register)
-            }   
             return undefined
         }
     };
