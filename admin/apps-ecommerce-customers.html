@@ -1,12 +1,31 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>Customers | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+      name="description"
+    />
+    <meta content="Coderthemes" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/images/favicon.ico" />
 
-    <title>Techshop</title>
+    <!-- third party css -->
+    <link
+      href="/css/vendor/dataTables.bootstrap5.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="/css/vendor/responsive.bootstrap5.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- third party css end -->
 
+    <!-- App css -->
     <link href="/css//icons.min.css" rel="stylesheet" type="text/css" />
     <link
       href="/css/app.min.css"
@@ -186,12 +205,15 @@
                   <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                       <li class="breadcrumb-item">
-                        <a href="javascript: void(0);">Techshop</a>
+                        <a href="javascript: void(0);">Hyper</a>
                       </li>
-                      <li class="breadcrumb-item active">Orders</li>
+                      <li class="breadcrumb-item">
+                        <a href="javascript: void(0);">eCommerce</a>
+                      </li>
+                      <li class="breadcrumb-item active">Customers</li>
                     </ol>
                   </div>
-                  <h4 class="page-title">Orders</h4>
+                  <h4 class="page-title">Account</h4>
                 </div>
               </div>
             </div>
@@ -202,57 +224,24 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="row mb-2">
-                      <div class="col-xl-8">
-                        <form
-                          class="row gy-2 gx-2 align-items-center justify-content-xl-start justify-content-between"
+                      <div class="col-sm-4">
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-danger mb-2"
+                          ><i class="mdi mdi-plus-circle me-2"></i> Add
+                          Customers</a
                         >
-                          <div class="col-auto">
-                            <label for="inputPassword2" class="visually-hidden"
-                              >Search</label
-                            >
-                            <input
-                              type="search"
-                              class="form-control"
-                              id="inputPassword2"
-                              placeholder="Search..."
-                            />
-                          </div>
-                          <div class="col-auto">
-                            <div class="d-flex align-items-center">
-                              <label for="status-select" class="me-2"
-                                >Status</label
-                              >
-                              <select class="form-select" id="status-select">
-                                <option selected="">Choose...</option>
-                                <option value="1">Paid</option>
-                                <option value="2">
-                                  Awaiting Authorization
-                                </option>
-                                <option value="3">Payment failed</option>
-                                <option value="4">Cash On Delivery</option>
-                                <option value="5">Fulfilled</option>
-                                <option value="6">Unfulfilled</option>
-                              </select>
-                            </div>
-                          </div>
-                        </form>
                       </div>
-                      <div class="col-xl-4">
-                        <div class="text-xl-end mt-xl-0 mt-2">
-                          <button
-                            type="button"
-                            class="btn btn-danger mb-2 me-2"
-                          >
-                            <i class="mdi mdi-basket me-1"></i> Add New Order
-                          </button>
-                        </div>
-                      </div>
+
                       <!-- end col-->
                     </div>
 
                     <div class="table-responsive">
-                      <table class="table table-centered mb-0">
-                        <thead class="table-light">
+                      <table
+                        class="table table-centered table-striped dt-responsive nowrap w-100"
+                        id="products-datatable"
+                      >
+                        <thead>
                           <tr>
                             <th style="width: 20px">
                               <div class="form-check">
@@ -268,13 +257,13 @@
                                 >
                               </div>
                             </th>
-                            <th>Order ID</th>
-                            <th>Date</th>
-                            <th>Payment Status</th>
-                            <th>Total</th>
-                            <th>Payment Method</th>
-                            <th>Order Status</th>
-                            <th style="width: 125px">Action</th>
+                            <th>Customer</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Location</th>
+                            <th>Create Date</th>
+                            <th>Status</th>
+                            <th style="width: 75px">Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -293,37 +282,29 @@
                                 >
                               </div>
                             </td>
-                            <td>
+                            <td class="table-user">
+                              <img
+                                src="assets/images/users/avatar-4.jpg"
+                                alt="table-user"
+                                class="me-2 rounded-circle"
+                              />
                               <a
-                                href="apps-ecommerce-orders-details.html"
-                                class="text-body fw-bold"
-                                >#BM9708</a
+                                href="javascript:void(0);"
+                                class="text-body fw-semibold"
+                                >Paul J. Friend</a
                               >
                             </td>
+                            <td>937-330-1634</td>
+                            <td>pauljfrnd@jourrapide.com</td>
+                            <td>New York</td>
+                            <td>07/07/2018</td>
                             <td>
-                              August 05 2018
-                              <small class="text-muted">10:29 PM</small>
+                              <span class="badge badge-success-lighten"
+                                >Active</span
+                              >
                             </td>
+
                             <td>
-                              <h5>
-                                <span class="badge badge-success-lighten"
-                                  ><i class="mdi mdi-coin"></i> Paid</span
-                                >
-                              </h5>
-                            </td>
-                            <td>$176.41</td>
-                            <td>Mastercard</td>
-                            <td>
-                              <h5>
-                                <span class="badge badge-info-lighten"
-                                  >Shipped</span
-                                >
-                              </h5>
-                            </td>
-                            <td>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
                               <a href="javascript:void(0);" class="action-icon">
                                 <i class="mdi mdi-square-edit-outline"></i
                               ></a>
@@ -348,38 +329,29 @@
                                 >
                               </div>
                             </td>
-                            <td>
+                            <td class="table-user">
+                              <img
+                                src="assets/images/users/avatar-3.jpg"
+                                alt="table-user"
+                                class="me-2 rounded-circle"
+                              />
                               <a
-                                href="apps-ecommerce-orders-details.html"
-                                class="text-body fw-bold"
-                                >#BM9707</a
+                                href="javascript:void(0);"
+                                class="text-body fw-semibold"
+                                >Bryan J. Luellen</a
                               >
                             </td>
+                            <td>215-302-3376</td>
+                            <td>bryuellen@dayrep.com</td>
+                            <td>New York</td>
+                            <td>09/12/2018</td>
                             <td>
-                              August 04 2018
-                              <small class="text-muted">08:18 AM</small>
+                              <span class="badge badge-success-lighten"
+                                >Active</span
+                              >
                             </td>
+
                             <td>
-                              <h5>
-                                <span class="badge badge-warning-lighten"
-                                  ><i class="mdi mdi-timer-sand"></i> Awaiting
-                                  Authorization</span
-                                >
-                              </h5>
-                            </td>
-                            <td>$1,458.65</td>
-                            <td>Visa</td>
-                            <td>
-                              <h5>
-                                <span class="badge badge-warning-lighten"
-                                  >Processing</span
-                                >
-                              </h5>
-                            </td>
-                            <td>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
                               <a href="javascript:void(0);" class="action-icon">
                                 <i class="mdi mdi-square-edit-outline"></i
                               ></a>
@@ -403,37 +375,29 @@
                                 >
                               </div>
                             </td>
-                            <td>
+                            <td class="table-user">
+                              <img
+                                src="assets/images/users/avatar-3.jpg"
+                                alt="table-user"
+                                class="me-2 rounded-circle"
+                              />
                               <a
-                                href="apps-ecommerce-orders-details.html"
-                                class="text-body fw-bold"
-                                >#BM9706</a
+                                href="javascript:void(0);"
+                                class="text-body fw-semibold"
+                                >Kathryn S. Collier</a
                               >
                             </td>
+                            <td>828-216-2190</td>
+                            <td>collier@jourrapide.com</td>
+                            <td>Canada</td>
+                            <td>06/30/2018</td>
                             <td>
-                              August 04 2018
-                              <small class="text-muted">10:29 PM</small>
+                              <span class="badge badge-danger-lighten"
+                                >Blocked</span
+                              >
                             </td>
+
                             <td>
-                              <h5>
-                                <span class="badge badge-success-lighten"
-                                  ><i class="mdi mdi-coin"></i> Paid</span
-                                >
-                              </h5>
-                            </td>
-                            <td>$801.99</td>
-                            <td>Credit Card</td>
-                            <td>
-                              <h5>
-                                <span class="badge badge-warning-lighten"
-                                  >Processing</span
-                                >
-                              </h5>
-                            </td>
-                            <td>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
                               <a href="javascript:void(0);" class="action-icon">
                                 <i class="mdi mdi-square-edit-outline"></i
                               ></a>
@@ -457,37 +421,29 @@
                                 >
                               </div>
                             </td>
-                            <td>
+                            <td class="table-user">
+                              <img
+                                src="assets/images/users/avatar-1.jpg"
+                                alt="table-user"
+                                class="me-2 rounded-circle"
+                              />
                               <a
-                                href="apps-ecommerce-orders-details.html"
-                                class="text-body fw-bold"
-                                >#BM9705</a
+                                href="javascript:void(0);"
+                                class="text-body fw-semibold"
+                                >Timothy Kauper</a
                               >
                             </td>
+                            <td>(216) 75 612 706</td>
+                            <td>thykauper@rhyta.com</td>
+                            <td>Denmark</td>
+                            <td>09/08/2018</td>
                             <td>
-                              August 03 2018
-                              <small class="text-muted">07:56 AM</small>
+                              <span class="badge badge-danger-lighten"
+                                >Blocked</span
+                              >
                             </td>
+
                             <td>
-                              <h5>
-                                <span class="badge badge-success-lighten"
-                                  ><i class="mdi mdi-coin"></i> Paid</span
-                                >
-                              </h5>
-                            </td>
-                            <td>$215.35</td>
-                            <td>Mastercard</td>
-                            <td>
-                              <h5>
-                                <span class="badge badge-success-lighten"
-                                  >Delivered</span
-                                >
-                              </h5>
-                            </td>
-                            <td>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
                               <a href="javascript:void(0);" class="action-icon">
                                 <i class="mdi mdi-square-edit-outline"></i
                               ></a>
@@ -511,38 +467,29 @@
                                 >
                               </div>
                             </td>
-                            <td>
+                            <td class="table-user">
+                              <img
+                                src="assets/images/users/avatar-5.jpg"
+                                alt="table-user"
+                                class="me-2 rounded-circle"
+                              />
                               <a
-                                href="apps-ecommerce-orders-details.html"
-                                class="text-body fw-bold"
-                                >#BM9704</a
+                                href="javascript:void(0);"
+                                class="text-body fw-semibold"
+                                >Zara Raws</a
                               >
                             </td>
+                            <td>(02) 75 150 655</td>
+                            <td>austin@dayrep.com</td>
+                            <td>Germany</td>
+                            <td>07/15/2018</td>
                             <td>
-                              May 22 2018
-                              <small class="text-muted">07:22 PM</small>
+                              <span class="badge badge-success-lighten"
+                                >Active</span
+                              >
                             </td>
+
                             <td>
-                              <h5>
-                                <span class="badge badge-danger-lighten"
-                                  ><i class="mdi mdi-cancel"></i> Payment
-                                  Failed</span
-                                >
-                              </h5>
-                            </td>
-                            <td>$2,514.36</td>
-                            <td>Paypal</td>
-                            <td>
-                              <h5>
-                                <span class="badge badge-danger-lighten"
-                                  >Cancelled</span
-                                >
-                              </h5>
-                            </td>
-                            <td>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
                               <a href="javascript:void(0);" class="action-icon">
                                 <i class="mdi mdi-square-edit-outline"></i
                               ></a>
@@ -566,37 +513,29 @@
                                 >
                               </div>
                             </td>
-                            <td>
+                            <td class="table-user">
+                              <img
+                                src="assets/images/users/avatar-6.jpg"
+                                alt="table-user"
+                                class="me-2 rounded-circle"
+                              />
                               <a
-                                href="apps-ecommerce-orders-details.html"
-                                class="text-body fw-bold"
-                                >#BM9703</a
+                                href="javascript:void(0);"
+                                class="text-body fw-semibold"
+                                >Annette P. Kelsch</a
                               >
                             </td>
+                            <td>(+15) 73 483 758</td>
+                            <td>annette@email.net</td>
+                            <td>India</td>
+                            <td>09/05/2018</td>
                             <td>
-                              April 02 2018
-                              <small class="text-muted">03:02 AM</small>
+                              <span class="badge badge-success-lighten"
+                                >Active</span
+                              >
                             </td>
+
                             <td>
-                              <h5>
-                                <span class="badge badge-success-lighten"
-                                  ><i class="mdi mdi-coin"></i> Paid</span
-                                >
-                              </h5>
-                            </td>
-                            <td>$183.20</td>
-                            <td>Payoneer</td>
-                            <td>
-                              <h5>
-                                <span class="badge badge-info-lighten"
-                                  >Shipped</span
-                                >
-                              </h5>
-                            </td>
-                            <td>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
                               <a href="javascript:void(0);" class="action-icon">
                                 <i class="mdi mdi-square-edit-outline"></i
                               ></a>
@@ -605,7 +544,6 @@
                               ></a>
                             </td>
                           </tr>
-
                           <tr>
                             <td>
                               <div class="form-check">
@@ -621,38 +559,29 @@
                                 >
                               </div>
                             </td>
-                            <td>
+                            <td class="table-user">
+                              <img
+                                src="assets/images/users/avatar-7.jpg"
+                                alt="table-user"
+                                class="me-2 rounded-circle"
+                              />
                               <a
-                                href="apps-ecommerce-orders-details.html"
-                                class="text-body fw-bold"
-                                >#BM9702</a
+                                href="javascript:void(0);"
+                                class="text-body fw-semibold"
+                                >Jenny C. Gero</a
                               >
                             </td>
+                            <td>078 7173 9261</td>
+                            <td>jennygero@teleworm.us</td>
+                            <td>Lesotho</td>
+                            <td>08/02/2018</td>
                             <td>
-                              March 18 2018
-                              <small class="text-muted">11:19 PM</small>
+                              <span class="badge badge-danger-lighten"
+                                >Blocked</span
+                              >
                             </td>
+
                             <td>
-                              <h5>
-                                <span class="badge badge-warning-lighten"
-                                  ><i class="mdi mdi-timer-sand"></i> Awaiting
-                                  Authorization</span
-                                >
-                              </h5>
-                            </td>
-                            <td>$1,768.41</td>
-                            <td>Visa</td>
-                            <td>
-                              <h5>
-                                <span class="badge badge-warning-lighten"
-                                  >Processing</span
-                                >
-                              </h5>
-                            </td>
-                            <td>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
                               <a href="javascript:void(0);" class="action-icon">
                                 <i class="mdi mdi-square-edit-outline"></i
                               ></a>
@@ -661,7 +590,6 @@
                               ></a>
                             </td>
                           </tr>
-
                           <tr>
                             <td>
                               <div class="form-check">
@@ -677,37 +605,29 @@
                                 >
                               </div>
                             </td>
-                            <td>
+                            <td class="table-user">
+                              <img
+                                src="assets/images/users/avatar-8.jpg"
+                                alt="table-user"
+                                class="me-2 rounded-circle"
+                              />
                               <a
-                                href="apps-ecommerce-orders-details.html"
-                                class="text-body fw-bold"
-                                >#BM9701</a
+                                href="javascript:void(0);"
+                                class="text-body fw-semibold"
+                                >Edward Roseby</a
                               >
                             </td>
+                            <td>078 6013 3854</td>
+                            <td>edwardR@armyspy.com</td>
+                            <td>Monaco</td>
+                            <td>08/23/2018</td>
                             <td>
-                              February 01 2018
-                              <small class="text-muted">07:22 AM</small>
+                              <span class="badge badge-success-lighten"
+                                >Active</span
+                              >
                             </td>
+
                             <td>
-                              <h5>
-                                <span class="badge badge-info-lighten"
-                                  ><i class="mdi mdi-cash"></i> Unpaid</span
-                                >
-                              </h5>
-                            </td>
-                            <td>$3,582.99</td>
-                            <td>Paypal</td>
-                            <td>
-                              <h5>
-                                <span class="badge badge-info-lighten"
-                                  >Shipped</span
-                                >
-                              </h5>
-                            </td>
-                            <td>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
                               <a href="javascript:void(0);" class="action-icon">
                                 <i class="mdi mdi-square-edit-outline"></i
                               ></a>
@@ -731,37 +651,29 @@
                                 >
                               </div>
                             </td>
-                            <td>
+                            <td class="table-user">
+                              <img
+                                src="assets/images/users/avatar-9.jpg"
+                                alt="table-user"
+                                class="me-2 rounded-circle"
+                              />
                               <a
-                                href="apps-ecommerce-orders-details.html"
-                                class="text-body fw-bold"
-                                >#BM9700</a
+                                href="javascript:void(0);"
+                                class="text-body fw-semibold"
+                                >Anna Ciantar</a
                               >
                             </td>
+                            <td>(216) 76 298 896</td>
+                            <td>annac@hotmai.us</td>
+                            <td>Philippines</td>
+                            <td>05/06/2018</td>
                             <td>
-                              January 22 2018
-                              <small class="text-muted">08:09 PM</small>
+                              <span class="badge badge-success-lighten"
+                                >Active</span
+                              >
                             </td>
+
                             <td>
-                              <h5>
-                                <span class="badge badge-success-lighten"
-                                  ><i class="mdi mdi-coin"></i> Paid</span
-                                >
-                              </h5>
-                            </td>
-                            <td>$923.95</td>
-                            <td>Credit Card</td>
-                            <td>
-                              <h5>
-                                <span class="badge badge-success-lighten"
-                                  >Delivered</span
-                                >
-                              </h5>
-                            </td>
-                            <td>
-                              <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
-                              ></a>
                               <a href="javascript:void(0);" class="action-icon">
                                 <i class="mdi mdi-square-edit-outline"></i
                               ></a>
@@ -785,37 +697,121 @@
                                 >
                               </div>
                             </td>
-                            <td>
+                            <td class="table-user">
+                              <img
+                                src="assets/images/users/avatar-10.jpg"
+                                alt="table-user"
+                                class="me-2 rounded-circle"
+                              />
                               <a
-                                href="apps-ecommerce-orders-details.html"
-                                class="text-body fw-bold"
-                                >#BM9699</a
+                                href="javascript:void(0);"
+                                class="text-body fw-semibold"
+                                >Dean Smithies</a
                               >
                             </td>
+                            <td>077 6157 4248</td>
+                            <td>deanes@dayrep.com</td>
+                            <td>Singapore</td>
+                            <td>04/09/2018</td>
                             <td>
-                              January 17 2018
-                              <small class="text-muted">02:30 PM</small>
+                              <span class="badge badge-success-lighten"
+                                >Active</span
+                              >
                             </td>
-                            <td>
-                              <h5>
-                                <span class="badge badge-success-lighten"
-                                  ><i class="mdi mdi-coin"></i> Paid</span
-                                >
-                              </h5>
-                            </td>
-                            <td>$5,177.68</td>
-                            <td>Mastercard</td>
-                            <td>
-                              <h5>
-                                <span class="badge badge-info-lighten"
-                                  >Shipped</span
-                                >
-                              </h5>
-                            </td>
+
                             <td>
                               <a href="javascript:void(0);" class="action-icon">
-                                <i class="mdi mdi-eye"></i
+                                <i class="mdi mdi-square-edit-outline"></i
                               ></a>
+                              <a href="javascript:void(0);" class="action-icon">
+                                <i class="mdi mdi-delete"></i
+                              ></a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-check">
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="customCheck12"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="customCheck12"
+                                  >&nbsp;</label
+                                >
+                              </div>
+                            </td>
+                            <td class="table-user">
+                              <img
+                                src="assets/images/users/avatar-1.jpg"
+                                alt="table-user"
+                                class="me-2 rounded-circle"
+                              />
+                              <a
+                                href="javascript:void(0);"
+                                class="text-body fw-semibold"
+                                >Labeeb Ghali</a
+                              >
+                            </td>
+                            <td>050 414 8778</td>
+                            <td>labebswad@teleworm.us</td>
+                            <td>United Kingdom</td>
+                            <td>06/19/2018</td>
+                            <td>
+                              <span class="badge badge-success-lighten"
+                                >Active</span
+                              >
+                            </td>
+
+                            <td>
+                              <a href="javascript:void(0);" class="action-icon">
+                                <i class="mdi mdi-square-edit-outline"></i
+                              ></a>
+                              <a href="javascript:void(0);" class="action-icon">
+                                <i class="mdi mdi-delete"></i
+                              ></a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-check">
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="customCheck13"
+                                />
+                                <label
+                                  class="form-check-label"
+                                  for="customCheck13"
+                                  >&nbsp;</label
+                                >
+                              </div>
+                            </td>
+                            <td class="table-user">
+                              <img
+                                src="assets/images/users/avatar-2.jpg"
+                                alt="table-user"
+                                class="me-2 rounded-circle"
+                              />
+                              <a
+                                href="javascript:void(0);"
+                                class="text-body fw-semibold"
+                                >Rory Seekamp</a
+                              >
+                            </td>
+                            <td>078 5054 8877</td>
+                            <td>roryamp@dayrep.com</td>
+                            <td>United States</td>
+                            <td>03/24/2018</td>
+                            <td>
+                              <span class="badge badge-danger-lighten"
+                                >Blocked</span
+                              >
+                            </td>
+
+                            <td>
                               <a href="javascript:void(0);" class="action-icon">
                                 <i class="mdi mdi-square-edit-outline"></i
                               ></a>
@@ -1028,5 +1024,17 @@
     <!-- bundle -->
     <script src="/js/vendor.min.js"></script>
     <script src="/js/app.min.js"></script>
+
+    <!-- third party js -->
+    <script src="/js/vendor/jquery.dataTables.min.js"></script>
+    <script src="/js/vendor/dataTables.bootstrap5.js"></script>
+    <script src="/js/vendor/dataTables.responsive.min.js"></script>
+    <script src="/js/vendor/responsive.bootstrap5.min.js"></script>
+    <script src="/js/vendor/dataTables.checkboxes.min.js"></script>
+    <!-- third party js ends -->
+
+    <!-- demo app -->
+    <script src="assets/js/pages/demo.customers.js"></script>
+    <!-- end demo js-->
   </body>
 </html>
