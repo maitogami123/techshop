@@ -44,7 +44,7 @@ class RegisterController
             $password = $_POST['Password'];
             $FirstNname = $_POST['fistName'];
             $LastNname = $_POST['lastName'];
-			$FullName = $FirstNname +" "+ $LastNname;
+	    $FullName = $LastNname+" "+$FirstNname;
             $Email = $_POST['Email'];
             # code...
             $user->createAccount($username, $password);
