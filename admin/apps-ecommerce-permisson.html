@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -196,13 +196,13 @@
                   <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                       <li class="breadcrumb-item">
-                        <a href="javascript: void(0);">Hyper</a>
+                        <a href="javascript: void(0);">Techshop</a>
                       </li>
 
-                      <li class="breadcrumb-item active">Products</li>
+                      <li class="breadcrumb-item active">Permission</li>
                     </ol>
                   </div>
-                  <h4 class="page-title">Products</h4>
+                  <h4 class="page-title">Permission</h4>
                 </div>
               </div>
             </div>
@@ -214,120 +214,14 @@
                   <div class="card-body">
                     <div class="row mb-2">
                       <div class="col-sm-4">
-                        <button
-                          type="button"
-                          class="btn btn-primary"
-                          data-bs-toggle="modal"
-                          data-bs-target="#add-new-product"
+                        <a
+                          href="javascript:void(0);"
+                          class="btn btn-danger mb-2"
+                          ><i class="mdi mdi-plus-circle me-2"></i>Add Brand</a
                         >
-                          Add product
-                        </button>
                       </div>
 
                       <!-- end col-->
-                    </div>
-
-                    <div class="table-responsive">
-                      <table
-                        class="table table-centered w-100 dt-responsive nowrap"
-                        id="products-datatable"
-                      >
-                        <thead class="table-light">
-                          <tr>
-                            <th class="all" style="width: 20px">
-                              <div class="form-check">
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="customCheck1"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="customCheck1"
-                                  >&nbsp;</label
-                                >
-                              </div>
-                            </th>
-                            <!-- <th style="width: 100px">Image</th> -->
-                            <th class="all">Product</th>
-
-                            <th>Category</th>
-                            <th>Added Date</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                            <th style="width: 85px">Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="customCheck2"
-                                />
-                                <label
-                                  class="form-check-label"
-                                  for="customCheck2"
-                                  >&nbsp;</label
-                                >
-                              </div>
-                            </td>
-
-                            <td>
-                              <img
-                                src="/img/Image.png"
-                                alt="contact-img"
-                                title="contact-img"
-                                class="rounded me-3"
-                                height="48"
-                              />
-                              <p
-                                class="m-0 d-inline-block align-middle font-16 text-wrap w-75"
-                              >
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Quisquam veniam cupiditate
-                                minima iste? Laborum rem explicabo numquam
-                                suscipit id, soluta quia fugit odit voluptatem
-                                quis. Ducimus blanditiis illo veniam eaque.
-                              </p>
-                            </td>
-                            <td>1</td>
-                            <td>09/12/2018</td>
-                            <td>10.000.000đ</td>
-
-                            <td>254</td>
-                            <td>
-                              <span class="badge bg-success">Active</span>
-                            </td>
-
-                            <td class="table-action">
-                              <button
-                                type="button"
-                                class="action-icon btn"
-                                data-bs-toggle="modal"
-                                data-bs-target=""
-                              >
-                                <i class="mdi mdi-eye"></i>
-                              </button>
-
-                              <button
-                                type="button"
-                                class="action-icon btn"
-                                data-bs-toggle="modal"
-                                data-bs-target="#change-product"
-                              >
-                                <i class="mdi mdi-square-edit-outline"></i>
-                              </button>
-                              <button type="button" class="action-icon btn">
-                                <i class="mdi mdi-delete"></i>
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
                     </div>
                   </div>
                   <!-- end card-body-->
@@ -350,7 +244,7 @@
                 <script>
                   document.write(new Date().getFullYear());
                 </script>
-                © Hyper - Coderthemes.com
+                © Techshop
               </div>
               <div class="col-md-6">
                 <div class="text-md-end footer-links d-none d-md-block">
@@ -523,253 +417,12 @@
         <!-- end padding-->
       </div>
     </div>
-    <div
-      id="add-new-product"
-      class="modal fade"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header modal-colored-header bg-info">
-            <h4 class="modal-title" id="fill-info-modalLabel">
-              Add new product
-            </h4>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-hidden="true"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form class="ps-3 pe-3" action="#">
-              <div class="mb-3">
-                <label for="product-line" class="form-label">Line</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  id="product-line"
-                  required=""
-                  placeholder=""
-                />
-              </div>
-              <div class="mb-3">
-                <label for="product-name" class="form-label">Name</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  id="product-name"
-                  required=""
-                  placeholder=""
-                />
-              </div>
 
-              <div class="mb-3">
-                <label class="form-label" for="product-thumbnail">Image</label>
-                <input
-                  class="form-control"
-                  type="file"
-                  id="product-thumbnail"
-                  accept="image/*"
-                />
-              </div>
-              <div class="row g-2 mb-3">
-                <div class="col-sm-6">
-                  <label class="form-label" for="product-price">Price</label>
-                  <input
-                    class="form-control"
-                    type="number"
-                    id="product-price"
-                  />
-                </div>
-                <div class="col-sm-6">
-                  <label for="product-discount" class="form-label"
-                    >Discount</label
-                  >
-                  <input
-                    class="form-control"
-                    type="number"
-                    id="product-discount"
-                  />
-                </div>
-              </div>
-              <div class="row g-2 mb-3">
-                <div class="col-sm-6">
-                  <label class="form-label" for="product-brand-id"
-                    >Brand Id</label
-                  >
-                  <input
-                    class="form-control"
-                    type="tex"
-                    id="product-brand-id"
-                    required
-                  />
-                </div>
-                <div class="col-sm-6">
-                  <label for="product-category" class="form-label"
-                    >Category</label
-                  >
-                  <input
-                    class="form-control"
-                    type="number"
-                    id="product-category"
-                  />
-                </div>
-              </div>
-              <div class="mb-3 modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-light"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button class="btn btn-primary" type="submit">
-                  Add new product
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-    <div
-      id="change-product"
-      class="modal fade"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header modal-colored-header bg-info">
-            <h4 class="modal-title" id="fill-info-modalLabel">
-              Change product's information
-            </h4>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-hidden="true"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form class="ps-3 pe-3" action="#">
-              <div class="mb-3">
-                <label for="product-line" class="form-label">Line</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  id="product-line"
-                  required=""
-                  placeholder=""
-                />
-              </div>
-              <div class="mb-3">
-                <label for="product-name" class="form-label">Name</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  id="product-name"
-                  required=""
-                  placeholder=""
-                />
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label" for="product-thumbnail">Image</label>
-                <input
-                  class="form-control"
-                  type="file"
-                  id="product-thumbnail"
-                  accept="image/*"
-                />
-              </div>
-              <div class="row g-2 mb-3">
-                <div class="col-sm-6">
-                  <label class="form-label" for="product-price">Price</label>
-                  <input
-                    class="form-control"
-                    type="number"
-                    id="product-price"
-                  />
-                </div>
-                <div class="col-sm-6">
-                  <label for="product-discount" class="form-label"
-                    >Discount</label
-                  >
-                  <input
-                    class="form-control"
-                    type="number"
-                    id="product-discount"
-                  />
-                </div>
-              </div>
-              <div class="row g-2 mb-3">
-                <div class="col-sm-6">
-                  <label class="form-label" for="product-brand-id"
-                    >Brand Id</label
-                  >
-                  <input
-                    class="form-control"
-                    type="tex"
-                    id="product-brand-id"
-                    required
-                  />
-                </div>
-                <div class="col-sm-6">
-                  <label for="product-category" class="form-label"
-                    >Category</label
-                  >
-                  <input
-                    class="form-control"
-                    type="number"
-                    id="product-category"
-                  />
-                </div>
-              </div>
-              <div class="mb-3 modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-light"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button class="btn btn-primary" type="submit">
-                  Change product's info
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-    </div>
     <!-- <div class="rightbar-overlay"></div> -->
     <!-- /End-bar -->
 
     <!-- bundle -->
     <script src="/js/vendor.min.js"></script>
     <script src="/js/app.min.js"></script>
-
-    <!-- third party js -->
-    <script src="/js/vendor/jquery.dataTables.min.js"></script>
-    <script src="/js/vendor/dataTables.bootstrap5.js"></script>
-    <script src="/js/vendor/dataTables.responsive.min.js"></script>
-    <script src="/js/vendor/responsive.bootstrap5.min.js"></script>
-    <script src="/js/vendor/dataTables.checkboxes.min.js"></script>
-
-    <!-- third party js ends -->
-
-    <!-- demo app -->
-    <script src="/js/pages/demo.products.js"></script>
-    <!-- end demo js-->
   </body>
 </html>
