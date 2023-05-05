@@ -343,10 +343,10 @@ class User
     $result -> execute();
   }
 
-  public function createUserDetail($username, $FirstName, $LastName, $Email)
+  public function createUserDetail($username, $FullName, $Email)
   {
     $db = connect();
-    $sql= "INSERT INTO userdetail(username, FirstName, LastName, Email) Values('$username', '$FirstName', '$LastName', '$Email')";
+    $sql= "INSERT INTO userdetail(username, FullName, Email) Values('$username', '$FullName','$Email')";
     echo $sql;
     $result = $db->prepare($sql);
     $result -> execute();

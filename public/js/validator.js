@@ -9,6 +9,7 @@ function Validator(options){
             inputElement.classList.add('Input_Error');
             inputElement.classList.add('border_Error');
             inputElement.classList.remove('Success')
+            console.log("hello");
         }else {
             errorElement.innerText = ''
             errorElement.classList.remove('invalid_Error');
@@ -114,22 +115,18 @@ Validator.isEmail = function (selector) {
                 let regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
                 if (!regex.test(value)) {
                     return "Email vừa nhập không đúng. Vui lòng nhập lại!"
+                }else{
+                    for (let index = 0; index < option.Gmail.length; index++) {
+                        if (option.Gmail[index].Email === value) {
+                            return "Email này đã tồn tại. Vui lòng nhập email khác!"
+                        }                    
+                    }
                 }
-                for (let index = 0; index < option.Gmail.length; index++) {
-                    if (option.Gmail[index].Email === value) {
-                        return "Email này đã tồn tại. Vui lòng nhập email khác!"
-                    }                    
-                }
-                    return "Email vừa nhập không đúng. Vui lòng nhập lại!"
-                }
-                for (let index = 0; index < option.Gmail.length; index++) {
-                    if (option.Gmail[index].Email === value) {
-                        return "Email này đã tồn tại. Vui lòng nhập email khác!"
-                    }                    
-                }
+
             return undefined
         }
-    };
+    }
+};
 }
 
 Validator.isUsername = function(selector){
@@ -168,10 +165,8 @@ Validator.isPassword = function(selector){
                 }else if (!regexLower.test(value)){
                     return "Mật khẩu phải chứa ít nhất 1 chữ thường "
                 }
-            }
-           
+            }              
             return undefined
-            
         }
     };
 }
