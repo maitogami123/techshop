@@ -448,4 +448,17 @@ class User
 
   }
 
+  public function UpdateUserInfo($fullname,$userName){
+    $db = connect();
+    $sql = "UPDATE userdetail SET userdetail.FullName='$fullname' WHERE userdetail.username='$userName'";
+    $result = $db->prepare($sql);
+    $result -> execute();
+  }
+
+  public function getFullNameOfLogingUser($Username){
+    $db = connect();
+    $sql = "SELECT userdetail.Fullname FROM userdetail WHERE userdetail.username='$Username'";
+    $stm = $db->query($sql);
+    return $stm->fetch();
+  }
 }

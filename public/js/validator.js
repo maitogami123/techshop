@@ -155,18 +155,12 @@ Validator.isPassword = function(selector){
             }else if(value.length < 8){
                 return "Tối thiểu là 8 ký tự";
             }else {
-                let regexNumber = /^.*(?=.*\d).*$/ //kiểm tra xem có ít nhất một ký tự chữ cái (viết hoa hoặc viết thường) xuất hiện trong chuỗi.
-                let regexUper = /^.*(?=.*[A-Z]).*$/ //kiểm tra xem có ít nhất một ký tự chữ cái (viết hoa hoặc viết thường) xuất hiện trong chuỗi.
-                let regexLower = /^.*(?=.*[a-z]).*$/ //kiểm tra xem có ít nhất một ký tự chữ cái (viết hoa hoặc viết thường) xuất hiện trong chuỗi.
-                if (!regexNumber.test(value)) {
-                    return "Mật khẩu phải có ít nhất một số."
-                }else if (!regexUper.test(value)){
-                    return "Mật khẩu phải chứa ít nhất 1 chữ in hoa "
-                }else if (!regexLower.test(value)){
-                    return "Mật khẩu phải chứa ít nhất 1 chữ thường "
+                let regex = /^.*(?=.*\d).(?=.*[A-Z]).(?=.*[a-z]).*$/ //kiểm tra xem có ít nhất một ký tự chữ cái (viết hoa hoặc viết thường) xuất hiện trong chuỗi.
+                if (!regex.test(value)) {
+                    return "Chứa ít nhất một ký tự viết hoa và một ký tự viết thường và chỉ bao gồm các chữ cái và số." 
                 }
+                return undefined
             }              
-            return undefined
         }
     };
 }

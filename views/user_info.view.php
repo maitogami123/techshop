@@ -1,3 +1,4 @@
+
 <section class="container div-8-col u-margin-top-huge">
         <div class="user__sidebar">
           <div class="user__sidebar--top">
@@ -32,20 +33,13 @@
             </p>
           </div>
           <div class="user__information-form">
-            <form action="#">
+            <form action="#" id="FromUpdateUserInfo">
               <div class="form__field u-margin-bottom-medium">
                 <label
                   for="userAccount"
                   class="form__label u-margin-bottom-small"
                   >Tên đăng nhập</label
                 >
-                <input
-                  type="text"
-                  id="userAccount"
-                  name="account"
-                  placeholder=""
-                  class="form__input"
-                />
               </div>
               <div class="form__field u-margin-bottom-medium">
                 <label for="userName" class="form__label u-margin-bottom-small"
@@ -55,6 +49,7 @@
                   type="text"
                   id="userName"
                   name="account"
+                  value=""
                   placeholder="Hà Quốc Vĩ"
                   class="form__input"
                 />
