@@ -108,7 +108,21 @@
           </nav>
         </div>
       </header>
-      <section class="container div-8-col u-margin-top-huge">
+      <div class="breadcrumb container">
+        <a href="./home.html" class="breadcrumb__link text-color--1">
+          <svg class="icon">
+            <use xlink:href="img/symbol-defs.svg#icon-home"></use>
+          </svg>
+          <span class="para--sm">Trang chủ</span>
+        </a>
+        <svg class="icon text-color--2">
+          <use xlink:href="img/symbol-defs.svg#icon-chevron-right"></use>
+        </svg>
+        <a href="" class="breadcrumb__link">
+          <span class="para--sm text-color--2">Thông tin cá nhân</span>
+        </a>
+      </div>
+      <section class="container div-8-col">
         <div class="user__sidebar">
           <div class="user__sidebar--top">
             <img src="./img/Image.png" alt="User's Avatar" class="user__img" />
@@ -135,7 +149,7 @@
           </div>
         </div>
         <div class="user__container">
-          <div class="user__haeding">
+          <div class="user__heading">
             <h3 class="heading__secondary">Hồ sơ của tôi</h3>
             <p class="font-size-1 text-color--4">
               Quản lý thông tin hồ sơ để bảo mật tài khoản
@@ -143,49 +157,123 @@
           </div>
           <div class="user__information-form">
             <form action="#">
+              <div class="form__field-box u-margin-bottom-medium">
+                <div class="form__field">
+                  <label
+                    for="user__first-name"
+                    class="form__label u-margin-bottom-small"
+                    >Họ và tên đệm</label
+                  >
+                  <input
+                    type="text"
+                    id="user__first-name"
+                    name="user__first-name"
+                    value="Hà Quốc"
+                    class="form__input"
+                  />
+                </div>
+                <div class="form__field">
+                  <label
+                    for="user__last-name"
+                    class="form__label u-margin-bottom-small"
+                    >Tên</label
+                  >
+                  <input
+                    type="text"
+                    id="user__last-name"
+                    name="user__last-name"
+                    value="Vĩ"
+                    class="form__input"
+                  />
+                </div>
+              </div>
+              <div class="form__field-box">
+                <div class="form__field u-margin-bottom-medium">
+                  <label
+                    for="user__email"
+                    class="form__label u-margin-bottom-small"
+                    >Email</label
+                  >
+                  <input
+                    type="email"
+                    id="user__email"
+                    name="user__email"
+                    value="quocvi1701@gmail.com"
+                    class="form__input"
+                  />
+                </div>
+                <div class="form__field u-margin-bottom-medium">
+                  <label
+                    for="user__tel"
+                    class="form__label u-margin-bottom-small"
+                    >Điện thoại</label
+                  >
+                  <input
+                    type="tel"
+                    id="user__tel"
+                    name="user__tel"
+                    value="0327148900"
+                    class="form__input"
+                  />
+                </div>
+              </div>
+              <div class="form__field-box">
+                <div class="form__field u-margin-bottom-medium">
+                  <label
+                    for="order__address-city"
+                    class="form__label u-margin-bottom-small"
+                    >Tỉnh, thành phố:</label
+                  >
+                  <select
+                    type="text"
+                    id="order__address-city"
+                    name=""
+                    class="form__input"
+                  ></select>
+                </div>
+                <div class="form__field u-margin-bottom-medium">
+                  <label
+                    for="order__address-district"
+                    class="form__label u-margin-bottom-small"
+                    >Quận, huyện:</label
+                  >
+                  <select
+                    type="text"
+                    id="order__address-district"
+                    name=""
+                    class="form__input"
+                  ></select>
+                </div>
+              </div>
               <div class="form__field u-margin-bottom-medium">
-                <label
-                  for="userAccount"
-                  class="form__label u-margin-bottom-small"
-                  >Tên đăng nhập</label
+                <label for="password" class="form__label u-margin-bottom-small"
+                  >Địa chỉ chi tiết:</label
                 >
                 <input
                   type="text"
-                  id="userAccount"
-                  name="account"
-                  placeholder=""
+                  id="order__address"
+                  name=""
+                  placeholder="Số nhà, tên đường, xã, phường, thị trấn,..."
                   class="form__input"
                 />
-              </div>
-              <div class="form__field u-margin-bottom-medium">
-                <label for="userName" class="form__label u-margin-bottom-small"
-                  >Tên</label
-                >
-                <input
-                  type="text"
-                  id="userName"
-                  name="account"
-                  placeholder="Hà Quốc Vĩ"
-                  class="form__input"
-                />
-              </div>
-              <div class="form__field u-margin-bottom-medium">
-                <label for="userName" class="form__label u-margin-bottom-small"
-                  >Email</label
-                >
-                <p class="">qu********@gmail.com</p>
-                <a href="">Thay đổi</a>
               </div>
               <button
                 type="submit"
                 class="btn btn__primary btn__primary--active u-center-text"
               >
+                Thay đổi
+              </button>
+              <button type="submit" class="btn btn__success u-center-text">
                 Lưu
+              </button>
+              <button type="submit" class="btn btn__danger u-center-text">
+                Hủy
               </button>
             </form>
           </div>
         </div>
       </section>
     </div>
+    <script src="./js/payment.js"></script>
   </body>
 </html>

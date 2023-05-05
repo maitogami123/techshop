@@ -212,7 +212,8 @@ fieldset {
   cursor: pointer; }
 
 .btn__primary {
-  padding: 1rem 1.8rem; }
+  padding: 1rem 1.8rem;
+  transition: all 0.3; }
   .btn__primary--active, .btn__primary:hover {
     background-color: #1c64f2;
     color: #ffffff !important;
@@ -238,6 +239,26 @@ fieldset {
   padding: 1rem 1.8rem;
   color: #111928;
   background-color: #e5e7eb; }
+
+.btn__danger {
+  padding: 1rem 1.8rem;
+  color: #f05252;
+  border: 2px solid #f05252;
+  background-color: #ffffff;
+  transition: all 0.2s; }
+  .btn__danger--active, .btn__danger:hover {
+    background-color: #f05252;
+    color: #ffffff; }
+
+.btn__success {
+  padding: 1rem 1.8rem;
+  color: #28a745;
+  border: 2px solid #28a745;
+  background-color: #ffffff;
+  transition: all 0.2s; }
+  .btn__success--active, .btn__success:hover {
+    background-color: #28a745;
+    color: #ffffff; }
 
 .cart {
   border-radius: 10px;
@@ -949,7 +970,8 @@ fieldset {
   width: 100%;
   justify-items: start;
   align-items: start;
-  padding: 2rem 1rem; }
+  padding: 2rem;
+  gap: 3rem; }
 
 .order-detail__titles {
   background-color: #e5e7eb; }
@@ -958,13 +980,19 @@ fieldset {
   grid-column: 1/6; }
 
 .order-detail__title:nth-child(2), .order-detail__product-quantity {
-  grid-column: 6/7; }
+  grid-column: 6/7;
+  justify-self: center; }
 
 .order-detail__title:nth-child(3), .order-detail__product-price {
   grid-column: 7/8; }
 
 .order-detail__title:nth-child(4), .order-detail__product-total-price {
   grid-column: 8/9; }
+
+.order-detail__product-warranty {
+  display: block;
+  color: #28a745;
+  font-style: italic; }
 
 .product-detail__areas {
   display: grid;
@@ -1366,3 +1394,10 @@ fieldset {
 
 .user-order__status {
   grid-column: 12/14; }
+
+.user__heading {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #d1d5db; }
+
+.user__information-form {
+  padding: 2rem 0; }

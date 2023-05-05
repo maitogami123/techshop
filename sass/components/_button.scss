@@ -18,6 +18,7 @@
 
   &__primary {
     padding: 1rem 1.8rem;
+    transition: all 0.3;
     &--active,
     &:hover {
       background-color: $color-btn-primary;
@@ -49,5 +50,29 @@
     padding: 1rem 1.8rem;
     color: $color-font-primary;
     background-color: $color-background;
+  }
+  &__danger {
+    padding: 1rem 1.8rem;
+    color: $color-red;
+    border: 2px solid $color-red;
+    background-color: $color-white;
+    transition: all 0.2s;
+    &--active,
+    &:hover {
+      background-color: $color-red;
+      color: $color-white;
+    }
+  }
+  &__success {
+    padding: 1rem 1.8rem;
+    color: $color-success;
+    border: 2px solid $color-success;
+    background-color: $color-white;
+    transition: all 0.2s;
+    &--active,
+    &:hover {
+      background-color: $color-success;
+      color: $color-white;
+    }
   }
 }

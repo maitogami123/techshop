@@ -38,7 +38,8 @@
     width: 100%;
     justify-items: start;
     align-items: start;
-    padding: 2rem 1rem;
+    padding: 2rem;
+    gap: 3rem;
   }
   &__titles {
     background-color: $color-background;
@@ -50,7 +51,9 @@
   &__title:nth-child(2),
   &__product-quantity {
     grid-column: 6/7;
+    justify-self: center;
   }
+
   &__title:nth-child(3),
   &__product-price {
     grid-column: 7/8;
@@ -58,5 +61,10 @@
   &__title:nth-child(4),
   &__product-total-price {
     grid-column: 8/9;
+  }
+  &__product-warranty {
+    display: block;
+    color: $color-success;
+    font-style: italic;
   }
 }

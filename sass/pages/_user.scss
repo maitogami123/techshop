@@ -134,4 +134,11 @@
       grid-column: 12/14;
     }
   }
+  &__heading {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid $color-border;
+  }
+  &__information-form {
+    padding: 2rem 0;
+  }
 }

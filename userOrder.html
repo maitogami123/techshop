@@ -108,7 +108,21 @@
           </nav>
         </div>
       </header>
-      <section class="container div-8-col u-margin-top-huge user__wrapper">
+      <div class="breadcrumb container">
+        <a href="./home.html" class="breadcrumb__link text-color--1">
+          <svg class="icon">
+            <use xlink:href="img/symbol-defs.svg#icon-home"></use>
+          </svg>
+          <span class="para--sm">Trang chủ</span>
+        </a>
+        <svg class="icon text-color--2">
+          <use xlink:href="img/symbol-defs.svg#icon-chevron-right"></use>
+        </svg>
+        <a href="" class="breadcrumb__link">
+          <span class="para--sm text-color--2">Hóa đơn</span>
+        </a>
+      </div>
+      <section class="container div-8-col user__wrapper">
         <div class="user__sidebar">
           <div class="user__sidebar--top">
             <img src="./img/Image.png" alt="User's Avatar" class="user__img" />
@@ -126,7 +140,7 @@
                 <span class="">Tài khoản của tôi</span>
               </a>
             </div>
-            <div class="user__sidebar-item sidebar__item">
+            <div class="user__sidebar-item sidebar__item sidebar__item--active">
               <a href="./userOrder.html" class="sidebar__link">
                 <i class="fa-sharp fa-solid fa-receipt"></i>
                 <span>Hóa đơn</span>
@@ -141,8 +155,8 @@
             >
               Tất cả
             </h3>
+            <h3 class="user-order__title text-color--2">Xử lý đơn hàng</h3>
             <h3 class="user-order__title text-color--2">Vận chuyển</h3>
-            <h3 class="user-order__title text-color--2">Đang giao</h3>
             <h3 class="user-order__title text-color--2">Hoàn thành</h3>
             <h3 class="user-order__title text-color--2">Đã hủy</h3>
           </div>
