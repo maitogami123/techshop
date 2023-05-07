@@ -25,3 +25,24 @@
     }
   }
 }
+.pagination-number,
+.pagination-button {
+  font-size: $default-font-size;
+  background-color: transparent;
+  border: none;
+  margin: 0.25rem 1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: $border-radius;
+  text-align: center;
+}
+
+.pagination-number:hover,
+.pagination-button:not(.disabled):hover {
+  background: #fff;
+}
+
+.pagination-number.active {
+  color: #fff;
+  background: #0085b6;
+}

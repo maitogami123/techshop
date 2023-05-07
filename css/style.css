@@ -271,8 +271,7 @@ fieldset {
     display: grid;
     gap: 3rem 1rem;
     grid-template: repeat(2, min-content)/repeat(2, 1fr);
-    grid-template-areas: "name name"
- "price btn"; }
+    grid-template-areas: "name name" "price btn"; }
   .cart__item {
     color: inherit;
     position: relative;
@@ -353,13 +352,13 @@ fieldset {
   transition: all 0.2s;
   z-index: 10; }
 
-/* .nav-user__user:hover .nav-user__dropdown {
+.nav-user__user:hover .nav-user__dropdown {
   opacity: 1;
-  visibility: visible; } */
+  visibility: visible; }
 
 .nav-user__dropdown {
-  opacity: 1;
-  /* visibility: hidden; */
+  opacity: 0;
+  visibility: hidden;
   list-style: none;
   position: absolute;
   top: 6rem;
@@ -551,8 +550,7 @@ fieldset {
     width: 100%;
     height: 100%;
     grid-template: repeat(2, 1fr)/repeat(2, 1fr);
-    grid-template-areas: "name name"
- "price btn"; }
+    grid-template-areas: "name name" "price btn"; }
   .search__item-name {
     grid-area: name;
     overflow: hidden;
@@ -752,6 +750,25 @@ fieldset {
       background-color: #1c64f2;
       border-radius: 100px;
       color: #ffffff; }
+
+.pagination-number,
+.pagination-button {
+  font-size: 1.6rem;
+  background-color: transparent;
+  border: none;
+  margin: 0.25rem 1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  text-align: center; }
+
+.pagination-number:hover,
+.pagination-button:not(.disabled):hover {
+  background: #fff; }
+
+.pagination-number.active {
+  color: #fff;
+  background: #0085b6; }
 
 .footer {
   background-color: #ffffff; }
@@ -1001,7 +1018,7 @@ fieldset {
   gap: 5rem; }
 
 .product__container {
-  gap: 3rem;
+  gap: 5rem 3rem;
   align-items: center;
   justify-items: center;
   position: relative; }
@@ -1093,6 +1110,9 @@ fieldset {
   text-decoration: line-through;
   font-size: 1.8rem;
   font-weight: 500; }
+
+.hidden {
+  display: none; }
 
 .payment__container {
   gap: 2rem; }
