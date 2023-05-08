@@ -16,7 +16,7 @@ if (isLoggedIn()) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    <?= $title ?? "Dyanmic Titles" ?>
+    <?= $title ?? "TechShop" ?>
   </title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -156,6 +156,5 @@ if (isLoggedIn()) {
       window.location.replace(url.replace('{searchStr}', `${searchString}`));
     })
   })
-
 </script>
 </html>

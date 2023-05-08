@@ -48,4 +48,18 @@ function startSession() {
     $_SESSION['showNav'] = true;
 }
 
-//TODO: Make a format money string
+function getOrderStatusClass($status) {
+    switch ($status){
+        case "1": case"3":
+            echo "color--btn";
+            break;
+        case "2": case "4":
+            echo "color-success";
+            break;
+        case "5":
+            echo "color--red";
+            break;
+        default:
+            echo "color--btn";
+    }
+}

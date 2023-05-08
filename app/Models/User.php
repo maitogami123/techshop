@@ -347,9 +347,12 @@ class User
   {
     $db = connect();
     $sql= "INSERT INTO userdetail(username, FirstName, LastName, Email) Values('$username', '$FirstName', '$LastName', '$Email')";
-    echo $sql;
     $result = $db->prepare($sql);
     $result -> execute();
+  }
+
+  public function updateUserDetail($data) {
+
   }
 
   public function createAccountGroup($username)
@@ -409,23 +412,24 @@ class User
 
     $data = $statement->fetch(PDO::FETCH_ASSOC);
 
-    $this->firstName = $data['FirstName'];
-    $this->lastName = $data['LastName'];
-    $this->email = $data['Email'];
-    $this->detailedAddress = $data['detailedAddress'];
-    $this->ward = $data['Ward/Village'];
-    $this->district = $data['District'];
-    $this->province = $data['City/Province'];
-    $this->phoneNumber = $data['Phone_Number'];
+    $this->firstName = $data['FirstName'] ?? "";
+    $this->lastName = $data['LastName'] ?? "";
+    $this->email = $data['Email'] ?? "";
+    $this->detailedAddress = $data['detailedAddress'] ?? "";
+    $this->district = $data['District'] ?? "";
+    $this->province = $data['City/Province'] ?? "";
+    $this->phoneNumber = $data['Phone_Number'] ?? "";
 
     $sql = null;
     $db = null;
 
     return $this;
   }
-  public function update()
-  {
 
+  // update user information
+  public function update(string $username, $formData)
+  {
+    
   }
   public function delete()
   {

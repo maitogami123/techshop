@@ -21,6 +21,9 @@ $routes->add('getCartItems', new Route(constant('URL_SUBFOLDER') . '/getCart', a
 $routes->add('paymentInfo', new Route(constant('URL_SUBFOLDER') . '/paymentInfo', array('controller' => 'CartController', 'method'=>'paymentInfoAction'), array()));
 
 $routes->add('viewOrders', new Route(constant('URL_SUBFOLDER') . '/orders', array('controller' => 'OrderController', 'method'=>'viewOrdersAction'), array()));
+$routes->add('viewOrderDetail', new Route(constant('URL_SUBFOLDER') . '/order/{orderId}', array('controller' => 'OrderController', 'method'=>'viewOrderDetailAction'), array('orderId' => '([^&]*)')));
+$routes->add('createOrder', new Route(constant('URL_SUBFOLDER') . '/createOrder', array('controller' => 'OrderController', 'method'=>'createOrderAction'), array()));
+$routes->add('cancelOrder', new Route(constant('URL_SUBFOLDER') . '/cancelOrder/{id}', array('controller' => 'OrderController', 'method'=>'cancelOrderAction'), array('id' => '([^&]*)')));
 $routes->add('viewPersonalInfo', new Route(constant('URL_SUBFOLDER') . '/information', array('controller' => 'OrderController', 'method'=>'viewPersonalInformationAction'), array()));
 
 $routes->add('login', new Route(constant('URL_SUBFOLDER') . '/login', array('controller' => 'SessionController', 'method'=>'loginAction'), array()));

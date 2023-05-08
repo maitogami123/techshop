@@ -28,10 +28,6 @@ class Products
       $product->setThumbNail($item['Thumbnail']);
       $product->setPrice($item['Price']);
       $product->setDiscount($item['Discount']);
-      $product->setCreatedAt($item['Created_at']);
-      $product->setModifiedAt($item['Modified_at']);
-      $product->setDeletedAt($item['Deleted_at']);
-      $product->setCreatedBy($item['Created_by']);
       $this->productList[] = $product;
     }
     $db = null;
@@ -57,16 +53,27 @@ class Products
       if ($item['Deleted_at'] != null) {
         continue;
       }
+      $countSql = "SELECT COUNT(`product_warranty`.`product_line`)
+                  FROM `product_warranty`
+                  WHERE `product_warranty`.`product_line` = :productLine
+                    AND `product_warranty`.`purchased_at` IS NULL
+                  GROUP BY `product_warranty`.`product_line`
+      ;";
+
+      $countStm = $db->prepare($countSql);
+      $countStm->execute([
+        ":productLine" => $item['Product_Line']
+      ]);
+
       $product = new Product();
+      $product->setStock($countStm->fetchColumn());
       $product->setProductLine($item['Product_Line']);
       $product->setProductName($item['Product_Name']);
       $product->setThumbNail($item['Thumbnail']);
       $product->setPrice($item['Price']);
       $product->setDiscount($item['Discount']);
-      $product->setCreatedAt($item['Created_at']);
-      $product->setModifiedAt($item['Modified_at']);
-      $product->setDeletedAt($item['Deleted_at']);
-      $product->setCreatedBy($item['Created_by']);
+      $product->setBrandID($item['BrandID']);
+      
       $this->productList[] = $product;
     }
     $db = null;
@@ -109,7 +116,8 @@ class Products
   public function search(string $searchStr)
   {
     $db = connect();
-    $search = "%$searchStr%";
+    $search = "%".join("%", explode(" ",$searchStr))."%";
+    
     $query = ("SELECT `product`.*
     FROM `product` 
       LEFT JOIN `productinfo` ON `productinfo`.`Product_Line` = `product`.`Product_Line` 

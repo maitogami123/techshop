@@ -30,7 +30,7 @@ if (!isLoggedIn() || !in_array('P_Create', $user->getPermissions()))
         </div>
         <div class="form-group">
           <label for="serial_number" class="form-label">Serial Number</label>
-          <button id='add-info'>More S/N</button>
+          <button id='add-sn'>More S/N</button>
           <div id="serial_number-group">
             <input class="form-control" name='serial_number[]' type='text' id="serial_number">
           </div>
@@ -81,6 +81,11 @@ if (!isLoggedIn() || !in_array('P_Create', $user->getPermissions()))
       e.preventDefault();
       let newRow = `<input class="form-control" name='information[]' type='text' id="information">`
       $('#information-group').append(newRow);
+    })
+    $('#add-sn').click((e) => {
+      e.preventDefault();
+      let newRow = `<input class="form-control" name='serial_number[]' type='text' id="serial_number">`
+      $('#serial_number-group').append(newRow);
     })
     $('#create-form').submit(function(e) {
       e.preventDefault();

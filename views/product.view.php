@@ -24,8 +24,13 @@
 </div>
 <section class="container product-detail__areas u-margin-bottom-huge">
     <div class="product__img--default">
-        <img src="<?php echo "/techshop/public/images/productImg/" . $product->getProductLine() . "/" . $product->getImages()[0] ?>"
-            alt="" />
+        <?php if($product->getImages()):?>
+            <img src="<?php echo "/techshop/public/images/productImg/" . $product->getProductLine() . "/" . $product->getImages()[0] ?>"
+                alt="" />
+        <?php else: ?>
+            <img src="<?php echo "/techshop/public/images/thumbNail/" . $product->getThumbNail() ?>"
+                alt="" />
+        <?php endif ?>
     </div>
     <div class="product__img-slide-list">
         <?php foreach ($product->getImages() as $image): ?>
@@ -59,10 +64,15 @@
                 </div>
             <?php endforeach ?>
         </div>
+        <?php if($product->getWarrantyPeriod() != null):?>
+            <span>Bảo hành: <?php echo $product->getWarrantyPeriod()?> tháng </span>
+        <?php else: ?>
+            <span>Không có bảo hành</span>
+        <?php endif?>
         <div class="product__prices">
             <?php if ($product->getDiscount() != 0): ?>
                 <div class="product__price--1 heading__secondary">
-                    <?php echo number_format($product->getPrice() * ($product->getDiscount() / 100)) ?>₫
+                    <?php echo number_format($product->getPrice() * (1 - $product->getDiscount() / 100)) ?>₫
                 </div>
                 <div class="product__price--2">
                     <?php echo number_format($product->getPrice()) ?>₫
@@ -75,9 +85,15 @@
             <?php endif ?>
 
         </div>
-        <button type="button" data-id="<?php echo $product->getProductLine()?>" class="add-to-cart btn btn__primary btn__primary--active u-center-text" >
-            Thêm vào giỏ hàng
-        </button>
+        <?php if ($product->getStock() <= 0):?>
+            <button type="button" class="btn btn__primary btn__primary--disabled u-center-text" disabled>
+                Hết hàng
+            </button>
+          <?php else: ?>
+            <button type="button" data-stock="<?php echo $product->getStock()?>" data-id="<?php echo $product->getProductLine()?>" class="add-to-cart btn btn__primary btn__primary--active u-center-text" >
+                Thêm vào giỏ hàng
+            </button>
+          <?php endif;?>
     </div>
 </section>
 <script>
@@ -92,20 +108,38 @@
       e.stopPropagation();
       const productId = $(this).attr('data-id')
       if (Object.keys(cart).find(key => key === productId)) {
-        cart[productId] = +cart[productId] + 1
+        if (+cart[productId] + 1 > $(this).attr('data-stock')) {
+          Swal.fire({
+            toast: true,
+            icon: 'error',
+            position: 'top-end',
+            title: 'Sản phẩm đã hết hàng!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        } else {
+          cart[productId] = +cart[productId] + 1
+          Swal.fire({
+            toast: true,
+            icon: 'success',
+            position: 'top-end',
+            title: 'Thêm sản phẩm vào giỏ hàng thành công!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
       } else {
         cart[productId] = 1
+        Swal.fire({
+            toast: true,
+            icon: 'success',
+            position: 'top-end',
+            title: 'Thêm sản phẩm vào giỏ hàng thành công!',
+            showConfirmButton: false,
+            timer: 1500
+          })
       }
       localStorage.setItem('cart', JSON.stringify(cart))
-
-      Swal.fire({
-        toast: true,
-        icon: 'success',
-        position: 'top-end',
-        title: 'Thêm sản phẩm vào giỏ hàng thành công!',
-        showConfirmButton: false,
-        timer: 1500
-      })
     })
   })
 </script>

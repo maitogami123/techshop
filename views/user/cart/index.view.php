@@ -140,7 +140,7 @@
                   ${formatPrice(productList[index].price)}
                 </h3>
                 <div class="shopping-cart__quantity-box gd--4">
-                  <input type="number" min="0" max="9" step="1" value="${productList[index].quantity}" 
+                  <input type="number" min="0" max="${productList[index].stock}" step="1" value="${productList[index].quantity}" 
                   class="shopping-cart__item-quantity" data-id="${productList[index].productLine}"/>
                 </div>
                 <svg class="shopping-cart__item-trash icon gd--5 u-margin-top-sm" onClick="deleteItemFromCart('${productList[index].productLine}')">

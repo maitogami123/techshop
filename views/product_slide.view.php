@@ -15,9 +15,15 @@
           <span class="cart__price font-color-1">
             <?php echo number_format($product->getPrice()) ?>đ
           </span>
-          <button class="btn btn__primary btn__primary--active add-to-cart" data-id="<?php echo $product->getProductLine()?>">
-            Thêm vào giỏ
-          </button>
+          <?php if ($product->getStock() <= 0):?>
+            <button class="btn" disabled>
+              Hết Hàng
+            </button>
+          <?php else: ?>
+            <button class="btn btn__primary btn__primary--active add-to-cart" data-stock="<?php echo $product->getStock()?>" data-id="<?php echo $product->getProductLine()?>">
+              Thêm vào giỏ
+            </button>
+          <?php endif;?>
         </div>
       </a>
       <?php
@@ -44,20 +50,39 @@
       e.stopPropagation();
       const productId = $(this).attr('data-id')
       if (Object.keys(cart).find(key => key === productId)) {
-        cart[productId] = +cart[productId] + 1
+        if (+cart[productId] + 1 > $(this).attr('data-stock')) {
+          Swal.fire({
+            toast: true,
+            icon: 'error',
+            position: 'top-end',
+            title: 'Sản phẩm đã hết hàng!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        } else {
+          cart[productId] = +cart[productId] + 1
+          Swal.fire({
+            toast: true,
+            icon: 'success',
+            position: 'top-end',
+            title: 'Thêm sản phẩm vào giỏ hàng thành công!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
       } else {
         cart[productId] = 1
+        Swal.fire({
+            toast: true,
+            icon: 'success',
+            position: 'top-end',
+            title: 'Thêm sản phẩm vào giỏ hàng thành công!',
+            showConfirmButton: false,
+            timer: 1500
+          })
       }
       localStorage.setItem('cart', JSON.stringify(cart))
 
-      Swal.fire({
-        toast: true,
-        icon: 'success',
-        position: 'top-end',
-        title: 'Thêm sản phẩm vào giỏ hàng thành công!',
-        showConfirmButton: false,
-        timer: 1500
-      })
     })
   })
 </script>
