@@ -1421,3 +1421,9 @@ fieldset {
 
 .user__information-form {
   padding: 2rem 0; }
+
+.user__img-preview {
+  border-radius: 100%;
+  height: auto;
+  width: 100%;
+  border-radius: 10px; }

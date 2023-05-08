@@ -220,33 +220,35 @@
               <div class="form__field-box">
                 <div class="form__field u-margin-bottom-medium">
                   <label
-                    for="order__address-city"
+                    for="user__address-city"
                     class="form__label u-margin-bottom-small"
                     >Tỉnh, thành phố:</label
                   >
                   <select
                     type="text"
-                    id="order__address-city"
+                    id="user__address-city"
                     name=""
                     class="form__input"
                   ></select>
                 </div>
                 <div class="form__field u-margin-bottom-medium">
                   <label
-                    for="order__address-district"
+                    for="user__address-district"
                     class="form__label u-margin-bottom-small"
                     >Quận, huyện:</label
                   >
                   <select
                     type="text"
-                    id="order__address-district"
+                    id="user__address-district"
                     name=""
                     class="form__input"
                   ></select>
                 </div>
               </div>
               <div class="form__field u-margin-bottom-medium">
-                <label for="password" class="form__label u-margin-bottom-small"
+                <label
+                  for="user__address"
+                  class="form__label u-margin-bottom-small"
                   >Địa chỉ chi tiết:</label
                 >
                 <input
@@ -256,6 +258,24 @@
                   placeholder="Số nhà, tên đường, xã, phường, thị trấn,..."
                   class="form__input"
                 />
+              </div>
+              <div class="form__field-box u-margin-bottom-medium">
+                <div class="form__field">
+                  <label class="form__label u-margin-bottom-small"
+                    >Ảnh đại điện</label
+                  >
+                  <img src="./img/Image.png" alt="" class="user__img-preview" />
+                </div>
+                <div class="form__field" style="align-self: center">
+                  <input
+                    class="form__input"
+                    type="file"
+                    name=""
+                    id="user__add-img"
+                    accept="image/jpeg, image/png, image/jpg"
+                    required
+                  />
+                </div>
               </div>
               <button
                 type="submit"
@@ -275,5 +295,19 @@
       </section>
     </div>
     <script src="./js/payment.js"></script>
+    <script>
+      const inputFileImg = document.querySelector("#user__add-img");
+      const displayImgPreview = document.querySelector(".user__img-preview");
+      inputFileImg.addEventListener("change", function (e) {
+        const files = e.target.files[0];
+        if (!files.type.match("image")) return;
+        let saveImgPath = URL.createObjectURL(files);
+        displayImgPreview.src = saveImgPath;
+        document.querySelector(".img-file-label").innerHTML =
+          inputFileImg.value.substring(
+            inputFileImg.value.lastIndexOf("\\") + 1
+          );
+      });
+    </script>
   </body>
 </html>
