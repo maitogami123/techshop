@@ -196,7 +196,7 @@
                   <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                       <li class="breadcrumb-item">
-                        <a href="javascript: void(0);">Hyper</a>
+                        <a href="javascript: void(0);">Techshop</a>
                       </li>
 
                       <li class="breadcrumb-item active">Products</li>
@@ -220,6 +220,7 @@
                           data-bs-toggle="modal"
                           data-bs-target="#add-new-product"
                         >
+                          <i class="mdi mdi-file-plus"></i>
                           Add product
                         </button>
                       </div>
@@ -308,7 +309,8 @@
                                 type="button"
                                 class="action-icon btn"
                                 data-bs-toggle="modal"
-                                data-bs-target=""
+                                data-bs-target="#see-product"
+                                id="see-product-selected"
                               >
                                 <i class="mdi mdi-eye"></i>
                               </button>
@@ -318,10 +320,25 @@
                                 class="action-icon btn"
                                 data-bs-toggle="modal"
                                 data-bs-target="#change-product"
+                                id="edit-product-selected"
                               >
                                 <i class="mdi mdi-square-edit-outline"></i>
                               </button>
-                              <button type="button" class="action-icon btn">
+
+                              <button
+                                type="button"
+                                class="action-icon btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#update-quantity-product"
+                                id="update-quantity-product-selected"
+                              >
+                                <i class="mdi mdi-database-plus"></i>
+                              </button>
+                              <button
+                                type="button"
+                                class="action-icon btn"
+                                id="delete-product-selected"
+                              >
                                 <i class="mdi mdi-delete"></i>
                               </button>
                             </td>
@@ -586,6 +603,15 @@
                   accept="image/*"
                   multiple
                 />
+                <div>
+                  <img
+                    src="/img/Image.png"
+                    alt="image"
+                    class="img-fluid rounded"
+                    width="200"
+                  />
+                  <i class="mdi mdi-delete"></i>
+                </div>
               </div>
               <div class="row g-2 mb-3">
                 <div class="col-sm-6">
@@ -678,7 +704,7 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal -->
+
     <div
       id="change-product"
       class="modal fade"
@@ -686,11 +712,11 @@
       role="dialog"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header modal-colored-header bg-info">
             <h4 class="modal-title" id="fill-info-modalLabel">
-              Change product's information
+              Change Product's Information
             </h4>
             <button
               type="button"
@@ -708,7 +734,7 @@
                   type="text"
                   id="product-line"
                   required=""
-                  placeholder=""
+                  value="CON MẸ NÓ"
                 />
               </div>
               <div class="mb-3">
@@ -718,48 +744,117 @@
                   type="text"
                   id="product-name"
                   required=""
-                  placeholder=""
+                  value="Báo Quá Báo"
                 />
               </div>
 
-              <div class="mb-3">
-                <label class="form-label" for="product-img">Image</label>
-                <input
-                  class="form-control"
-                  type="file"
-                  id="product-img"
-                  accept="image/*"
-                />
-              </div>
               <div class="mb-3">
                 <label class="form-label" for="product-thumbnail"
                   >Thumbnail</label
                 >
                 <input
-                  class="form-control"
+                  class="form-control mb-2"
                   type="file"
                   id="product-thumbnail"
                   accept="image/*"
+                />
+                <div class="d-flex flex-row gap-3">
+                  <div style="position: relative">
+                    <img
+                      src="/img/Image.png"
+                      alt="image"
+                      class="img-fluid rounded"
+                      width="200"
+                    />
+                    <div
+                      class="position-absolute font-20 link-danger"
+                      style="top: 5px; right: 5px; cursor: pointer"
+                      id="delete-img"
+                    >
+                      <i class="mdi mdi-delete"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="product-img">Thumbnail</label>
+                <input
+                  class="form-control mb-2"
+                  type="file"
+                  id="product-img"
+                  accept="image/*"
                   multiple
                 />
+
+                <div class="d-flex flex-row gap-3">
+                  <div style="position: relative">
+                    <img
+                      src="/img/Image.png"
+                      alt="image"
+                      class="img-fluid rounded"
+                      width="200"
+                    />
+                    <div
+                      class="position-absolute font-20 link-danger"
+                      style="top: 5px; right: 5px; cursor: pointer"
+                      id="delete-img"
+                    >
+                      <i class="mdi mdi-delete"></i>
+                    </div>
+                  </div>
+                  <div style="position: relative">
+                    <img
+                      src="/img/Image.png"
+                      alt="image"
+                      class="img-fluid rounded"
+                      width="200"
+                    />
+                    <div
+                      class="position-absolute font-20 link-danger"
+                      style="top: 5px; right: 5px; cursor: pointer"
+                      id="delete-img"
+                    >
+                      <i class="mdi mdi-delete"></i>
+                    </div>
+                  </div>
+                  <div style="position: relative">
+                    <img
+                      src="/img/Image.png"
+                      alt="image"
+                      class="img-fluid rounded"
+                      width="200"
+                    />
+                    <div
+                      class="position-absolute font-20 link-danger"
+                      style="top: 5px; right: 5px; cursor: pointer"
+                      id="delete-img"
+                    >
+                      <i class="mdi mdi-delete"></i>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="row g-2 mb-3">
                 <div class="col-sm-6">
-                  <label class="form-label" for="product-price">Price</label>
+                  <label class="form-label" for="change-product-price"
+                    >Price</label
+                  >
                   <input
                     class="form-control"
                     type="number"
-                    id="product-price"
+                    id="change-product-price"
+                    value="1000000"
                   />
                 </div>
                 <div class="col-sm-6">
-                  <label for="product-discount" class="form-label"
+                  <label for="change-product-discount" class="form-label"
                     >Discount</label
                   >
                   <input
                     class="form-control"
                     type="number"
-                    id="product-discount"
+                    id="change-product-discount"
+                    value="0"
                   />
                 </div>
               </div>
@@ -768,7 +863,7 @@
                   <label for="example-select" class="form-label">Brand</label>
                   <select class="form-select" id="example-select">
                     <option>HP</option>
-                    <option>DELL</option>
+                    <option selected>DELL</option>
                     <option>MSI</option>
                     <option>ASUS</option>
                   </select>
@@ -779,7 +874,7 @@
                   >
                   <select class="form-select" id="example-select">
                     <option>Máy tính xác tay</option>
-                    <option>Laptop Gaming</option>
+                    <option selected>Laptop Gaming</option>
                     <option>MSI</option>
                     <option>ASUS</option>
                   </select>
@@ -825,6 +920,228 @@
                 </button>
                 <button class="btn btn-primary" type="submit">
                   Add new product
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <div
+      id="see-product"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header modal-colored-header bg-info">
+            <h4 class="modal-title" id="fill-info-modalLabel">
+              Product's Information
+            </h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-hidden="true"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="ps-3 pe-3" action="#">
+              <div class="mb-3">
+                <label for="product-line" class="form-label">Line</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="product-line"
+                  required=""
+                  value="HP-SUPER-MAN"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="product-name" class="form-label">Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="product-name"
+                  required=""
+                  value="HP SUPER MAN"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="see-product-thumbnail"
+                  >Thumbnail</label
+                >
+                <div>
+                  <img
+                    src="/img/Image.png"
+                    alt="image"
+                    class="img-fluid rounded"
+                    id="see-product-thumbnail"
+                    width="200"
+                  />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="see-product-img">Images</label>
+                <div>
+                  <img
+                    src="/img/Image.png"
+                    alt="image"
+                    class="img-fluid rounded"
+                    width="200"
+                  />
+                  <img
+                    src="/img/Image.png"
+                    alt="image"
+                    class="img-fluid rounded"
+                    width="200"
+                  />
+                  <img
+                    src="/img/Image.png"
+                    alt="image"
+                    class="img-fluid rounded"
+                    width="200"
+                  />
+                </div>
+              </div>
+              <div class="row g-2 mb-3">
+                <div class="col-sm-6">
+                  <label class="form-label" for="product-price">Price</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    id="product-price"
+                    value="10000000"
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="product-discount" class="form-label"
+                    >Discount(%):</label
+                  >
+                  <input
+                    class="form-control"
+                    type="number"
+                    id="product-discount"
+                    value="0"
+                  />
+                </div>
+              </div>
+              <div class="row g-2 mb-3">
+                <div class="col-sm-6">
+                  <label for="brand-select" class="form-label">Brand</label>
+
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="brand-select"
+                    value="HP"
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="category-select" class="form-label"
+                    >Category</label
+                  >
+
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="category-select"
+                    value="Máy tính xách tay"
+                  />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="information" class="form-label">Information</label>
+                <div id="information-group">
+                  <input
+                    class="form-control"
+                    name="information[]"
+                    type="text"
+                    id="information"
+                  />
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <label for="serial_number" class="form-label"
+                  >Serial Number</label
+                >
+                <div id="serial_number-group">
+                  <input
+                    class="form-control"
+                    name="serial_number[]"
+                    type="text"
+                    id="serial_number"
+                  />
+                </div>
+              </div>
+              <div class="mb-3 modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-light"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <div
+      id="update-quantity-product"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header modal-colored-header bg-info">
+            <h4 class="modal-title" id="fill-info-modalLabel">
+              Update Quantity Product
+            </h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-hidden="true"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="ps-3 pe-3" action="#">
+              <div class="form-group mb-3">
+                <label for="serial_number" class="form-label"
+                  >Serial Number</label
+                >
+                <button id="add-info" class="btn btn-link btn-sm">
+                  More S/N
+                </button>
+                <div id="serial_number-group">
+                  <input
+                    class="form-control"
+                    name="serial_number[]"
+                    type="text"
+                    id="serial_number"
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3 modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-light"
+                  data-bs-dismiss="modal"
+                >
+                  Close
                 </button>
               </div>
             </form>
