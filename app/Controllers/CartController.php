@@ -26,6 +26,7 @@ class CartController {
         'price' => ($product->getPrice()),
         'quantity' => $item,
         'discount' => $product->getDiscount(),
+        'stock' => $product->getStock(),
         'thumbnail' => $product->getThumbnail()
       );
     }

@@ -24,38 +24,52 @@ class PageController
 		startSession();
 		$brand = $_GET['content'];
 		$sections = [];
-		switch($brand) {
-			case "laptop":
+		switch ($brand) {
+			case "Máy tính xách tay":
 				$sections[] = "ACER";
 				$sections[] = "MSI";
 				$sections[] = "HP";
 				$sections[] = "DELL";
+				
 				break;
 			case "vga":
 				$sections[] = "NVIDIA";
 				$sections[] = "AMD";
-				$sections[] = "Intel";
+				$sections[] = "INTEL";
 				break;
 			case "cpu":
 				$sections[] = "AMD";
-				$sections[] = "Intel";
+				$sections[] = "INTEL";
 				break;
 			default:
 				$sections[] = "Máy tính xách tay";
 				$sections[] = "PC";
 				$sections[] = "VGA";
 				$sections[] = "CPU";
+				foreach ($sections as $section) {
+					$productList = new Products();
+					$productList->readByCategory($section);
+					$name = 'product_slide';
+					require APP_ROOT . "/views/$name.view.php";
+				}
+				die();
 		}
-
-		foreach($sections as $section) {
+		foreach ($sections as $section) {
 			$productList = new Products();
-			$productList->readByCategory($section);
+			$productList->readByCategory($brand);
+			global $global_section;
+			$global_section = $section;
+			$productList->productList = array_filter(
+				$productList->productList,
+				fn($item) => $item->getBrandID() == $global_section
+			);
 			$name = 'product_slide';
 			require APP_ROOT . "/views/$name.view.php";
 		}
 	}
 
-	public function searchAction(string $searchStr, RouteCollection $routes, Request $request) {
+	public function searchAction(string $searchStr, RouteCollection $routes, Request $request)
+	{
 		startSession();
 		$productList = new Products();
 		$productList->search($searchStr);

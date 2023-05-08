@@ -40,7 +40,7 @@
 
 <nav class="nav container">
     <a data-category='All' class="btn btn__primary btn__primary--active nav__link">Tất cả</a>
-    <a data-category='laptop' class="btn btn__primary nav__link">Laptop</a>
+    <a data-category='Máy tính xách tay' class="btn btn__primary nav__link">Laptop</a>
     <a data-category='pc' class="btn btn__primary nav__link">Máy bàn</a>
     <a data-category='vga' class="btn btn__primary nav__link">VGA</a>
     <a data-category='cpu' class="btn btn__primary nav__link">CPU</a>

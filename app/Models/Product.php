@@ -22,9 +22,11 @@ class Product
   protected $createdBy;
   protected $brandID;
   protected $category;
+  protected $warrantyPeriod;
   protected $infor = [];
   protected $images = [];
   protected $serialNumbers = [];
+  protected $stock;
   /**
    * Get the value of productLine
    */
@@ -308,10 +310,51 @@ class Product
     return $this;
   }
 
+  /**
+   * Get the value of stock
+   */
+  public function getStock()
+  {
+    return $this->stock;
+  }
+
+  /**
+   * Set the value of stock
+   *
+   * @return  self
+   */
+  public function setStock($stock)
+  {
+    $this->stock = $stock;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of warrantyPeriod
+   */ 
+  public function getWarrantyPeriod()
+  {
+    return $this->warrantyPeriod;
+  }
+
+  /**
+   * Set the value of warrantyPeriod
+   *
+   * @return  self
+   */ 
+  public function setWarrantyPeriod($warrantyPeriod)
+  {
+    $this->warrantyPeriod = $warrantyPeriod;
+
+    return $this;
+  }
+
   // CRUD functions
 
   public function create(array $data, array $files)
   {
+    $db = connect();
     $this->productLine = $data['product_line'];
     $this->productName = $data['product_name'];
     $this->price = $data['price'];
@@ -330,7 +373,6 @@ class Product
       //   throw new FormSizeFileException("File isn't in the correct format!");
       move_uploaded_file($tmp_name, APP_ROOT . "/public/images/thumbnail/$this->productLine.$ext");
       try {
-        $db = connect();
         // Add product to db
         $sql = "INSERT INTO `product` (`Product_Line`, `Product_Name`, `Thumbnail`, `Price`, 
           `Discount`, `Created_at`, `Modified_at`, `Deleted_at`, `Created_by`, `BrandID`, `Category`) 
@@ -342,8 +384,33 @@ class Product
         echo $err->getMessage();
       }
 
+      $productImgSql = "INSERT INTO `productimage` (`ImageID`, `ProductLine`, `imgPath`) VALUES (NULL, :productLine, :imgPath)";
+      $productImgStm = $db->prepare($productImgSql);
+      foreach ($_FILES["image"]["error"] as $key => $error) {
+        if ($error == UPLOAD_ERR_OK) {
+          $tmp_name = $_FILES["image"]["tmp_name"][$key];
+          $ext = pathinfo($name, PATHINFO_EXTENSION);
+          // basename() may prevent filesystem traversal attacks;
+          // further validation/sanitation of the filename may be appropriate
+          if (!is_dir(APP_ROOT . "/public/images/productImg/$this->productLine/")) {
+            mkdir(APP_ROOT . "/public/images/productImg/$this->productLine/");
+          }
+          
+          $name = basename($_FILES["image"]["name"][$key]);
+          move_uploaded_file($tmp_name, APP_ROOT . "/public/images/productImg/$this->productLine/$this->productLine-$key.$ext");
+
+          $productImgStm->execute([
+            ':productLine' => $data['product_line'],
+            ':imgPath' => "$this->productLine-$key.$ext"
+          ]);
+
+        } else {
+          throw new FileException('File corrupted!');
+        }
+      }
+
       // Sau này tách ra, mà chắc cũng không cần lắm :))
-      // Inser infomation for product
+      // Insert infomation for product
       $sql = "INSERT INTO `productinfo` (`Info_ID`, `Product_Line`, `Product_Information`) VALUES (NULL, :productLine, :productInfo)";
 
       $statement = $db->prepare($sql);
@@ -353,9 +420,25 @@ class Product
           ':productInfo' => $info
         ]);
       }
+
+      $sql = "INSERT INTO `product_warranty` (`product_id`, `purchased_at`, `warranty_period`, `product_line`) VALUES (:product_id, NULL, NULL, :productLine)";
+      $statement = $db->prepare($sql);
+      try {
+        foreach ($data['serial_number'] as $serialNumber) {
+          $statement->execute([
+            ':productLine' => $data['product_line'],
+            ':product_id' => $serialNumber
+          ]);
+        }
+      } catch (PDOException $err) {
+        echo $err->getMessage();
+      }
+
     } else {
       throw new FileException('File corrupted!');
     }
+
+
   }
 
 
@@ -363,7 +446,24 @@ class Product
   {
     $db = connect();
 
-    $query = ('SELECT * FROM product WHERE Product_Line = :id');
+    $countSql = "SELECT COUNT(`product_warranty`.`product_line`)
+                  FROM `product_warranty`
+                  WHERE `product_warranty`.`product_line` = :productLine
+                    AND `product_warranty`.`purchased_at` IS NULL
+                  GROUP BY `product_warranty`.`product_line`
+    ;";
+
+    $countStm = $db->prepare($countSql);
+    $countStm->execute([
+      ":productLine" => $id
+    ]);
+
+    $this->stock = $countStm->fetchColumn();
+
+    $query = ('SELECT *, `warrantyperiod`.`Months`
+                FROM product 
+                LEFT JOIN `warrantyperiod` ON `product`.`warranty_period` = `warrantyperiod`.`WarrantyId`
+                WHERE Product_Line = :id');
     $statement = $db->prepare($query);
     $statement->bindParam(':id', $id, PDO::PARAM_STR);
     $statement->execute();
@@ -374,6 +474,7 @@ class Product
       $this->productName = $data['Product_Name'];
       $this->thumbnail = $data['Thumbnail'];
       $this->price = $data['Price'];
+      $this->warrantyPeriod = $data['Months'];
       $this->discount = $data['Discount'];
       $this->createdAt = $data['Created_at'];
       $this->modifiedAt = $data['Modified_at'];
@@ -424,6 +525,7 @@ class Product
     $statement = $db->prepare($query);
     $statement->bindParam(':id', $id, PDO::PARAM_STR);
     $statement->execute();
-    
+
   }
+
 }

@@ -19,12 +19,10 @@ class RegisterController
 		$_SESSION['showNav'] = false;
 		$name = 'register';
 		if($request -> isMethod('POST')){
-			// echo "fjlakjflajsf";
 			$user = new User();
 			$this -> createAccount($user);
 		}
 		else {
-			# code...
 			 require_once APP_ROOT . '/views/layout.view.php';
 		}
 	}
@@ -38,7 +36,6 @@ class RegisterController
 			$password = $_POST['Password'];
 			$LastNname= $_POST['lastName'];
 			$Email= $_POST['Email'];
-			# code...
 			$user -> createAccount($username, $password);
 			$user -> createUserDetail($username, $FirstNname, $LastNname, $Email);
 			$user -> createAccountGroup($username);
