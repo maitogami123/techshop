@@ -78,4 +78,11 @@ class OrderController {
   public function getUserOrder(string $username, RouteCollection $routes, Request $request) {
     startSession();
   }
+
+  public function getOrderDetail(string $id, RouteCollection $routes, Request $request) {
+    startSession();
+    $order = new Order();
+    $data = $order->read($id);
+    require_once APP_ROOT . '/views/admin/orders/detail.view.php';
+  }
 }

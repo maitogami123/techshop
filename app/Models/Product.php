@@ -28,6 +28,7 @@ class Product
   protected $images = [];
   protected $serialNumbers = [];
   protected $stock;
+  protected $warrantyId;
   /**
    * Get the value of productLine
    */
@@ -370,6 +371,26 @@ class Product
 
     return $this;
   }
+
+  /**
+   * Get the value of warrantyId
+   */ 
+  public function getWarrantyId()
+  {
+    return $this->warrantyId;
+  }
+
+  /**
+   * Set the value of warrantyId
+   *
+   * @return  self
+   */ 
+  public function setWarrantyId($warrantyId)
+  {
+    $this->warrantyId = $warrantyId;
+
+    return $this;
+  }
   
   // CRUD functions
 
@@ -384,6 +405,7 @@ class Product
     $this->brandID = $data['brand'];
     $this->category = $data['category'];
     $this->infor = $data['information'];
+    $this->warrantyId = $data['warranty'];
 
     if ($files['thumbnail']['error'] == UPLOAD_ERR_OK) {
       // move uploaded thumbnail to public folder
@@ -396,9 +418,9 @@ class Product
       try {
         // Add product to db
         $sql = "INSERT INTO `product` (`Product_Line`, `Product_Name`, `Thumbnail`, `Price`, 
-          `Discount`, `Created_at`, `Modified_at`, `Deleted_at`, `Created_by`, `BrandID`, `Category`) 
+          `Discount`, `warranty_period`, `Created_at`, `Modified_at`, `Deleted_at`, `Created_by`, `BrandID`, `Category`) 
           VALUES ('$this->productLine', '$this->productName', '$this->productLine.$ext', $this->price,
-          '$this->discount', current_timestamp(), NULL, NULL, '$this->createdBy', '$this->brandID', '$this->category')";
+          '$this->discount', '$this->warrantyId', current_timestamp(), NULL, NULL, '$this->createdBy', '$this->brandID', '$this->category')";
         $statement = $db->prepare($sql);
         $statement->execute();
       } catch (PDOException $err) {
@@ -509,6 +531,7 @@ class Product
       $this->deletedAt = $data['Deleted_at'];
       $this->createdBy = $data['Created_by'];
       $this->brandID = $data['BrandID'];
+      $this->warrantyId = $data['warranty_period'];
       $this->categoryName = $data['CategoryName'];
     } else {
       throw new ResourceNotFoundException("Sản phẩm không tồn tại!");
@@ -550,6 +573,7 @@ class Product
     $this->discount = $data['discount'] ?? 0;
     $this->brandID = $data['brand'];
     $this->category = $data['category'];
+    $this->warrantyId = $data['warranty'];
 
     // clean up productInfo
     $cleanInfoSql = "DELETE FROM productinfo WHERE `productinfo`.`Product_Line` = :productLine";
@@ -566,7 +590,8 @@ class Product
                     `Price` = :price, 
                     `Discount` = :discount, 
                     `BrandID` = :brandID, 
-                    `Category` = :category
+                    `Category` = :category,
+                    `warranty_period` = :warranty
                   WHERE `product`.`Product_Line` = :productLine";
 
     $updateStm = $db->prepare($updateSql);
@@ -576,6 +601,7 @@ class Product
       ':discount' => $this->discount,
       ':brandID' => $this->brandID,
       ':category' => $this->category,
+      ':warranty' => $this->warrantyId,
       ':productLine' => $this->productLine
     ]);
 

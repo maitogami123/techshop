@@ -7,6 +7,7 @@ use App\Models\Orders;
 use App\Models\Products;
 use App\Models\User;
 use App\Models\Users;
+use App\Models\Warranties;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouteCollection;
 
@@ -25,6 +26,8 @@ class AdminController {
     //   redirect(getPath($routes, 'homepage'));
     //   die();
     // }
+    $warrantyList = new Warranties();
+    $warrantyList->getAll();
     $productList = new Products();
     $productList->getAll(includeDeleted: true, includeOutOfStock: true);
     $brands = new Brands();

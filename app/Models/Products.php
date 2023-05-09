@@ -76,6 +76,7 @@ class Products
       $product->setPrice($item['Price']);
       $product->setDiscount($item['Discount']);
       $product->setBrandID($item['BrandID']);
+      $product->setCategory($item['Category']);
       $this->productList[] = $product;
     }
     $db = null;

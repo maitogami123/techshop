@@ -40,6 +40,8 @@
       $('.status-change-btn').removeClass('user-order__title--active')
       $(this).addClass('user-order__title--active')
     })
+
+    
   })
 
 </script>

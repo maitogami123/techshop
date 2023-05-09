@@ -7,6 +7,9 @@ if (!isLoggedIn()) {
 if (isLoggedIn()) {
   $user = new User();
   $user = unserialize($_SESSION['user']);
+  if ($user->getUserGroup() == 'CUSTOMER') {
+    redirect(getPath($routes, 'homepage'));
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -80,15 +83,15 @@ if (isLoggedIn()) {
             </a>
           </li>
           <li class="side-nav-item">
-            <a href="<?php echo getPath($routes, 'adminBrands')?>" class="side-nav-link">
-              <i class="uil-home-alt"></i>
-              <span> Brands </span>
-            </a>
-          </li>
-          <li class="side-nav-item">
             <a href="<?php echo getPath($routes, 'adminRoles')?>" class="side-nav-link">
               <i class="uil-home-alt"></i>
               <span> Roles </span>
+            </a>
+          </li>
+          <li class="side-nav-item">
+            <a href="<?php echo getPath($routes, 'adminBrands')?>" class="side-nav-link">
+              <i class="uil-home-alt"></i>
+              <span> Brands </span>
             </a>
           </li>
         </ul>

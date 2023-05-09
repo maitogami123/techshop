@@ -1,11 +1,11 @@
-const paginationNumbers = document.getElementById("pagination-numbers");
-const paginatedList = document.getElementById("render-cart");
-const listItems = paginatedList.querySelectorAll(".cart");
-const nextButton = document.getElementById("next-button");
-const prevButton = document.getElementById("prev-button");
+const _paginationNumbers = document.getElementById("pagination-numbers");
+const _paginatedList = document.getElementById("render-cart");
+const _listItems = _paginatedList.querySelectorAll(".cart");
+const _nextButton = document.getElementById("next-button");
+const _prevButton = document.getElementById("prev-button");
 
-const paginationLimit = 12;
-const pageCount = Math.ceil(listItems.length / paginationLimit);
+const _paginationLimit = 4;
+const _pageCount = Math.ceil(_listItems.length / _paginationLimit);
 let currentPage = 1;
 
 const disableButton = (button) => {
@@ -20,15 +20,15 @@ const enableButton = (button) => {
 
 const handlePageButtonsStatus = () => {
   if (currentPage === 1) {
-    disableButton(prevButton);
+    disableButton(_prevButton);
   } else {
-    enableButton(prevButton);
+    enableButton(_prevButton);
   }
 
-  if (pageCount === currentPage) {
-    disableButton(nextButton);
+  if (_pageCount === currentPage) {
+    disableButton(_nextButton);
   } else {
-    enableButton(nextButton);
+    enableButton(_nextButton);
   }
 };
 
@@ -49,11 +49,11 @@ const appendPageNumber = (index) => {
   pageNumber.setAttribute("page-index", index);
   pageNumber.setAttribute("aria-label", "Page " + index);
 
-  paginationNumbers.appendChild(pageNumber);
+  _paginationNumbers.appendChild(pageNumber);
 };
 
-const getPaginationNumbers = () => {
-  for (let i = 1; i <= pageCount; i++) {
+const get_PaginationNumbers = () => {
+  for (let i = 1; i <= _pageCount; i++) {
     appendPageNumber(i);
   }
 };
@@ -64,33 +64,33 @@ const setCurrentPage = (pageNum) => {
   handleActivePageNumber();
   handlePageButtonsStatus();
 
-  const prevRange = (pageNum - 1) * paginationLimit;
-  const currRange = pageNum * paginationLimit;
+  const prevRange = (pageNum - 1) * _paginationLimit;
+  const currRange = pageNum * _paginationLimit;
 
-  listItems.forEach((item, index) => {
+  _listItems.forEach((item, index) => {
     item.classList.add("hidden");
     if (index >= prevRange && index < currRange) {
       item.classList.remove("hidden");
-      if (listItems.length - index <= 3) {
-        paginatedList.classList.add("grid-4-col");
-        paginatedList.classList.remove("grid-4-col-auto");
+      if (_listItems.length - index <= 3) {
+        _paginatedList.classList.add("grid-4-col");
+        _paginatedList.classList.remove("grid-4-col-auto");
       } else {
-        paginatedList.classList.remove("grid-4-col");
-        paginatedList.classList.add("grid-4-col-auto");
+        _paginatedList.classList.remove("grid-4-col");
+        _paginatedList.classList.add("grid-4-col-auto");
       }
     }
   });
 };
 
 window.addEventListener("load", () => {
-  getPaginationNumbers();
+  get_PaginationNumbers();
   setCurrentPage(1);
 
-  prevButton.addEventListener("click", () => {
+  _prevButton.addEventListener("click", () => {
     setCurrentPage(currentPage - 1);
   });
 
-  nextButton.addEventListener("click", () => {
+  _nextButton.addEventListener("click", () => {
     setCurrentPage(currentPage + 1);
   });
 

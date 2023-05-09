@@ -24,8 +24,9 @@ class PageController
 		startSession();
 		$brand = $_GET['content'];
 		$sections = [];
+		$limit = 4;
 		switch ($brand) {
-			case "Máy tính xách tay":
+			case "laptop":
 				$sections[] = "ACER";
 				$sections[] = "MSI";
 				$sections[] = "HP";
@@ -37,18 +38,21 @@ class PageController
 				$sections[] = "AMD";
 				$sections[] = "INTEL";
 				break;
+			case "pc":
+				$limit = 12;
+				$sections[] = "NoBrand";
 			case "cpu":
 				$sections[] = "AMD";
 				$sections[] = "INTEL";
 				break;
-			default:
-				$sections[] = "Máy tính xách tay";
-				$sections[] = "PC";
-				$sections[] = "VGA";
-				$sections[] = "CPU";
+			case "gear":
+				$sections[] = "Mice";
+				$sections[] = "Keyboard";
+				$sections[] = "Headphone";
 				foreach ($sections as $section) {
 					$productList = new Products();
 					$productList->readByCategory($section);
+					$brand = $section;
 					$name = 'product_slide';
 					require APP_ROOT . "/views/$name.view.php";
 				}
@@ -74,6 +78,20 @@ class PageController
 		$productList = new Products();
 		$productList->search($searchStr);
 		$name = 'search_result';
+		require APP_ROOT . "/views/layout.view.php";
+	}
+
+	public function viewProduct(RouteCollection $routes, Request $request) {
+		startSession();
+		$productList = new Products();
+		$productList->readByCategory(json_decode($_POST['category']));
+		global $global_section;
+		$global_section = json_decode($_POST['brand']);
+		$productList->productList = array_filter(
+			$productList->productList,
+			fn($item) => $item->getBrandID() == $global_section
+		);
+		$name = 'product_filter';		
 		require APP_ROOT . "/views/layout.view.php";
 	}
 }

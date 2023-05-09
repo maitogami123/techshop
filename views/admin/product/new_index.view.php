@@ -89,7 +89,8 @@
                       </button>
                       <?php if ($product->getDeletedAt() == null): ?>
                         <button type="button" class="action-icon btn" data-bs-toggle="modal"
-                          data-bs-target="#change-product" data-product-id="<?php echo $product->getProductLine() ?>">
+                          data-bs-target="#change-product" 
+                          data-product-id="<?php echo $product->getProductLine() ?>">
                           <i class="mdi mdi-square-edit-outline"></i>
                         </button>
                         <button type="button" class="action-icon btn" data-bs-toggle="modal"
@@ -150,6 +151,17 @@
             <div class="col-sm-6">
               <label for="product-discount" class="form-label">Discount</label>
               <input class="form-control" type="number" name='discount' id="product-discount" />
+            </div>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-sm-6">
+              <label for="example-select" class="form-label">Warranty Period</label>
+              <select class="form-select" name="warranty" id="example-select">
+                <option value='null'>Không có bảo hành</option>
+                <?php foreach ($warrantyList->warrantyList as $warranty): ?>
+                  <option value=<?php echo $warranty->getWarrantyId() ?>><?php echo $warranty->getMonths() ?> Tháng</option>
+                <?php endforeach; ?>
+              </select>
             </div>
           </div>
           <div class="row g-2 mb-3">
