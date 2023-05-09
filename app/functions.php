@@ -63,3 +63,19 @@ function getOrderStatusClass($status) {
             echo "color--btn";
     }
 }
+
+function getOrderStatusClassAdmin($status) {
+    switch ($status){
+        case "1": case"3":
+            echo "badge-warning-lighten";
+            break;
+        case "2": case "4":
+            echo "badge-success-lighten";
+            break;
+        case "5":
+            echo "badge-danger-lighten";
+            break;
+        default:
+            echo "badge-info-lighten";
+    }
+}

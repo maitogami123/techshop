@@ -22,6 +22,7 @@ class Product
   protected $createdBy;
   protected $brandID;
   protected $category;
+  protected $categoryName;
   protected $warrantyPeriod;
   protected $infor = [];
   protected $images = [];
@@ -350,6 +351,26 @@ class Product
     return $this;
   }
 
+  /**
+   * Get the value of categoryName
+   */ 
+  public function getCategoryName()
+  {
+    return $this->categoryName;
+  }
+
+  /**
+   * Set the value of categoryName
+   *
+   * @return  self
+   */ 
+  public function setCategoryName($categoryName)
+  {
+    $this->categoryName = $categoryName;
+
+    return $this;
+  }
+  
   // CRUD functions
 
   public function create(array $data, array $files)
@@ -415,6 +436,9 @@ class Product
 
       $statement = $db->prepare($sql);
       foreach ($data['information'] as $info) {
+        if (empty($data['information'])) {
+          continue;
+        }
         $statement->execute([
           ':productLine' => $data['product_line'],
           ':productInfo' => $info
@@ -425,6 +449,9 @@ class Product
       $statement = $db->prepare($sql);
       try {
         foreach ($data['serial_number'] as $serialNumber) {
+          if (empty($data['serial_number'])) {
+            continue;
+          }
           $statement->execute([
             ':productLine' => $data['product_line'],
             ':product_id' => $serialNumber
@@ -460,9 +487,10 @@ class Product
 
     $this->stock = $countStm->fetchColumn();
 
-    $query = ('SELECT *, `warrantyperiod`.`Months`
+    $query = ('SELECT *, `warrantyperiod`.`Months`, `category`.`CategoryName`
                 FROM product 
                 LEFT JOIN `warrantyperiod` ON `product`.`warranty_period` = `warrantyperiod`.`WarrantyId`
+                LEFT JOIN `category` ON `product`.`Category` = `category`.`CategoryID`
                 WHERE Product_Line = :id');
     $statement = $db->prepare($query);
     $statement->bindParam(':id', $id, PDO::PARAM_STR);
@@ -481,6 +509,7 @@ class Product
       $this->deletedAt = $data['Deleted_at'];
       $this->createdBy = $data['Created_by'];
       $this->brandID = $data['BrandID'];
+      $this->categoryName = $data['CategoryName'];
     } else {
       throw new ResourceNotFoundException("Sản phẩm không tồn tại!");
     }
@@ -512,9 +541,79 @@ class Product
     return $this;
   }
 
-  public function update()
+  public function update(array $data)
   {
+    $db = connect();
+    $this->productLine = $data['product_line'];
+    $this->productName = $data['product_name'];
+    $this->price = $data['price'];
+    $this->discount = $data['discount'] ?? 0;
+    $this->brandID = $data['brand'];
+    $this->category = $data['category'];
 
+    // clean up productInfo
+    $cleanInfoSql = "DELETE FROM productinfo WHERE `productinfo`.`Product_Line` = :productLine";
+
+    $cleanStm = $db->prepare($cleanInfoSql);
+    $cleanStm->execute([
+      ":productLine" => $this->productLine
+    ]);
+
+    // update product
+    $updateSql = "UPDATE `product` 
+                  SET 
+                    `Product_Name` = :productName, 
+                    `Price` = :price, 
+                    `Discount` = :discount, 
+                    `BrandID` = :brandID, 
+                    `Category` = :category
+                  WHERE `product`.`Product_Line` = :productLine";
+
+    $updateStm = $db->prepare($updateSql);
+    $updateStm->execute([
+      ':productName' => $this->productName,
+      ':price' => $this->price,
+      ':discount' => $this->discount,
+      ':brandID' => $this->brandID,
+      ':category' => $this->category,
+      ':productLine' => $this->productLine
+    ]);
+
+    $sql = "INSERT INTO `productinfo` (`Info_ID`, `Product_Line`, `Product_Information`) VALUES (NULL, :productLine, :productInfo)";
+
+    $statement = $db->prepare($sql);
+    if (isset($data['information'])) {
+      foreach ($data['information'] as $info) {
+        if (empty($info)) {
+          continue;
+        }
+        $statement->execute([
+          ':productLine' => $this->productLine,
+          ':productInfo' => $info
+        ]);
+      }
+    }
+
+  }
+
+  public function addQty($data) {
+    $db = connect();
+    $sql = "INSERT INTO `product_warranty` (`product_id`, `purchased_at`, `warranty_period`, `product_line`) 
+            VALUES (:product_id, NULL, NULL, :productLine)";
+    $statement = $db->prepare($sql);
+    try {
+      foreach ($data['serial_number'] as $serialNumber) {
+        if (empty($data['serial_number'])) {
+          continue;
+        }
+        $statement->execute([
+          ':productLine' => $data['product_line'],
+          ':product_id' => $serialNumber
+        ]);
+      }
+    } catch (PDOException $err) {
+      echo $err->getMessage();
+    }
   }
 
   public function delete(string $id)
@@ -527,5 +626,6 @@ class Product
     $statement->execute();
 
   }
+
 
 }

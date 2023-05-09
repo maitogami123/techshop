@@ -7,9 +7,8 @@ use Symfony\Component\Routing\RouteCollection;
 $routes = new RouteCollection();
 
 $routes->add('product', new Route(constant('URL_SUBFOLDER') . '/product/{id}', array('controller' => 'ProductController', 'method'=>'showAction'), array('id' => '([^&]*)')));
-$routes->add('createProduct', new Route(constant('URL_SUBFOLDER') . '/create/product', array('controller' => 'ProductController', 'method'=>'showCreateForm'), array()));
 $routes->add('viewProduct', new Route(constant('URL_SUBFOLDER') . '/view/product', array('controller' => 'ProductController', 'method'=>'indexAction'), array()));
-$routes->add('editProduct', new Route(constant('URL_SUBFOLDER') . '/edit/product/{id}', array('controller' => 'ProductController', 'method'=>'editAction'), array('id' => '([^&]*)')));
+// $routes->add('editProduct', new Route(constant('URL_SUBFOLDER') . '/edit/product/{id}', array('controller' => 'ProductController', 'method'=>'editAction'), array('id' => '([^&]*)')));
 $routes->add('deleteProduct', new Route(constant('URL_SUBFOLDER') . '/delete/product/{id}', array('controller' => 'ProductController', 'method'=>'deleteAction'), array('id' => '([^&]*)')));
 
 $routes->add('homepage', new Route(constant('URL_SUBFOLDER') . '/', array('controller' => 'PageController', 'method'=>'indexAction'), array()));
@@ -29,3 +28,20 @@ $routes->add('viewPersonalInfo', new Route(constant('URL_SUBFOLDER') . '/informa
 $routes->add('login', new Route(constant('URL_SUBFOLDER') . '/login', array('controller' => 'SessionController', 'method'=>'loginAction'), array()));
 $routes->add('logout', new Route(constant('URL_SUBFOLDER') . '/logout', array('controller' => 'SessionController', 'method'=>'logoutAction'), array()));
 $routes->add('register', new Route(constant('URL_SUBFOLDER') . '/register', array('controller' => 'RegisterController', 'method'=>'indexAction')));
+
+$routes->add('admin', new Route(constant('URL_SUBFOLDER') . '/admin', array('controller' => 'AdminController', 'method'=>'indexHomeAction'), array()));
+$routes->add('adminProduct', new Route(constant('URL_SUBFOLDER') . '/admin/product', array('controller' => 'AdminController', 'method'=>'indexProductAction'), array()));
+$routes->add('createProduct', new Route(constant('URL_SUBFOLDER') . '/admin/product/create', array('controller' => 'ProductController', 'method'=>'createProduct'), array()));
+$routes->add('getProductDetail', new Route(constant('URL_SUBFOLDER') . '/admin/product/detail/{id}', array('controller' => 'ProductController', 'method'=>'getProductDetail'), array('id' => '([^&]*)')));
+$routes->add('editProduct', new Route(constant('URL_SUBFOLDER') . '/admin/product/edit/{id}', array('controller' => 'ProductController', 'method'=>'editAction'), array('id' => '([^&]*)')));
+$routes->add('updateProduct', new Route(constant('URL_SUBFOLDER') . '/admin/product/saveChange', array('controller' => 'ProductController', 'method'=>'updateAction'), array()));
+$routes->add('addQty', new Route(constant('URL_SUBFOLDER') . '/admin/product/addQty/{id}', array('controller' => 'ProductController', 'method'=>'addQtyAction'), array('id' => '([^&]*)')));
+$routes->add('saveQty', new Route(constant('URL_SUBFOLDER') . '/admin/product/saveQty', array('controller' => 'ProductController', 'method'=>'saveQtyAction'), array()));
+
+$routes->add('adminOrders', new Route(constant('URL_SUBFOLDER') . '/admin/orders', array('controller' => 'AdminController', 'method'=>'indexOrderAction'), array()));
+
+$routes->add('adminUsers', new Route(constant('URL_SUBFOLDER') . '/admin/users', array('controller' => 'AdminController', 'method'=>'indexUserAction'), array()));
+
+$routes->add('adminBrands', new Route(constant('URL_SUBFOLDER') . '/admin/brands', array('controller' => 'AdminController', 'method'=>'indexBrandAction'), array()));
+
+$routes->add('adminRoles', new Route(constant('URL_SUBFOLDER') . '/admin/roles', array('controller' => 'AdminController', 'method'=>'indexRoleAction'), array()));

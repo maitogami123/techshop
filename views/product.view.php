@@ -24,15 +24,14 @@
 </div>
 <section class="container product-detail__areas u-margin-bottom-huge">
     <div class="product__img--default">
-        <?php if($product->getImages()):?>
+        <?php if ($product->getImages()): ?>
             <img src="<?php echo "/techshop/public/images/productImg/" . $product->getProductLine() . "/" . $product->getImages()[0] ?>"
                 alt="" />
         <?php else: ?>
-            <img src="<?php echo "/techshop/public/images/thumbNail/" . $product->getThumbNail() ?>"
-                alt="" />
+            <img src="<?php echo "/techshop/public/images/thumbNail/" . $product->getThumbNail() ?>" alt="" />
         <?php endif ?>
     </div>
-    <div class="product__img-slide-list">
+    <!-- <div class="product__img-slide-list">
         <?php foreach ($product->getImages() as $image): ?>
             <div class="product__img-slide-item">
                 <img src="<?php echo "/techshop/public/images/productImg/" . $product->getProductLine() . "/" . $image ?>"
@@ -47,7 +46,7 @@
                 <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-chevron-right"></use>
             </svg>
         </div>
-    </div>
+    </div> -->
     <div class="product__detail--container">
         <h3 class="heading__secondary">
             <?php echo $product->getProductName() ?>
@@ -64,11 +63,13 @@
                 </div>
             <?php endforeach ?>
         </div>
-        <?php if($product->getWarrantyPeriod() != null):?>
-            <span>Bảo hành: <?php echo $product->getWarrantyPeriod()?> tháng </span>
+        <?php if ($product->getWarrantyPeriod() != null): ?>
+            <span>Bảo hành:
+                <?php echo $product->getWarrantyPeriod() ?> tháng
+            </span>
         <?php else: ?>
             <span>Không có bảo hành</span>
-        <?php endif?>
+        <?php endif ?>
         <div class="product__prices">
             <?php if ($product->getDiscount() != 0): ?>
                 <div class="product__price--1 heading__secondary">
@@ -85,128 +86,71 @@
             <?php endif ?>
 
         </div>
-        <?php if ($product->getStock() <= 0):?>
+        <?php if ($product->getStock() <= 0): ?>
             <button type="button" class="btn btn__primary btn__primary--disabled u-center-text" disabled>
                 Hết hàng
             </button>
-          <?php else: ?>
-            <button type="button" data-stock="<?php echo $product->getStock()?>" data-id="<?php echo $product->getProductLine()?>" class="add-to-cart btn btn__primary btn__primary--active u-center-text" >
+        <?php else: ?>
+            <button type="button" data-stock="<?php echo $product->getStock() ?>"
+                data-id="<?php echo $product->getProductLine() ?>"
+                class="add-to-cart btn btn__primary btn__primary--active u-center-text">
                 Thêm vào giỏ hàng
             </button>
-          <?php endif;?>
+        <?php endif; ?>
     </div>
 </section>
 <script>
-    $(document).ready(function(e) {
-    let cart = {};
-    if (localStorage.getItem('cart')) {
-      cart = JSON.parse(localStorage.getItem('cart'))
-    }
-    
-    $('.add-to-cart').click(function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      const productId = $(this).attr('data-id')
-      if (Object.keys(cart).find(key => key === productId)) {
-        if (+cart[productId] + 1 > $(this).attr('data-stock')) {
-          Swal.fire({
-            toast: true,
-            icon: 'error',
-            position: 'top-end',
-            title: 'Sản phẩm đã hết hàng!',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        } else {
-          cart[productId] = +cart[productId] + 1
-          Swal.fire({
-            toast: true,
-            icon: 'success',
-            position: 'top-end',
-            title: 'Thêm sản phẩm vào giỏ hàng thành công!',
-            showConfirmButton: false,
-            timer: 1500
-          })
+    $(document).ready(function (e) {
+        let cart = {};
+        if (localStorage.getItem('cart')) {
+            cart = JSON.parse(localStorage.getItem('cart'))
         }
-      } else {
-        cart[productId] = 1
-        Swal.fire({
-            toast: true,
-            icon: 'success',
-            position: 'top-end',
-            title: 'Thêm sản phẩm vào giỏ hàng thành công!',
-            showConfirmButton: false,
-            timer: 1500
-          })
-      }
-      localStorage.setItem('cart', JSON.stringify(cart))
+
+        <?php if (isLoggedIn()): ?>
+            $('.add-to-cart').click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const productId = $(this).attr('data-id')
+                if (Object.keys(cart).find(key => key === productId)) {
+                    if (+cart[productId] + 1 > $(this).attr('data-stock')) {
+                        Swal.fire({
+                            toast: true,
+                            icon: 'error',
+                            position: 'top-end',
+                            title: 'Sản phẩm đã hết hàng!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    } else {
+                        cart[productId] = +cart[productId] + 1
+                        Swal.fire({
+                            toast: true,
+                            icon: 'success',
+                            position: 'top-end',
+                            title: 'Thêm sản phẩm vào giỏ hàng thành công!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                } else {
+                    cart[productId] = 1
+                    Swal.fire({
+                        toast: true,
+                        icon: 'success',
+                        position: 'top-end',
+                        title: 'Thêm sản phẩm vào giỏ hàng thành công!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+                localStorage.setItem('cart', JSON.stringify(cart))
+            })
+        <?php else: ?>
+            $('.add-to-cart').click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                alert("Vui lòng đăng nhập để mua hàng!")
+            })
+        <?php endif ?>
     })
-  })
 </script>
-<section class="product-preview__random container">
-    <h2 class="heading__secondary u-margin-bottom-medium">
-        Có thể bạn tìm kiếm
-    </h2>
-    <div class="product__container grid-4-col">
-        <div class="cart">
-            <img src="/techshop/public/images/productImg/Image.png" alt="" class="cart__img" />
-            <div class="cart__wrapper">
-                <h3 class="cart__name font-size-1">
-                    MacBook Air M1 Chip Lorem ipsum dolor sit, amet consectetur
-                    adipisicing elit.
-                </h3>
-                <span class="cart__price font-color-1">Đ23.771.205</span>
-                <button class="btn btn__primary btn__primary--active add-to-cart">
-                    Thêm vào giỏ
-                </button>
-            </div>
-        </div>
-        <div class="cart">
-            <img src="/techshop/public/images/productImg/Image.png" alt="" class="cart__img" />
-            <div class="cart__wrapper">
-                <h3 class="cart__name font-size-1">
-                    MacBook Air M1 Chip Lorem ipsum dolor sit, amet consectetur
-                    adipisicing elit.
-                </h3>
-                <span class="cart__price font-color-1">Đ23.771.205</span>
-                <button class="btn btn__primary btn__primary--active add-to-cart">
-                    Thêm vào giỏ
-                </button>
-            </div>
-        </div>
-        <div class="cart">
-            <img src="/techshop/public/images/productImg/Image.png" alt="" class="cart__img" />
-            <div class="cart__wrapper">
-                <h3 class="cart__name font-size-1">
-                    MacBook Air M1 Chip Lorem ipsum dolor sit, amet consectetur
-                    adipisicing elit.
-                </h3>
-                <span class="cart__price font-color-1">Đ23.771.205</span>
-                <button class="btn btn__primary btn__primary--active add-to-cart">
-                    Thêm vào giỏ
-                </button>
-            </div>
-        </div>
-        <div class="cart">
-            <img src="/techshop/public/images/productImg/Image.png" alt="" class="cart__img" />
-            <div class="cart__wrapper">
-                <h3 class="cart__name font-size-1">
-                    MacBook Air M1 Chip Lorem ipsum dolor sit, amet consectetur
-                    adipisicing elit.
-                </h3>
-                <span class="cart__price font-color-1">Đ23.771.205</span>
-                <button class="btn btn__primary btn__primary--active add-to-cart">
-                    Thêm vào giỏ
-                </button>
-            </div>
-        </div>
-        <div class="slide__arrow slide__container">
-            <svg class="arrow__item">
-                <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-chevron-left"></use>
-            </svg>
-            <svg class="arrow__item">
-                <use xlink:href="/techshop/public/images/svg/symbol-defs.svg#icon-chevron-right"></use>
-            </svg>
-        </div>
-    </div>
-</section>

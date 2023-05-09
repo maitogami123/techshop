@@ -74,7 +74,7 @@
                 title: 'Success!',
                 text: 'Product successfully deleted!',
                 icon: 'success',
-                confirmButtonText: 'Cool!'
+                confirmButtonTeNxt: 'Cool!'
               })
               $("#"+id).remove();
             }),

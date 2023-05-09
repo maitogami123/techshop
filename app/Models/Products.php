@@ -65,6 +65,9 @@ class Products
         ":productLine" => $item['Product_Line']
       ]);
 
+      $stock = $countStm->fetchColumn() ?? 0;
+      if ($stock == 0) 
+        continue;
       $product = new Product();
       $product->setStock($countStm->fetchColumn());
       $product->setProductLine($item['Product_Line']);
@@ -73,7 +76,6 @@ class Products
       $product->setPrice($item['Price']);
       $product->setDiscount($item['Discount']);
       $product->setBrandID($item['BrandID']);
-      
       $this->productList[] = $product;
     }
     $db = null;
@@ -81,32 +83,53 @@ class Products
     return $this->productList;
   }
 
-  public function getAll()
+  public function getAll(bool $includeDeleted = false, bool $includeOutOfStock = false)
   {
     $db = connect();
 
-    $query = ('SELECT * FROM product');
+    $query = ('SELECT `product`.*, `category`.`CategoryName`
+                FROM `product` 
+                  LEFT JOIN `category` ON `product`.`Category` = `category`.`CategoryID`;');
     $statement = $db->prepare($query);
     $statement->execute();
     $data = $statement->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($data as $item) {
-      if ($item['Deleted_at'] != null) {
+      if ($includeDeleted == false && $item['Deleted_at'] != null) {
         continue;
       }
-      $product = new Product();
-      $product->setProductLine($item['Product_Line']);
-      $product->setProductName($item['Product_Name']);
-      $product->setThumbNail($item['Thumbnail']);
-      $product->setBrandID($item['BrandID']);
-      $product->setCategory($item['Category']);
-      $product->setPrice($item['Price']);
-      $product->setDiscount($item['Discount']);
-      $product->setCreatedAt($item['Created_at']);
-      $product->setModifiedAt($item['Modified_at']);
-      $product->setDeletedAt($item['Deleted_at']);
-      $product->setCreatedBy($item['Created_by']);
-      $this->productList[] = $product;
+      $countSql = "SELECT COUNT(`product_warranty`.`product_line`)
+                  FROM `product_warranty`
+                  WHERE `product_warranty`.`product_line` = :productLine
+                    AND `product_warranty`.`purchased_at` IS NULL
+                  GROUP BY `product_warranty`.`product_line`
+      ;";
+
+      $countStm = $db->prepare($countSql);
+      $countStm->execute([
+        ":productLine" => $item['Product_Line']
+      ]);
+
+      $stock = $countStm->fetchColumn();
+      if ($stock == 0 && !$includeOutOfStock) {
+        continue;
+      } else {
+        $product = new Product();
+        $product->setStock($countStm->fetchColumn() ?? 0);
+        $product->setProductLine($item['Product_Line']);
+        $product->setProductName($item['Product_Name']);
+        $product->setThumbNail($item['Thumbnail']);
+        $product->setBrandID($item['BrandID']);
+        $product->setCategory($item['Category']);
+        $product->setPrice($item['Price']);
+        $product->setDiscount($item['Discount']);
+        $product->setCreatedAt($item['Created_at']);
+        $product->setModifiedAt($item['Modified_at']);
+        $product->setDeletedAt($item['Deleted_at']);
+        $product->setCreatedBy($item['Created_by']);
+        $product->setCategoryName($item['CategoryName']);
+        $this->productList[] = $product;
+      }
     }
     $db = null;
     $query = null;
@@ -130,7 +153,6 @@ class Products
             `brand`.`BrandName` LIKE '$search'
       GROUP BY `product`.`Product_Line`;");
     $statement = $db->prepare($query);
-    // $statement->bindParam(':searchStr', $search, PDO::PARAM_STR);
     $statement->execute();
     $data = $statement->fetchAll(PDO::FETCH_ASSOC);
     foreach ($data as $item) {
