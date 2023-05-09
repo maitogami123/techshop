@@ -343,10 +343,15 @@ class User
     $result -> execute();
   }
 
-  public function createUserDetail($username, $FirstName, $LastName, $Email)
+  public function createUserDetail($username, $FullName, $Email)
   {
     $db = connect();
-    $sql= "INSERT INTO userdetail(username, FirstName, LastName, Email) Values('$username', '$FirstName', '$LastName', '$Email')";
+
+    //Main
+    //$sql= "INSERT INTO userdetail(username, FirstName, LastName, Email) Values('$username', '$FirstName', '$LastName', '$Email')";
+
+    $sql= "INSERT INTO userdetail(username, FullName, Email) Values('$username', '$FullName','$Email')";
+    echo $sql;
     $result = $db->prepare($sql);
     $result -> execute();
   }
@@ -442,5 +447,27 @@ class User
     $stm = $db->query($sql);
     return $stm->fetchAll(PDO::FETCH_ASSOC);
 
+  }
+
+  public function getGmailInDB(){
+    $db = connect();
+    $sql = "SELECT Email FROM userdetail";
+    $stm = $db->query($sql);
+    return $stm->fetchAll(PDO::FETCH_ASSOC);
+
+  }
+
+  public function UpdateUserInfo($fullname,$userName){
+    $db = connect();
+    $sql = "UPDATE userdetail SET userdetail.FullName='$fullname' WHERE userdetail.username='$userName'";
+    $result = $db->prepare($sql);
+    $result -> execute();
+  }
+
+  public function getFullNameOfLogingUser($Username){
+    $db = connect();
+    $sql = "SELECT userdetail.Fullname FROM userdetail WHERE userdetail.username='$Username'";
+    $stm = $db->query($sql);
+    return $stm->fetch();
   }
 }

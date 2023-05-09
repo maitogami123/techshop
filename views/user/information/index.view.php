@@ -1,3 +1,14 @@
+<?php
+use App\Models\User;
+
+if (!isLoggedIn()) {
+  $_SESSION['isLoggedIn'] = false;
+}
+if (isLoggedIn()) {
+  $user = new User();
+  $user = unserialize($_SESSION['user']);
+}
+?>
 <div class="user__container">
   <div class="user__heading">
     <h3 class="heading__secondary">Hồ sơ của tôi</h3>
@@ -6,7 +17,7 @@
     </p>
   </div>
   <div class="user__information-form">
-    <form action="#">
+    <form class="FromUpdateUserInfo">
       <div class="form__field-box u-margin-bottom-medium">
         <div class="form__field">
           <label for="user__first-name" class="form__label u-margin-bottom-small">Họ và tên đệm</label>
@@ -83,4 +94,20 @@
   $(document).ready(function(e) {
     getProvincesHanlder();
   })
+        $('.FromUpdateUserInfo').submit(function(e){
+          e.preventDefault();
+          let valueFullName = document.querySelector('#userName');
+          $.ajax({
+            url:'<?php echo getPath($routes, 'viewPersonalInfo') ?>',
+            method:'GET',
+            data:{fullName: valueFullName.value},
+            success: function(data){
+            Swal.fire(
+                      'SUCCESS!',
+                      'Success update!',
+                      'success'
+                    )
+            } 
+          })
+        })
 </script>

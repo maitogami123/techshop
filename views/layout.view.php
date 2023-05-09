@@ -28,6 +28,7 @@ if (isLoggedIn()) {
   <link rel="stylesheet" href="/techshop/public/css/bootstrap.min.css">
   <link rel="stylesheet" href="/techshop/public/css/simple-notify.min.css" />
   <link rel="stylesheet" href="/techshop/public/css/index.css">
+  <link rel="stylesheet" href="/techshop/public/css/style1.css">
   <script src="/techshop/public/js/jquery.min.js"></script>
   <script src="/techshop/public/js/simple-notify.min.js"></script>
   <script src="/techshop/public/js/sweetalert2.all.min.js"></script>
