@@ -303,10 +303,6 @@
         if (!files.type.match("image")) return;
         let saveImgPath = URL.createObjectURL(files);
         displayImgPreview.src = saveImgPath;
-        document.querySelector(".img-file-label").innerHTML =
-          inputFileImg.value.substring(
-            inputFileImg.value.lastIndexOf("\\") + 1
-          );
       });
     </script>
   </body>
