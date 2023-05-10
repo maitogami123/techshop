@@ -59,8 +59,9 @@ class ProductController
     public function updateAction(RouteCollection $routes, Request $request) {
         startSession();
         $product = new Product();
-        $product->update($_POST);
+        $product->update($_POST, $_FILES);
         // print_r($_POST);
+        // print_r($_FILES);
     }
 
     public function deleteAction(string $id, RouteCollection $routes, Request $request) {

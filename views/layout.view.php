@@ -34,12 +34,12 @@ if (isLoggedIn()) {
   <link rel="stylesheet" href="https://unpkg.com/nouislider@10.0.0/distribute/nouislider.min.css" />
   <link rel="stylesheet" href="/techshop/public/css/bootstrap.min.css">
   <link rel="stylesheet" href="/techshop/public/css/simple-notify.min.css" />
-  <link rel="stylesheet" href="/techshop/public/css/index.css">
   <link rel="stylesheet" href="/techshop/public/css/style1.css">
   <script src="/techshop/public/js/jquery.min.js"></script>
   <script src="/techshop/public/js/jquery.redirect.js"></script>
   <script src="/techshop/public/js/simple-notify.min.js"></script>
   <script src="/techshop/public/js/sweetalert2.all.min.js"></script>
+  <script src="/techshop/public/js/wNumb.min.js"></script>
 </head>
 
 <body>
@@ -81,7 +81,7 @@ if (isLoggedIn()) {
                     class="nav-user__option font-size-2">Thông tin cá nhân</a>
                 </li>
                 <li class="nav-user__log-out">
-                  <a href="<?php echo $routes->get('logout')->getPath() ?>" class="log-out btn">
+                  <a href="#" class="log-out btn" id="log-out-btn">
                     <i class="fa-solid fa-right-from-bracket color--red font-size-1"></i>
                     <span class="color--red font-size-2">Sign Out</span>
                   </a>
@@ -165,6 +165,11 @@ if (isLoggedIn()) {
       let searchString = $('.search__input').val()
       let url = "<?php echo getPath($routes, 'search') ?>"
       window.location.replace(url.replace('{searchStr}', `${searchString}`));
+    })
+
+    $('#log-out-btn').click(function(e) {
+      localStorage.removeItem('cart');
+      location.href = '<?php echo $routes->get('logout')->getPath() ?>'
     })
   })
 </script>

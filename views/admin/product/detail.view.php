@@ -22,14 +22,8 @@
     <div class="mb-3">
       <label class="form-label" for="see-product-thumbnail">Thumbnail</label>
       <div>
-        <?php if ($product->getImages()): ?>
-          <img
-            src="<?php echo "/techshop/public/images/productImg/" . $product->getProductLine() . "/" . $product->getImages()[0] ?>"
-            alt="" class="img-fluid rounded" id="see-product-thumbnail" width="200" />
-        <?php else: ?>
-          <img src="<?php echo "/techshop/public/images/thumbNail/" . $product->getThumbNail() ?>" alt=""
-            class="img-fluid rounded" id="see-product-thumbnail" width="200" />
-        <?php endif ?>
+        <img src="<?php echo "/techshop/public/images/thumbNail/" . $product->getThumbNail() ?>" alt=""
+          class="img-fluid rounded" id="see-product-thumbnail" width="200" />
       </div>
     </div>
     <div class="mb-3">

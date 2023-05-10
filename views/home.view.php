@@ -1,31 +1,43 @@
 <section class="slide-show container">
     <div class="sidebar">
         <div class="sidebar__item">
-            <a href="" class="sidebar__link font-size-2 text-color--4">
+            <a href="/techshop/view/category/laptop" class="sidebar__link font-size-2 text-color--4">
                 <i class="fa-solid fa-laptop sidebar__icon"></i>
                 <span>Máy tính xách tay</span>
             </a>
         </div>
         <div class="sidebar__item">
-            <a href="" class="sidebar__link font-size-2 text-color--4">
-                <i class="fa-solid fa-desktop"></i>
+            <a href="/techshop/view/category/pc" class="sidebar__link font-size-2 text-color--4">
+                <i class="fa-solid fa-computer"></i>
                 <span>Máy tính để bàn</span>
             </a>
         </div>
         <div class="sidebar__item">
-            <a href="" class="sidebar__link font-size-2 text-color--4">
+            <a href="/techshop/view/category/vga" class="sidebar__link font-size-2 text-color--4">
+                <i class="fa-solid fa-desktop"></i>
+                <span>Card đồ họa</span>
+            </a>
+        </div>
+        <div class="sidebar__item">
+            <a href="/techshop/view/category/cpu" class="sidebar__link font-size-2 text-color--4">
+                <i class="fa-solid fa-microchip"></i>
+                <span>Vi xử lý</span>
+            </a>
+        </div>
+        <div class="sidebar__item">
+            <a href="/techshop/view/category/keyboard" class="sidebar__link font-size-2 text-color--4">
                 <i class="fa-solid fa-keyboard"></i>
                 <span>Bàn phím</span>
             </a>
         </div>
         <div class="sidebar__item">
-            <a href="" class="sidebar__link font-size-2 text-color--4">
+            <a href="/techshop/view/category/mice" class="sidebar__link font-size-2 text-color--4">
                 <i class="fa-regular fa-computer-mouse fontAwesome"></i>
                 <span>Chuột</span>
             </a>
         </div>
         <div class="sidebar__item">
-            <a href="" class="sidebar__link font-size-2 text-color--4">
+            <a href="/techshop/view/category/headphone" class="sidebar__link font-size-2 text-color--4">
                 <i class="fa-solid fa-headphones"></i>
                 <span>Tai nghe</span>
             </a>

@@ -9,7 +9,13 @@
     <use xlink:href="/techshop/public/images/SVG/symbol-defs.svg#icon-chevron-right"></use>
   </svg>
   <a href="" class="breadcrumb__link">
-    <span class="para--sm text-color--1"><?php echo strtoupper(json_decode($_POST['category']))?></span>
+    <span class="para--sm text-color--1">
+      <?php if (isset($_POST['category'])): ?>
+        <?php echo strtoupper(json_decode($_POST['category'])) ?>
+      <?php else: ?>
+        <?php echo strtoupper($category) ?>
+      <?php endif ?>
+    </span>
   </a>
 </div>
 <section class="container u-margin-bottom-big">
@@ -24,68 +30,67 @@
 
     <div class="filter-options">
       <label for="status-select " class="form__label font-size-1">Filter:</label>
-      <select class="form-select form__input" id="status-select">
-        <option selected="">Sản phẩm nổi bật</option>
-        <option value="1">Giá trị: Tăng dần</option>
-        <option value="2">Giá trị: Giảm dần</option>
+      <select class="form-select form__input" id="status-select" style="
+          font-size: 1.5rem;
+      ">
+        <option selected value="0">Sản phẩm nổi bật</option>
+        <option value="1">Giá: Tăng dần</option>
+        <option value="2">Giá: Giảm dần</option>
         <option value="3">Tên: A - Z</option>
         <option value="4">Tên: Z - A</option>
         <option value="5">Sản phẩm mới nhất</option>
         <option value="6">Sản phẩm cũ nhất</option>
       </select>
     </div>
-    <div class="filter-selections">
+    <!-- <div class="filter-selections">
       <div class="filter-selection filter-price-checkbox">
         <h4 class="font-size-1 text-color--3">Giá:</h4>
         <div class="form__checkbox-box">
           <div class="form__field--inline">
-            <input type="checkbox" class="form__input" id="customCheck1" />
-            <label class="form-check-label" for="customCheck1">100.000đ - 500.000đ</label>
+            <input type="checkbox" class="form__input" id="price-range-1" data-range-min="100000"
+              data-range-max='500000' />
+            <label class="form-check-label" for="price-range-1">100.000đ - 500.000đ</label>
           </div>
           <div class="form__field--inline">
-            <input type="checkbox" class="form__input" id="customCheck2" />
-            <label class="form-check-label" for="customCheck2">500.000đ - 2.000.000đ</label>
+            <input type="checkbox" class="form__input" id="price-range-2" data-range-min="500000"
+              data-range-max='2000000' />
+            <label class="form-check-label" for="price-range-2">500.000đ - 2.000.000đ</label>
           </div>
           <div class="form__field--inline">
-            <input type="checkbox" class="form__input" id="customCheck2" />
-            <label class="form-check-label" for="customCheck2">2.000.000đ - 10.000.000đ</label>
+            <input type="checkbox" class="form__input" id="price-range-3" data-range-min="2000000"
+              data-range-max='10000000' />
+            <label class="form-check-label" for="price-range-3">2.000.000đ - 10.000.000đ</label>
           </div>
           <div class="form__field--inline">
-            <input type="checkbox" class="form__input" id="customCheck2" />
-            <label class="form-check-label" for="customCheck2">10.000.000đ - 20.000.000đ</label>
+            <input type="checkbox" class="form__input" id="price-range-4" data-range-min="10000000"
+              data-range-max='20000000' />
+            <label class="form-check-label" for="price-range-4">10.000.000đ - 20.000.000đ</label>
           </div>
           <div class="form__field--inline">
-            <input type="checkbox" class="form__input" id="customCheck2" />
-            <label class="form-check-label" for="customCheck2">20.000.000đ - 50.000.000đ</label>
+            <input type="checkbox" class="form__input" id="price-range-5" data-range-min="20000000"
+              data-range-max='50000000' />
+            <label class="form-check-label" for="price-range-5">20.000.000đ - 50.000.000đ</label>
+          </div>
+          <div class="form__field--inline">
+            <input type="checkbox" class="form__input" id="price-range-6" data-range-min="50000000"
+              data-range-max='100000000' />
+            <label class="form-check-label" for="price-range-6">50.000.000đ - 100.000.000đ</label>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </section>
 <section class="container div-8-col u-margin-bottom-huge">
   <h2 class="heading__secondary u-center-text u-margin-bottom-medium grid-full-app">
-    <?php echo strtoupper(json_decode($_POST['brand']))?>
+    <?php if (isset($_POST['brand'])): ?>
+      <?php echo strtoupper(json_decode($_POST['brand'])) ?>
+    <?php else: ?>
+      <?php echo strtoupper($category) ?>
+    <?php endif ?>
   </h2>
-  <div class="product__container grid-full-app grid-4-col-auto" id="render-cart">
-    <?php foreach ($productList->productList as $product): ?>
-      <div class="cart">
-        <a href="/techshop/product/<?php echo $product->getProductLine() ?>" class="cart__item">
-          <img src="/techshop/public/images/thumbNail/<?php echo $product->getThumbNail() ?>" alt="" class="cart__img" />
-          <div class="cart__wrapper">
-            <h3 class="cart__name font-size-1">
-              <?php echo $product->getProductName() ?>
-            </h3>
-            <span class="cart__price font-color-1">
-              <?php echo number_format($product->getPrice()) ?>
-            </span>
-            <button class="btn btn__primary btn__primary--active add-to-cart">
-              Thêm vào giỏ
-            </button>
-          </div>
-        </a>
-      </div>
-    <?php endforeach ?>
+  <div class="grid-full-app grid-4-col-auto" id='product-container'>
+    <?php require('product_paginate.view.php') ?>
   </div>
   <nav class="pagination pagination--rounded">
     <button class="pagination-button" id="prev-button" aria-label="Previous page" title="Previous page">
@@ -103,6 +108,7 @@
 <script src="/techshop/public/js/filter.js"></script>
 <script src="/techshop/public/js/productPagination.js"></script>
 <script src="https://unpkg.com/nouislider@10.0.0/distribute/nouislider.min.js"></script>
+
 <script>
   var nonLinearSlider = document.getElementById("nonlinear");
 
@@ -115,6 +121,11 @@
       min: 50000,
       max: 100000000,
     },
+    format: wNumb({
+      decimals: 0,
+      thousand: ',',
+      suffix: 'đ'
+    })
   });
 
   var nodes = [
@@ -153,4 +164,62 @@
       }
     }
   }
+</script>
+<script>
+  function debounce(func, timeout = 500) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+  }
+  $(document).ready(function () {
+    nonLinearSlider.noUiSlider.on(
+      "update",
+      debounce(function (values, handle, unencoded, isTap, positions) {
+        let filter = {
+          "minPrice": unencoded[0],
+          "maxPrice": unencoded[1],
+          "filterOptions": $('#status-select').find(":selected").val(),
+          "currentCategory": '<?php echo $category ?>'
+        }
+        $.ajax({
+          type: 'get',
+          url: '/techshop/filter/category',
+          data: {
+            'data': JSON.stringify(filter)
+          },
+          success: function (res) {
+            $("#pagination-numbers").empty();
+            $('#product-container').html(res)
+            _paginationLimit = 4;
+            _pageCount = Math.ceil(_listItems.length / _paginationLimit);
+            currentPage = 1;
+            _paginationNumbers = document.getElementById("pagination-numbers");
+            _paginatedList = document.getElementById("render-cart");
+            _listItems = _paginatedList.querySelectorAll(".cart");
+
+            get_PaginationNumbers(_pageCount);
+            setCurrentPage(1);
+            _prevButton.addEventListener("click", () => {
+              setCurrentPage(currentPage - 1);
+            });
+            _nextButton.addEventListener("click", () => {
+              setCurrentPage(currentPage + 1);
+            });
+            document.querySelectorAll(".pagination-number").forEach((button) => {
+              const pageIndex = Number(button.getAttribute("page-index"));
+              if (pageIndex) {
+                button.addEventListener("click", () => {
+                  setCurrentPage(pageIndex);
+                });
+              }
+            });
+          }
+        })
+      })
+    );
+
+  })
+
 </script>

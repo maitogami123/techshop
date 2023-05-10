@@ -25,6 +25,7 @@ if (isLoggedIn()) {
   <link href="/techshop/public/css/vendor/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
   <link href="/techshop/public/css/icons.min.css" rel="stylesheet" type="text/css" />
   <link href="/techshop/public/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
+  <link href="/techshop/public/css/admin.css" rel="stylesheet" type="text/css" />
   <script src="/techshop/public/js/jquery.min.js"></script>
   <script src="/techshop/public/js/simple-notify.min.js"></script>
   <script src="/techshop/public/js/sweetalert2.all.min.js"></script>
@@ -86,6 +87,12 @@ if (isLoggedIn()) {
             <a href="<?php echo getPath($routes, 'adminRoles')?>" class="side-nav-link">
               <i class="uil-home-alt"></i>
               <span> Roles </span>
+            </a>
+          </li>
+          <li class="side-nav-item">
+            <a href="<?php echo getPath($routes, 'adminPermissions')?>" class="side-nav-link">
+              <i class="uil-home-alt"></i>
+              <span> Permissions </span>
             </a>
           </li>
           <li class="side-nav-item">

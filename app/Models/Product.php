@@ -334,7 +334,7 @@ class Product
 
   /**
    * Get the value of warrantyPeriod
-   */ 
+   */
   public function getWarrantyPeriod()
   {
     return $this->warrantyPeriod;
@@ -344,7 +344,7 @@ class Product
    * Set the value of warrantyPeriod
    *
    * @return  self
-   */ 
+   */
   public function setWarrantyPeriod($warrantyPeriod)
   {
     $this->warrantyPeriod = $warrantyPeriod;
@@ -354,7 +354,7 @@ class Product
 
   /**
    * Get the value of categoryName
-   */ 
+   */
   public function getCategoryName()
   {
     return $this->categoryName;
@@ -364,7 +364,7 @@ class Product
    * Set the value of categoryName
    *
    * @return  self
-   */ 
+   */
   public function setCategoryName($categoryName)
   {
     $this->categoryName = $categoryName;
@@ -374,7 +374,7 @@ class Product
 
   /**
    * Get the value of warrantyId
-   */ 
+   */
   public function getWarrantyId()
   {
     return $this->warrantyId;
@@ -384,14 +384,14 @@ class Product
    * Set the value of warrantyId
    *
    * @return  self
-   */ 
+   */
   public function setWarrantyId($warrantyId)
   {
     $this->warrantyId = $warrantyId;
 
     return $this;
   }
-  
+
   // CRUD functions
 
   public function create(array $data, array $files)
@@ -438,7 +438,7 @@ class Product
           if (!is_dir(APP_ROOT . "/public/images/productImg/$this->productLine/")) {
             mkdir(APP_ROOT . "/public/images/productImg/$this->productLine/");
           }
-          
+
           $name = basename($_FILES["image"]["name"][$key]);
           move_uploaded_file($tmp_name, APP_ROOT . "/public/images/productImg/$this->productLine/$this->productLine-$key.$ext");
 
@@ -564,7 +564,7 @@ class Product
     return $this;
   }
 
-  public function update(array $data)
+  public function update(array $data, array $files)
   {
     $db = connect();
     $this->productLine = $data['product_line'];
@@ -573,7 +573,85 @@ class Product
     $this->discount = $data['discount'] ?? 0;
     $this->brandID = $data['brand'];
     $this->category = $data['category'];
-    $this->warrantyId = $data['warranty'];
+    if ($data['warranty'] == 'none') {
+      $this->warrantyId = '';
+    } else {
+      $this->warrantyId = $data['warranty'];
+    }
+
+    // Update thumbnail
+    if ($files['newthumbnail']['error'] == UPLOAD_ERR_OK) {
+      $tmp_name = $_FILES["newthumbnail"]["tmp_name"];
+      $name = basename($_FILES["newthumbnail"]["name"]);
+      $ext = pathinfo($name, PATHINFO_EXTENSION);
+      move_uploaded_file($tmp_name, APP_ROOT . "/public/images/thumbnail/$this->productLine.$ext");
+    }
+
+    $countCurrentImgSql = "SELECT COUNT(`productimage`.`imgPath`)
+                            FROM `productimage`
+                            WHERE `productimage`.`ProductLine` = :productLine
+                            GROUP BY `productimage`.`ProductLine`
+                            ;";
+    $countCurrentImgStm = $db->prepare($countCurrentImgSql);
+    $countCurrentImgStm->execute([
+      ":productLine" => $this->productLine
+    ]);
+    if ($countCurrentImgStm->fetchColumn() > (isset($data['oldImage']) ? count( $data['oldImage']) : 0)) {
+      // clean up current images
+      $cleanImageSql = "DELETE FROM `productimage` WHERE `productimage`.`ProductLine` = :productLine";
+
+      $cleanStm = $db->prepare($cleanImageSql);
+      $cleanStm->execute([
+        ":productLine" => $this->productLine
+      ]);
+
+      if (isset($data['oldImage'])) {
+        // update image
+        $productImgSql = "INSERT INTO `productimage` (`ImageID`, `ProductLine`, `imgPath`) VALUES (NULL, :productLine, :imgPath)";
+  
+        $productImgStm = $db->prepare($productImgSql);
+        foreach ($data['oldImage'] as $image) {
+          $productImgStm->execute([
+            ':productLine' => $data['product_line'],
+            ':imgPath' => $image
+          ]);
+        }
+      }
+    }
+
+    $productImgSql = "INSERT INTO `productimage` (`ImageID`, `ProductLine`, `imgPath`) VALUES (NULL, :productLine, :imgPath)";
+    $productImgStm = $db->prepare($productImgSql);
+
+    foreach ($_FILES["newImage"]["error"] as $key => $error) {
+      if ($error == UPLOAD_ERR_OK) {
+        $name = basename($_FILES["newImage"]["name"][$key]);
+        $tmp_name = $_FILES["newImage"]["tmp_name"][$key];
+        $ext = pathinfo($name, PATHINFO_EXTENSION);
+
+        if (!is_dir(APP_ROOT . "/public/images/productImg/$this->productLine/")) {
+          mkdir(APP_ROOT . "/public/images/productImg/$this->productLine/");
+        }
+
+        $countCurrentImgSql = "SELECT COUNT(`productimage`.`imgPath`)
+                FROM `productimage`
+                WHERE `productimage`.`ProductLine` = :productLine
+                GROUP BY `productimage`.`ProductLine`
+                ;";
+        $countCurrentImgStm = $db->prepare($countCurrentImgSql);
+        $countCurrentImgStm->execute([
+        ":productLine" => $this->productLine
+        ]);
+        $index = $key + $countCurrentImgStm->fetchColumn();
+
+        move_uploaded_file($tmp_name, APP_ROOT . "/public/images/productImg/$this->productLine/$this->productLine-$index.$ext");
+
+        $productImgStm->execute([
+          ':productLine' => $data['product_line'],
+          ':imgPath' => "$this->productLine-$index.$ext"
+        ]);
+
+      }
+    }
 
     // clean up productInfo
     $cleanInfoSql = "DELETE FROM productinfo WHERE `productinfo`.`Product_Line` = :productLine";
@@ -590,10 +668,9 @@ class Product
                     `Price` = :price, 
                     `Discount` = :discount, 
                     `BrandID` = :brandID, 
-                    `Category` = :category,
-                    `warranty_period` = :warranty
-                  WHERE `product`.`Product_Line` = :productLine";
-
+                    `Category` = :category,".
+                    (empty($this->warrantyId) ? " `warranty_period` = NULL " : " `warranty_period` = '$this->warrantyId' ")
+                  ." WHERE `product`.`Product_Line` = :productLine";
     $updateStm = $db->prepare($updateSql);
     $updateStm->execute([
       ':productName' => $this->productName,
@@ -601,7 +678,6 @@ class Product
       ':discount' => $this->discount,
       ':brandID' => $this->brandID,
       ':category' => $this->category,
-      ':warranty' => $this->warrantyId,
       ':productLine' => $this->productLine
     ]);
 
@@ -622,7 +698,8 @@ class Product
 
   }
 
-  public function addQty($data) {
+  public function addQty($data)
+  {
     $db = connect();
     $sql = "INSERT INTO `product_warranty` (`product_id`, `purchased_at`, `warranty_period`, `product_line`) 
             VALUES (:product_id, NULL, NULL, :productLine)";

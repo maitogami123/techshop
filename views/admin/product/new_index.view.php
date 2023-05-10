@@ -136,13 +136,14 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label" for="product-img">Image</label>
-            <input class="form-control" type="file" id="product-img" name='image[]' accept="image/*" />
+            <label class="form-label" for="product-thumbnail">Thumbnail</label>
+            <input class="form-control" type="file" id="product-thumbnail" name='thumbnail' accept="image/*" />
           </div>
           <div class="mb-3">
-            <label class="form-label" for="product-thumbnail">Thumbnail</label>
-            <input class="form-control" type="file" id="product-thumbnail" name='thumbnail' accept="image/*" multiple />
+            <label class="form-label" for="product-img">Image</label>
+            <input class="form-control" type="file" id="product-img" name='image[]' accept="image/*" multiple/>
           </div>
+          
           <div class="row g-2 mb-3">
             <div class="col-sm-6">
               <label class="form-label" for="product-price">Price</label>

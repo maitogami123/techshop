@@ -71,4 +71,10 @@ class AdminController {
     require_once APP_ROOT . '/views/admin/layout.view.php';
   }
 
+  public function indexPermissionAction(RouteCollection $routes, Request $request) {
+    startSession();
+    $name = 'permissions/index';
+    require_once APP_ROOT . '/views/admin/layout.view.php';
+  }
+  
 }

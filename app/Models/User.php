@@ -388,7 +388,7 @@ class User
     );
     $data = $statement->fetch(PDO::FETCH_ASSOC);
     if (!isset($data['Username'])) {
-      throw new ErrorException('Login Failed');
+      throw new ErrorException('Tài khoản hoặc mật khẩu sai');
     }
     $this->username = $data['Username'];
     $this->password = $data['Password'];

@@ -94,4 +94,38 @@ class PageController
 		$name = 'product_filter';		
 		require APP_ROOT . "/views/layout.view.php";
 	}
+
+	public function viewCategory(string $category, RouteCollection $routes, Request $request) {
+		startSession();
+		$productList = new Products();
+		$productList->readByCategory($category);
+		$name = 'product_filter';		
+		require APP_ROOT . "/views/layout.view.php";
+	}
+
+	public function filterCategory(RouteCollection $routes, Request $request) {
+		startSession();
+		$data = json_decode($_GET['data']);
+		$productList = new Products();
+		$productList->readByCategory($data->currentCategory);
+		$minPrice = $data->minPrice;
+		$maxPrice = $data->maxPrice;
+		$productList->productList = array_filter(
+			$productList->productList,
+			fn($item) => $item->getPrice() >= $minPrice && $item->getPrice() <= $maxPrice
+		);
+		if (!empty($productList->productList)) {
+			foreach ($productList->productList as $key => $row) {
+					$sort[$key] = $row->getPrice();
+			}
+	
+			array_multisort(
+				$sort,
+				SORT_DESC,
+				$productList->productList 
+			);
+		}
+		require APP_ROOT . "/views/product_paginate.view.php";
+
+	}
 }

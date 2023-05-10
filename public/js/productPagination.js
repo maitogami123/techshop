@@ -1,11 +1,11 @@
-const _paginationNumbers = document.getElementById("pagination-numbers");
-const _paginatedList = document.getElementById("render-cart");
-const _listItems = _paginatedList.querySelectorAll(".cart");
-const _nextButton = document.getElementById("next-button");
-const _prevButton = document.getElementById("prev-button");
+let _paginationNumbers = document.getElementById("pagination-numbers");
+let _paginatedList = document.getElementById("render-cart");
+let _listItems = _paginatedList.querySelectorAll(".cart");
+let _nextButton = document.getElementById("next-button");
+let _prevButton = document.getElementById("prev-button");
 
-const _paginationLimit = 4;
-const _pageCount = Math.ceil(_listItems.length / _paginationLimit);
+let _paginationLimit = 4;
+let _pageCount = Math.ceil(_listItems.length / _paginationLimit);
 let currentPage = 1;
 
 const disableButton = (button) => {
@@ -52,7 +52,7 @@ const appendPageNumber = (index) => {
   _paginationNumbers.appendChild(pageNumber);
 };
 
-const get_PaginationNumbers = () => {
+const get_PaginationNumbers = (_pageCount) => {
   for (let i = 1; i <= _pageCount; i++) {
     appendPageNumber(i);
   }
@@ -83,7 +83,7 @@ const setCurrentPage = (pageNum) => {
 };
 
 window.addEventListener("load", () => {
-  get_PaginationNumbers();
+  get_PaginationNumbers(_pageCount);
   setCurrentPage(1);
 
   _prevButton.addEventListener("click", () => {

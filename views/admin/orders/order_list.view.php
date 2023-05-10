@@ -27,11 +27,7 @@
         id="view-order-detail"
         data-order-id="<?php echo $order->getId()?>"
         >
-        <i class="mdi mdi-eye"></i></button>
-      <a href="javascript:void(0);" class="action-icon">
-        <i class="mdi mdi-square-edit-outline"></i></a>
-      <a href="javascript:void(0);" class="action-icon">
-        <i class="mdi mdi-delete"></i></a>
+        <i class="mdi mdi-square-edit-outline"></i></button>
     </td>
   </tr>
 <?php endforeach ?>
