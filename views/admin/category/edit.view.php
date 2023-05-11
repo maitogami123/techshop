@@ -8,8 +8,8 @@ if (isLoggedIn()) {
   $user = new User();
   $user = unserialize($_SESSION['user']);
 }
-if (!isLoggedIn() || !in_array('P_Edit', $user->getPermissions()))
-  redirect($routes->get('homepage')->getPath())
+// if (!isLoggedIn() || !in_array('P_Edit', $user->getPermissions()))
+//   redirect($routes->get('homepage')->getPath())
     ?>
   <div class="modal-header modal-colored-header bg-info">
     <h4 class="modal-title" id="fill-info-modalLabel">
