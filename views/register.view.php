@@ -90,46 +90,41 @@ $user = new RegisterController();
 <!-- // BEGIN:Đối tượng 'Validator -->
 <script src="/techshop/public/js/validator.js"></script>
 <script>
-  <?php
-  $name = $user->getAccountInDB(); //getAccountInDB
-  $json_Value_user = json_encode($name);
-  $Gmail = $user->getGmailInDB();
-  $json_Value_Gmail = json_encode($Gmail);
-  ?>
-
-  let arr = [<?php echo $json_Value_user ?>]
-  let accountArray = arr[0]
-  let gmailList = [<?php echo $json_Value_Gmail ?>]
-  let gmailArray = gmailList[0]
-  let fistName = document.querySelector('#fist-name');
-  let lastName = document.querySelector('#Last-name');
-  let Email = document.querySelector('#email');
-  let userName = document.querySelector('#Username');
-  let Password = document.querySelector('#password');
-  // let re_Pass = document.querySelector('#re-password');
-  Validator({
-    form: "#form-Register",
-    Account: accountArray,
-    Gmail: gmailArray,
-    fistName: fistName,
-    lastName: lastName,
-    Email: Email,
-    userName: userName,
-    Password: Password,
-    // re_Pass:re_Pass,
-    url: '<?php echo getPath($routes, 'register') ?>',
-    rules: [
-      Validator.isFist('#fist-name'),
-      Validator.isLast('#Last-name', function () {
-        return document.querySelector("#fist-name").value;
-      }),
-      Validator.isEmail('#email'),
-      Validator.isUsername('#Username'),
-      Validator.isPassword('#password'),
-      Validator.isRe_Password('#re-password', function () {
-        return document.querySelector('#form-Register #password').value;
-      })
-    ]
-  });
+<?php
+    $name = $user -> getAccountInDB();//getAccountInDB
+    $json_Value = json_encode($name);
+    ?>
+    
+    // let arr = [<?php echo $json_Value ?>]
+    // let accountArray = arr[0] 
+    let fistName = document.querySelector('#fist-name');
+    let lastName = document.querySelector('#Last-name');
+    let Email = document.querySelector('#email');
+    let userName = document.querySelector('#Username');
+    let Password = document.querySelector('#password');
+    // let re_Pass = document.querySelector('#re-password');
+    Validator({
+      form:"#form-Register",
+      Account: accountArray,
+      fistName:fistName,
+      lastName:lastName,
+      Email:Email,
+      userName:userName,
+      Password:Password,
+      // re_Pass:re_Pass,
+      url:'<?php echo getPath($routes, 'register') ?>',
+      rules: [
+        Validator.isFist('#fist-name'),
+        Validator.isLast('#Last-name', function (){
+          return document.querySelector("#fist-name").value;
+        }),
+        Validator.isEmail('#email'),
+        Validator.isUsername('#Username'),
+        Validator.isPassword('#password'),
+        Validator.isRe_Password('#re-password', function (){
+          return document.querySelector('#form-Register #password').value;
+        })
+      ]
+    });
     // console.log('<?php echo getPath($routes, 'createProduct') ?>');
 </script>

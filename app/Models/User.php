@@ -441,6 +441,15 @@ class User
 
   }
   
+public function UpdateUserInfo($userName,$lastName, $firstName, $email, $phoneNumber, $City, $District, $detailAddress){
+  $db = connect();
+  $sql = "UPDATE userdetail SET userdetail.FirstName='$firstName', userdetail.LastName='$lastName', userdetail.Email='$email', userdetail.detailedAddress='$detailAddress', userdetail.District='$District',userdetail.`City/Province`='$City', userdetail.Phone_Number='$phoneNumber' WHERE userdetail.username='$userName'";
+  $result = $db->prepare($sql);
+  $result -> execute();
+  // echo $sql;
+}
+
+
   public function getAccountInDB(){
     $db = connect();
     $sql = "SELECT Username,Password FROM account";
@@ -448,26 +457,53 @@ class User
     return $stm->fetchAll(PDO::FETCH_ASSOC);
 
   }
-
-  public function getGmailInDB(){
+  public function getCurrentfirstNameInDB($userName){
     $db = connect();
-    $sql = "SELECT Email FROM userdetail";
-    $stm = $db->query($sql);
-    return $stm->fetchAll(PDO::FETCH_ASSOC);
-
-  }
-
-  public function UpdateUserInfo($fullname,$userName){
-    $db = connect();
-    $sql = "UPDATE userdetail SET userdetail.FullName='$fullname' WHERE userdetail.username='$userName'";
-    $result = $db->prepare($sql);
-    $result -> execute();
-  }
-
-  public function getFullNameOfLogingUser($Username){
-    $db = connect();
-    $sql = "SELECT userdetail.Fullname FROM userdetail WHERE userdetail.username='$Username'";
+    $sql = "SELECT userdetail.firstName FROM userdetail WHERE userdetail.username='$userName'";
     $stm = $db->query($sql);
     return $stm->fetch();
   }
+
+  public function getCurrentLastNameInDB($userName){
+    $db = connect();
+    $sql = "SELECT userdetail.LastName FROM userdetail WHERE userdetail.username='$userName'";
+    $stm = $db->query($sql);
+    return $stm->fetch();
+  }
+
+  public function getCurrentEmailInDB($userName){
+    $db = connect();
+    $sql = "SELECT userdetail.Email FROM userdetail WHERE userdetail.username='$userName'";
+    $stm = $db->query($sql);
+    return $stm->fetch();
+  }
+
+  public function getCurrentDetailedAddressInDB($userName){
+    $db = connect();
+    $sql = "SELECT userdetail.detailedAddress FROM userdetail WHERE userdetail.username='$userName'";
+    $stm = $db->query($sql);
+    return $stm->fetch();
+  }
+
+  public function getCurrentDistrictInDB($userName){
+    $db = connect();
+    $sql = "SELECT userdetail.District FROM userdetail WHERE userdetail.username='$userName'";
+    $stm = $db->query($sql);
+    return $stm->fetch();
+  }
+
+  public function getCurrentCityInDB($userName){
+    $db = connect();
+    $sql = "SELECT userdetail.`City/Province` FROM userdetail WHERE userdetail.username='$userName'";
+    $stm = $db->query($sql);
+    return $stm->fetch();
+  }
+
+  public function getCurrentTelInDB($userName){
+    $db = connect();
+    $sql = "SELECT userdetail.Phone_Number FROM userdetail WHERE userdetail.username='$userName'";
+    $stm = $db->query($sql);
+    return $stm->fetch();
+  }
+  
 }
