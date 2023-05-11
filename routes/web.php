@@ -52,3 +52,6 @@ $routes->add('adminBrands', new Route(constant('URL_SUBFOLDER') . '/admin/brands
 $routes->add('adminRoles', new Route(constant('URL_SUBFOLDER') . '/admin/roles', array('controller' => 'AdminController', 'method'=>'indexRoleAction'), array()));
 
 $routes->add('adminPermissions', new Route(constant('URL_SUBFOLDER') . '/admin/permissions', array('controller' => 'AdminController', 'method'=>'indexPermissionAction'), array()));
+$routes->add('getRolePermission', new Route(constant('URL_SUBFOLDER') . '/admin/getRolePermission', array('controller' => 'RoleController', 'method'=>'getRolePermissionAction'), array()));
+
+$routes->add('adminPermissionGroups', new Route(constant('URL_SUBFOLDER') . '/admin/permissionGroups', array('controller' => 'AdminController', 'method'=>'indexPermissionGroupAction'), array()));

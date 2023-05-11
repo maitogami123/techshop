@@ -72,6 +72,12 @@ if (isLoggedIn()) {
             </a>
           </li>
           <li class="side-nav-item">
+            <a href="<?php echo getPath($routes, 'adminBrands')?>" class="side-nav-link">
+              <i class="uil-home-alt"></i>
+              <span> Brands </span>
+            </a>
+          </li>
+          <li class="side-nav-item">
             <a href="/techshop/admin/orders" class="side-nav-link">
               <i class="uil-home-alt"></i>
               <span> Orders </span>
@@ -96,9 +102,9 @@ if (isLoggedIn()) {
             </a>
           </li>
           <li class="side-nav-item">
-            <a href="<?php echo getPath($routes, 'adminBrands')?>" class="side-nav-link">
+            <a href="<?php echo getPath($routes, 'adminPermissionGroups')?>" class="side-nav-link">
               <i class="uil-home-alt"></i>
-              <span> Brands </span>
+              <span> Permission Groups </span>
             </a>
           </li>
         </ul>

@@ -24,102 +24,19 @@
         <div class="card-body">
           <div class="row mb-4">
             <div class="col-sm-4">
-              <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Nhóm người dùng
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">User</a>
-                  <a class="dropdown-item" href="#">Admin</a>
-                  <a class="dropdown-item" href="#">Employee</a>
-                </div>
+              <div class="row gy-2 gx-2 align-items-center justify-content-xl-start justify-content-between">
+                <label for="status-select" class="me-2">Nhóm người dùng</label>
+                <select class="form-select" id="role-select">
+                  <option>---Chọn nhóm người dùng---</option>
+                  <?php foreach($roles->roles as $role):?>
+                    <option data-role-id="<?php echo $role->getRoleId()?>"><?php echo $role->getRoleName()?></option>
+                  <?php endforeach?>
+                </select>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-lg-4">
-              <div class="table-responsive">
-                <table class="table table-bordered table-hover table-centered mb-0" id="admin-permissions">
-                  <thead class="table-light">
-                    <tr>
-                      <th colspan="2">Admin</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Create Product</td>
-                      <td style="width: 75px">
-                        <input type="checkbox" id="switch1" checked data-switch="success" />
-                        <label for="switch1" data-on-label="Yes" data-off-label="No"></label>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Delete Product</td>
-                      <td style="width: 75px">
-                        <input type="checkbox" id="switch2" checked data-switch="success" />
-                        <label for="switch2" data-on-label="Yes" data-off-label="No"></label>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Edit Product</td>
-                      <td style="width: 75px">
-                        <input type="checkbox" id="switch3" checked data-switch="success" />
-                        <label for="switch3" data-on-label="Yes" data-off-label="No"></label>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Update Quantity Product</td>
-                      <td style="width: 75px">
-                        <input type="checkbox" id="switch8" checked data-switch="success" />
-                        <label for="switch8" data-on-label="Yes" data-off-label="No"></label>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="table-responsive">
-                <table class="table table-borderless table-hover table-centered mb-0">
-                  <thead class="table-light">
-                    <tr>
-                      <th colspan="2">Employee</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Create Product</td>
-                      <td style="width: 75px">
-                        <input type="checkbox" id="switch4" checked data-switch="success" />
-                        <label for="switch4" data-on-label="Yes" data-off-label="No"></label>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Delete Product</td>
-                      <td style="width: 75px">
-                        <input type="checkbox" id="switch5" checked data-switch="success" />
-                        <label for="switch5" data-on-label="Yes" data-off-label="No"></label>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Edit Product</td>
-                      <td style="width: 75px">
-                        <input type="checkbox" id="switch6" checked data-switch="success" />
-                        <label for="switch6" data-on-label="Yes" data-off-label="No"></label>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Update Quantity Product</td>
-                      <td style="width: 75px">
-                        <input type="checkbox" id="switch7" checked data-switch="success" />
-                        <label for="switch7" data-on-label="Yes" data-off-label="No"></label>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          <div class="row" id="permission-tables">
+            
           </div>
         </div>
         <!-- end card-body-->
@@ -127,4 +44,28 @@
       <!-- end card-->
     </div>
     <!-- end col -->
-  </div>  
+  </div>
+</div>
+
+<script>
+
+  $(document).ready(function(e) {
+    $('#role-select').change(function() {
+      if($(this).find(':selected').attr('data-role-id')) {
+        $.ajax({
+          type: 'GET',
+          url: '/techshop/admin/getRolePermission',
+          data: {
+            'role':JSON.stringify($(this).find(':selected').attr('data-role-id'))
+          },
+          success:function(res) {
+            $('#permission-tables').html(res);
+          }
+        })
+      } else {
+        $('#permission-tables').html(``);
+      }
+    })
+  })
+
+</script>

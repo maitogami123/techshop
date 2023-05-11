@@ -4,7 +4,11 @@ namespace App\Controllers;
 use App\Models\Brands;
 use App\Models\Categories;
 use App\Models\Orders;
+use App\Models\PermissionGroups;
+use App\Models\Permissions;
 use App\Models\Products;
+use App\Models\Role;
+use App\Models\Roles;
 use App\Models\User;
 use App\Models\Users;
 use App\Models\Warranties;
@@ -73,8 +77,17 @@ class AdminController {
 
   public function indexPermissionAction(RouteCollection $routes, Request $request) {
     startSession();
+    $roles = new Roles();
+    $roles->getAll();
     $name = 'permissions/index';
     require_once APP_ROOT . '/views/admin/layout.view.php';
   }
   
+  public function indexPermissionGroupAction(RouteCollection $routes, Request $request) {
+    startSession();
+    $permissionGroups = new PermissionGroups();
+    $permissionGroups->getAll();
+    $name = 'permissionGroups/index';
+    require_once APP_ROOT . '/views/admin/layout.view.php';
+  }
 }
