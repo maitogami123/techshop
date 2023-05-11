@@ -9,10 +9,10 @@
                 <a href="javascript: void(0);">Techshop</a>
               </li>
 
-              <li class="breadcrumb-item active">Category</li>
+              <li class="breadcrumb-item active">Brand</li>
             </ol>
           </div>
-          <h4 class="page-title">Category</h4>
+          <h4 class="page-title">Brand</h4>
         </div>
       </div>
     </div>
@@ -25,8 +25,8 @@
             <div class="row mb-2">
               <div class="col-sm-4">
               <button type="button" class="btn btn-primary" id="add-product-btn" data-bs-toggle="modal"
-                data-bs-target="#add-new-category">
-                Add Category
+                data-bs-target="#add-new-brand">
+                Add product
               </button>
               </div>
 
@@ -40,19 +40,18 @@
               >
                 <thead class="table-light">
                   <tr>
-                    <th class="all" style="width: 150px">ID Category</th>
-                    <th>Name Category</th>
+                    <th class="all" style="width: 150px">ID</th>
+                    <th>Name brand</th>
                     <th style="width: 150px">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php foreach ($BrandList->brandList as $brand): ?>
-                    <?php if ($brand->getDeleteAt() == null): ?>
                     <tr>
                       <td><?php echo $brand->getId() ?></td>
                       <td><?php echo $brand->getName() ?></td>
                       <td class="table-action">
-                      
+                      <?php if ($brand->getDeleteAt() == null): ?>
                         <button type="button" class="action-icon btn" data-bs-toggle="modal"
                           data-bs-target="#change-brand" 
                           data-brand-id="<?php echo $brand->getId() ?>">
@@ -62,10 +61,9 @@
                           data-brand-id="<?php echo $brand->getId() ?>">
                           <i class="mdi mdi-delete"></i>
                         </button>
-                      
+                      <?php endif ?>
                       </td>
                     </tr>
-                    <?php endif ?>
                   <?php endforeach ?>
                 </tbody>
               </table>

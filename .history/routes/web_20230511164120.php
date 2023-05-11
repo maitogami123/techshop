@@ -58,23 +58,5 @@ $routes->add('adminRoles', new Route(constant('URL_SUBFOLDER') . '/admin/roles',
 
 $routes->add('adminPermissions', new Route(constant('URL_SUBFOLDER') . '/admin/permissions', array('controller' => 'AdminController', 'method'=>'indexPermissionAction'), array()));
 $routes->add('getRolePermission', new Route(constant('URL_SUBFOLDER') . '/admin/getRolePermission', array('controller' => 'RoleController', 'method'=>'getRolePermissionAction'), array()));
-$routes->add('getRoleInformation', new Route(constant('URL_SUBFOLDER') . '/admin/getRoleInformation', array('controller' => 'RoleController', 'method'=>'getRoleInformationAction'), array()));
-$routes->add('removeUserGroupRole', new Route(constant('URL_SUBFOLDER') . '/admin/removeUserGroupRole', array('controller' => 'RoleController', 'method'=>'removeUserGroupRoleAction'), array()));
-$routes->add('toggleDisableRole', new Route(constant('URL_SUBFOLDER') . '/admin/toggleDisableRole', array('controller' => 'RoleController', 'method'=>'toggleDisableRoleAction'), array()));
-$routes->add('createRole', new Route(constant('URL_SUBFOLDER') . '/admin/createRole', array('controller' => 'RoleController', 'method'=>'createRoleAction'), array()));
-$routes->add('getEditRoleForm', new Route(constant('URL_SUBFOLDER') . '/admin/getEditRoleForm', array('controller' => 'RoleController', 'method'=>'getEditRoleFormAction'), array()));
-$routes->add('editRole', new Route(constant('URL_SUBFOLDER') . '/admin/editRole', array('controller' => 'RoleController', 'method'=>'editRoleAction'), array()));
-$routes->add('deleteRole', new Route(constant('URL_SUBFOLDER') . '/admin/deleteRole', array('controller' => 'RoleController', 'method'=>'deleteRoleAction'), array()));
-
-$routes->add('getEditPermissionGroupForm', new Route(constant('URL_SUBFOLDER') . '/admin/getEditPermissionGroupForm', array('controller' => 'PermissionGroupController', 'method'=>'getEditPermissionGroupFormAction'), array()));
-$routes->add('createPermission', new Route(constant('URL_SUBFOLDER') . '/admin/createPermission', array('controller' => 'PermissionController', 'method'=>'postPermissionFormAction'), array()));
-$routes->add('getPermissionDetail', new Route(constant('URL_SUBFOLDER') . '/admin/getPermissionDetail', array('controller' => 'PermissionController', 'method'=>'getPermissionDetailAction'), array()));
-$routes->add('updatePermissionState', new Route(constant('URL_SUBFOLDER') . '/admin/updatePermissionState', array('controller' => 'PermissionController', 'method'=>'updatePermissionStateAction'), array()));
-$routes->add('addUserGroupPermission', new Route(constant('URL_SUBFOLDER') . '/admin/addUserGroupPermission', array('controller' => 'PermissionController', 'method'=>'addUserGroupPermissionAction'), array()));
-$routes->add('removeUserGroupPermission', new Route(constant('URL_SUBFOLDER') . '/admin/removeUserGroupPermission', array('controller' => 'PermissionController', 'method'=>'removeUserGroupPermissionAction'), array()));
-$routes->add('getPermissionForm', new Route(constant('URL_SUBFOLDER') . '/admin/getPermissionForm', array('controller' => 'PermissionController', 'method'=>'getPermissionFormAction'), array()));
 
 $routes->add('adminPermissionGroups', new Route(constant('URL_SUBFOLDER') . '/admin/permissionGroups', array('controller' => 'AdminController', 'method'=>'indexPermissionGroupAction'), array()));
-$routes->add('createPermissionGroup', new Route(constant('URL_SUBFOLDER') . '/admin/createPermissionGroup', array('controller' => 'PermissionGroupController', 'method'=>'createPermissionGroupAction'), array()));
-$routes->add('updatePermissionGroupState', new Route(constant('URL_SUBFOLDER') . '/admin/updatePermissionGroupState', array('controller' => 'PermissionGroupController', 'method'=>'updatePermissionGroupStateAction'), array()));
-$routes->add('updatePermissionGroup', new Route(constant('URL_SUBFOLDER') . '/admin/updatePermissionGroup', array('controller' => 'PermissionGroupController', 'method'=>'updatePermissionGroupAction'), array()));

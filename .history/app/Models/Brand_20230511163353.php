@@ -95,10 +95,6 @@ class Brand
 
   public function delete(int $id)
   {
-    $db = connect();
-    $query = "UPDATE `brand` SET `Delete_At` =  CURRENT_TIMESTAMP() WHERE `brand`.`BrandID` = :id";
-    $statement = $db->prepare($query);
-    $statement->bindParam(':id', $id, PDO::PARAM_STR);
-    $statement->execute();
+
   }
 }

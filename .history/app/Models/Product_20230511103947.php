@@ -727,6 +727,7 @@ class Product
     $statement = $db->prepare($query);
     $statement->bindParam(':id', $id, PDO::PARAM_STR);
     $statement->execute();
+
   }
 
 

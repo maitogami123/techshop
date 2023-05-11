@@ -41,7 +41,7 @@ class BrandController{
     public function deleteAction(string $id, RouteCollection $routes, Request $request) {
         startSession();
         $brand = new Brand();
-        $brand->delete($id);
+        $brand->read($id);
         require_once APP_ROOT . '/views/admin/brand/edit.view.php';
     }
 
