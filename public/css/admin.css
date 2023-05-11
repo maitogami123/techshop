@@ -1,0 +1,63 @@
+
+.order-detail__container {
+  grid-column: 3/9;
+  align-items: start;
+  justify-items: start;
+  width: 100%;
+  padding: 2rem;
+  gap: 2rem; }
+
+.order-detail__wrapper {
+  width: 100%;
+  grid-column: 1/-1;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden; }
+  .order-detail__wrapper > *:not(:first-child) {
+    border-top: 1px solid #d1d5db; }
+
+.order-detail__summary, .order-detail__ship-information {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 2rem 1rem;
+  display: grid; }
+
+.order-detail__summary {
+  grid-column: 1/4;
+  gap: 2rem; }
+
+.order-detail__ship-information {
+  grid-column: 4/9;
+  gap: 0.5rem; }
+
+.order-detail__titles, .order-detail__item {
+  width: 100%;
+  justify-items: start;
+  align-items: start;
+  padding: 2rem;
+  gap: 3rem; 
+  display: grid;
+}
+
+.order-detail__titles {
+  background-color: #e5e7eb; }
+
+.order-detail__title:first-child, .order-detail__product-name {
+  grid-column: 1/6; 
+}
+
+.order-detail__title:nth-child(2), .order-detail__product-quantity {
+  grid-column: 6/7;
+  justify-self: center; }
+
+.order-detail__title:nth-child(3), .order-detail__product-price {
+  grid-column: 7/8; }
+
+.order-detail__title:nth-child(4), .order-detail__product-total-price {
+  grid-column: 8/9; }
+
+.order-detail__product-warranty {
+  display: block;
+  color: #28a745;
+  font-style: italic; }

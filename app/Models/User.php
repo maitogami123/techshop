@@ -343,10 +343,15 @@ class User
     $result -> execute();
   }
 
-  public function createUserDetail($username, $FirstName, $LastName, $Email)
+  public function createUserDetail($username, $FullName, $Email)
   {
     $db = connect();
-    $sql= "INSERT INTO userdetail(username, FirstName, LastName, Email) Values('$username', '$FirstName', '$LastName', '$Email')";
+
+    //Main
+    //$sql= "INSERT INTO userdetail(username, FirstName, LastName, Email) Values('$username', '$FirstName', '$LastName', '$Email')";
+
+    $sql= "INSERT INTO userdetail(username, FullName, Email) Values('$username', '$FullName','$Email')";
+    echo $sql;
     $result = $db->prepare($sql);
     $result -> execute();
   }
@@ -383,7 +388,7 @@ class User
     );
     $data = $statement->fetch(PDO::FETCH_ASSOC);
     if (!isset($data['Username'])) {
-      throw new ErrorException('Login Failed');
+      throw new ErrorException('Tài khoản hoặc mật khẩu sai');
     }
     $this->username = $data['Username'];
     $this->password = $data['Password'];
@@ -452,7 +457,6 @@ public function UpdateUserInfo($userName,$lastName, $firstName, $email, $phoneNu
     return $stm->fetchAll(PDO::FETCH_ASSOC);
 
   }
-
   public function getCurrentfirstNameInDB($userName){
     $db = connect();
     $sql = "SELECT userdetail.firstName FROM userdetail WHERE userdetail.username='$userName'";

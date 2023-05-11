@@ -243,7 +243,7 @@ class Order {
   public function read(string $orderId) {
     $db = connect();
 
-    $sql = "SELECT `userorder`.*, `orderinformation`.*, `orderdetail`.*, `orderstatus`.`StatusName`
+    $sql = "SELECT `userorder`.*, `orderinformation`.*, `orderdetail`.*, `orderstatus`.*
             FROM `userorder` 
               LEFT JOIN `orderinformation` ON `orderinformation`.`OrderID` = `userorder`.`OrderID` 
               LEFT JOIN `orderdetail` ON `orderdetail`.`OrderID` = `userorder`.`OrderID`

@@ -1,3 +1,15 @@
+
+<?php
+use App\Models\User;
+
+if (!isLoggedIn()) {
+  $_SESSION['isLoggedIn'] = false;
+}
+if (isLoggedIn()) {
+  $user = new User();
+  $user = unserialize($_SESSION['user']);
+}
+?>
 <style>
   .Display{
     display: inline-block !important;
@@ -140,20 +152,6 @@
     getProvincesHanlder();
   })
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- xữ lý các nút btn -->
 <script>
 let btnSave = document.querySelector('#btnSave');
@@ -254,7 +252,6 @@ function xuLyNutHuy() {
   $(document).ready(function(e) {
     getProvincesHanlder();
   })
-
   $('.error').innerText=""
   SuaHoacHuy()
   let mess_error=document.querySelectorAll('.error');
@@ -462,4 +459,3 @@ Validator({
     btnHuy.addEventListener('click', xuLyNutHuy)
     btnThayDoi.addEventListener('click', xuLyNutThayDoi);
 </script>
-

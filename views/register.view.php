@@ -1,56 +1,56 @@
 <?php
 use App\Controllers\RegisterController;
+
 $user = new RegisterController();
 ?>
 
 <style>
-    .invalid_Error{
-      color: #d93b3e;
-    }
+  .invalid_Error {
+    color: #d93b3e;
+  }
 
-    .border_Error{
-      border:1px solid #d93b3e;
-    }
+  .border_Error {
+    border: 1px solid #d93b3e;
+  }
 
-    .BorderInputBlue{
-      border: 2px solid #4688f1;
-    }
+  .BorderInputBlue {
+    border: 2px solid #4688f1;
+  }
 
-    .Input_Error:focus{
-      border: 2px solid #d93b3e;
-    }
-    
-    .Success:focus{
-      border: 2px solid #4688f1;
-    }
-    .Container-FistAndLast{
-      display: flex;
-    }
-    .Container-Password{
-      display: flex;
-    }
+  .Input_Error:focus {
+    border: 2px solid #d93b3e;
+  }
+
+  .Success:focus {
+    border: 2px solid #4688f1;
+  }
+
+  .Container-FistAndLast {
+    display: flex;
+  }
+
+  .Container-Password {
+    display: flex;
+  }
 </style>
 
 <div class="password container div-8-col">
   <div class="form__container--center">
     <h3 class="heading__secondary u-margin-bottom-big">Đăng ký</h3>
-    <form  id="form-Register" method="post" class="form w-full text-color--1 font-size-2">
-      <div class="Container-FistAndLast">
-
+    <form id="form-Register" method="post" class="form w-full text-color--1 font-size-2">
+      <div class="form__field-box">
         <div class="form__field u-margin-bottom-medium">
           <label for="fist-name" class="form__label u-margin-bottom-small">Họ </label>
           <input type="text" id="fist-name" name="fist-name" placeholder="Nguyễn Văn A" class="form__input Success" />
           <span class="form-message"></span>
         </div>
-        
+
         <div class="form__field u-margin-bottom-medium">
           <label for="Last-name" class="form__label u-margin-bottom-small">Tên</label>
           <input type="text" id="Last-name" name="Last-name" placeholder="Nguyễn Văn A" class="form__input Success" />
           <span class="form-message"></span>
         </div>
-
       </div>
-
       <div class="form__field u-margin-bottom-medium">
         <label for="email" class="form__label u-margin-bottom-small">Email</label>
         <input type="email" id="email" name="email" placeholder="abc@gmail.com" class="form__input Success" />
@@ -59,25 +59,26 @@ $user = new RegisterController();
 
       <div class="form__field u-margin-bottom-medium">
         <label for="Username" class="form__label u-margin-bottom-small">Tên đăng nhập</label>
-        <input type="Username" id="Username"  name="Username" placeholder="linhdao2468" class="form__input Success" />
+        <input type="Username" id="Username" name="Username" placeholder="linhdao2468" class="form__input Success" />
         <span class="form-message"></span>
       </div>
 
-    <div class="Container-Password">
+      <div class="form__field-box">
 
-      <div class="form__field u-margin-bottom-medium">
-        <label for="password" class="form__label u-margin-bottom-small">Mật khẩu</label>
-        <input type="password" id="password" name="password" placeholder="********" class="form__input Success" />
-        <span class="form-message"></span>
+        <div class="form__field u-margin-bottom-medium">
+          <label for="password" class="form__label u-margin-bottom-small">Mật khẩu</label>
+          <input type="password" id="password" name="password" placeholder="********" class="form__input Success" />
+          <span class="form-message"></span>
+        </div>
+
+        <div class="form__field u-margin-bottom-medium">
+          <label for="re-password" class="form__label u-margin-bottom-small">Xác nhận</label>
+          <input type="password" id="re-password" name="re-password" placeholder="********"
+            class="form__input Success" />
+          <span class="form-message"></span>
+        </div>
+
       </div>
-
-      <div class="form__field u-margin-bottom-medium">
-        <label for="re-password" class="form__label u-margin-bottom-small">Xác nhận</label>
-        <input type="password" id="re-password" name="re-password" placeholder="********" class="form__input Success" />
-        <span class="form-message"></span>
-      </div>
-
-    </div>
 
       <button type="submit" class="btn btn__primary btn__primary--active u-center-text" name="Register">
         Đăng ký

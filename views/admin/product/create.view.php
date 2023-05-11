@@ -1,8 +1,7 @@
 <?php
-if (!isLoggedIn() || !in_array('P_Create', $user->getPermissions()))
-  redirect($routes->get('homepage')->getPath())
+  if (!isLoggedIn() || !in_array('P_Create', $user->getPermissions()))
+    redirect($routes->get('homepage')->getPath())
 ?>
-
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -45,7 +44,7 @@ if (!isLoggedIn() || !in_array('P_Create', $user->getPermissions()))
         </div>
         <div class="form-group">
           <label for="thumbnail" class="form-label">Thumbnail</label>
-          <input type="file" multiple class="form-control" name='thumbnail' id="thumbnail">
+          <input type="file" class="form-control" name='thumbnail' id="thumbnail">
         </div>
         <div class="form-group">
           <label for="discount" class="form-label">Discount</label>
@@ -54,11 +53,12 @@ if (!isLoggedIn() || !in_array('P_Create', $user->getPermissions()))
         <div class="form-group">
           <label for="brand" class="form-label">Brand</label>
           <select id="brand" name="brand" class="form-select">
-            <option>---Choose---</option>
-          <?php foreach ($brands->brandList as $brand): ?>
-            <option value=<?php echo $brand->id ?>><?php echo $brand->name ?></option>
-          <?php endforeach; ?>
-        </select>
+              <option>---Choose---</option>
+            <?php foreach ($brands->brandList as $brand): ?>
+              <option value=<?php echo $brand->id ?>><?php echo $brand->name ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
       </div>
       <div class="form-group">
         <label for="category" class="form-label">Category</label>
@@ -87,15 +87,15 @@ if (!isLoggedIn() || !in_array('P_Create', $user->getPermissions()))
       let newRow = `<input class="form-control" name='serial_number[]' type='text' id="serial_number">`
       $('#serial_number-group').append(newRow);
     })
-    $('#create-form').submit(function(e) {
+    $('#create-form').submit(function (e) {
       e.preventDefault();
       var formData = new FormData(this);
-      formData.append('userID', '<?php echo $user->getUsername()?>');
+      formData.append('userID', '<?php echo $user->getUsername() ?>');
       $.ajax({
         type: "POST",
         url: "<?php echo getPath($routes, 'createProduct') ?>",
         data: formData,
-        success: function(res) {
+        success: function (res) {
           console.log(res)
         },
         contentType: false,

@@ -9,6 +9,7 @@ function Validator(options){
             inputElement.classList.add('Input_Error');
             inputElement.classList.add('border_Error');
             inputElement.classList.remove('Success')
+            console.log("hello");
         }else {
             errorElement.innerText = ''
             errorElement.classList.remove('invalid_Error');
@@ -107,18 +108,25 @@ Validator.isLast = function (selector, ValueFistName) {
 Validator.isEmail = function (selector) {
     return {
         selector: selector,
-        test: function(value){
+        test: function(value,option){
             if (value.trim() == '') {//trim() loại bỏ khoảng trắng
                 return "Xin vui lòng nhập email"
             }else {
                 let regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
                 if (!regex.test(value)) {
-                    return "Trường này phải là email. Vui lòng nhập lại!"
+                    return "Email vừa nhập không đúng. Vui lòng nhập lại!"
+                }else{
+                    for (let index = 0; index < option.Gmail.length; index++) {
+                        if (option.Gmail[index].Email === value) {
+                            return "Email này đã tồn tại. Vui lòng nhập email khác!"
+                        }                    
+                    }
                 }
-            }
+
             return undefined
         }
-    };
+    }
+};
 }
 
 Validator.isUsername = function(selector){
@@ -141,19 +149,18 @@ Validator.isUsername = function(selector){
 Validator.isPassword = function(selector){
     return {
         selector: selector,
-        test: function(value, option){
+        test: function(value){
             if (value.trim() == '') {//trim() loại bỏ khoảng trắng
                 return "Xin vui lòng nhập mật khẩu"
-            }else if(value.length < 6){
-                return "Tối thiểu là 6 ký tự";
-            }
-            for (let index = 0; index < option.Account.length; index++) {
-                if (option.Account[index].Password === value) {
-                    return "Mật khẩu của bạn đã tồn tại!!"
+            }else if(value.length < 8){
+                return "Tối thiểu là 8 ký tự";
+            }else {
+                let regex = /^.*(?=.*\d).(?=.*[A-Z]).(?=.*[a-z]).*$/ //kiểm tra xem có ít nhất một ký tự chữ cái (viết hoa hoặc viết thường) xuất hiện trong chuỗi.
+                if (!regex.test(value)) {
+                    return "Chứa ít nhất một ký tự viết hoa và một ký tự viết thường và chỉ bao gồm các chữ cái và số." 
                 }
-            }
-            return undefined
-            
+                return undefined
+            }              
         }
     };
 }
