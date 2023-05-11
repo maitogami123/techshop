@@ -133,7 +133,7 @@ class Permission {
     return $this;
   }
 
-  public function addPerrmission(array $data) {
+  public function createPermission(array $data) {
     $db = connect();
 
     $addPermissionSql = "INSERT INTO 
@@ -158,6 +158,31 @@ class Permission {
     $updateStateStm->execute([
       ':isDisabled' => $state,
       ':permissionId' => $permissionId,
+    ]);
+  }
+
+  public function addPermissionToUserGroup($permissionId, $roleId) {
+    $db = connect();
+
+    $addPermissionSql = "INSERT INTO `accountpermission` (`ID`, `PermissionID`, `TypeID`) 
+                          VALUES (NULL, :permissionId, :roleId)";
+    $addPermissionStm = $db->prepare($addPermissionSql);
+    $addPermissionStm->execute([
+      ":permissionId" => $permissionId,
+      ":roleId" => $roleId,
+    ]);
+  }
+  
+  public function removePermissionToUserGroup($permissionId, $roleId) {
+    $db = connect();
+
+    $addPermissionSql = "DELETE FROM `accountpermission` 
+                          WHERE `accountpermission`.`PermissionID` = :permissionId 
+                          AND `accountpermission`.`TypeID` = :roleId";
+    $addPermissionStm = $db->prepare($addPermissionSql);
+    $addPermissionStm->execute([
+      ":permissionId" => $permissionId,
+      ":roleId" => $roleId,
     ]);
   }
 }

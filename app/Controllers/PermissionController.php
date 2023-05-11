@@ -15,7 +15,7 @@ class PermissionController {
   public function postPermissionFormAction(RouteCollection $routes, Request $request) {
     startSession();
     $permission = new Permission();
-    $permission->addPerrmission($_POST);
+    $permission->createPermission($_POST);
   }
   public function getPermissionDetailAction(RouteCollection $routes, Request $request) {
     $roleId = json_decode($_GET['roleId']);
@@ -33,4 +33,18 @@ class PermissionController {
     $permission->updatePermissionState($roleId, $state);
   }
 
+  public function removeUserGroupPermissionAction(RouteCollection $routes, Request $request) {
+    $roleId = json_decode($_POST['roleId']);
+    $permissionId = json_decode($_POST['permissionId']);
+    $permission = new Permission();
+    $permission->removePermissionToUserGroup($permissionId, $roleId);    
+  }
+
+  public function addUserGroupPermissionAction(RouteCollection $routes, Request $request) {
+    $roleId = json_decode($_POST['roleId']);
+    $permissionId = json_decode($_POST['permissionId']);
+    $permission = new Permission();
+    $permission->addPermissionToUserGroup($permissionId, $roleId);
+    // print_r($_POST);
+  }
 }

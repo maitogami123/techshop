@@ -150,7 +150,7 @@
           //   icon: 'success',
           //   confirmButtonTeNxt: 'Cool!'
           // })
-          // $('#create-form')[0].reset();
+          $('#create-form')[0].reset();
         },
         contentType: false,
         processData: false

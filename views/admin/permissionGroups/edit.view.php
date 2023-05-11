@@ -38,11 +38,10 @@
       formData.append('roleId', <?php echo $roleId?>)
       $.ajax({
         type: "POST",
-        url: "<?php echo getPath($routes, 'addPermission') ?>",
+        url: "<?php echo getPath($routes, 'createPermission') ?>",
         data: formData,
         success: function (res) {
           console.log(res)
-
         },
         contentType: false,
         processData: false
