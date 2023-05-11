@@ -1,4 +1,5 @@
 <?php
+use App\Models\User;
 use Symfony\Component\Routing\RouteCollection;
 
 function view($name, $model='') {
@@ -78,4 +79,10 @@ function getOrderStatusClassAdmin($status) {
         default:
             echo "badge-info-lighten";
     }
+}
+
+function getSessionUser() {
+    $user = new User();
+    $user = unserialize($_SESSION['user']);
+    return $user;
 }

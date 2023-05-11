@@ -13,6 +13,7 @@
     </div>
   </div>
 </div>
+
 <div class="row">
   <div class="col-12">
     <div class="card">
@@ -132,7 +133,14 @@
     </div>
   </div>
 </div>
-<script src="/techshop/public/js/validator.js"></script>
+
+
+<div id="change-user-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" id="editModal">
+    </div>
+  </div>
+</div>
 <script>
 
   $(document).ready(function () {
@@ -150,9 +158,75 @@
         processData: false,
       })
     })
-  })
 
+    $(document).ready(function () {
+      $('#change-user-info').on('shown.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var username = button.data('user-id')
+        $.ajax({
+          type: 'get',
+          url: `/techshop/admin/getEditUserForm`,
+          data: {
+            'username': JSON.stringify(username)
+          },
+          success: function (res) {
+            $('#editModal').html(res);
+          }
+        })
+      })
+    })
+  })
 </script>
+<script>
+  <?php
+  $user = getSessionUser();
+  if (in_array('U_Delete', $user->getPermissions())):
+    ?>
+    $(document).ready(function () {
+      $('.delete-btn').click(function () {
+        let username = ($(this).attr('data-user-id'))
+        Swal.fire({
+          title: 'Do you want to disable this user?',
+          showCancelButton: true,
+          icon: 'question',
+          confirmButtonText: 'Yes',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              method: 'POST',
+              url: "/techshop/admin/deactiveUser",
+              data: {
+                'username': JSON.stringify(username)
+              },
+              success: (function (res) {
+                Swal.fire({
+                  title: 'Success!',
+                  text: 'Product successfully deleted!',
+                  icon: 'success',
+                  confirmButtonTeNxt: 'Cool!'
+                }).then(() => {
+                  location.reload();
+                })
+              }),
+            })
+          }
+        })
+      })
+    })
+  <?php else: ?>
+    $(document).ready(function () {
+      $('.delete-btn').click(function () {
+        Swal.fire({
+          title: 'Error!',
+          text: 'You don\'t have the permission to delete product!',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
+      })
+    })
+  <?php endif ?>
+</script>
+
 <script>
   $(document).ready(function () {
     $("#accounts-datatable").DataTable({

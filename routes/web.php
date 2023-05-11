@@ -7,8 +7,6 @@ use Symfony\Component\Routing\RouteCollection;
 $routes = new RouteCollection();
 
 $routes->add('product', new Route(constant('URL_SUBFOLDER') . '/product/{id}', array('controller' => 'ProductController', 'method'=>'showAction'), array('id' => '([^&]*)')));
-// $routes->add('viewProduct', new Route(constant('URL_SUBFOLDER') . '/view/product', array('controller' => 'ProductController', 'method'=>'indexAction'), array()));
-// $routes->add('editProduct', new Route(constant('URL_SUBFOLDER') . '/edit/product/{id}', array('controller' => 'ProductController', 'method'=>'editAction'), array('id' => '([^&]*)')));
 $routes->add('deleteProduct', new Route(constant('URL_SUBFOLDER') . '/delete/product/{id}', array('controller' => 'ProductController', 'method'=>'deleteAction'), array('id' => '([^&]*)')));
 
 $routes->add('homepage', new Route(constant('URL_SUBFOLDER') . '/', array('controller' => 'PageController', 'method'=>'indexAction'), array()));
@@ -47,6 +45,9 @@ $routes->add('updateOrderStatus', new Route(constant('URL_SUBFOLDER') . '/admin/
 
 $routes->add('adminUsers', new Route(constant('URL_SUBFOLDER') . '/admin/users', array('controller' => 'AdminController', 'method'=>'indexUserAction'), array()));
 $routes->add('createUser', new Route(constant('URL_SUBFOLDER') . '/admin/createUser', array('controller' => 'RegisterController', 'method'=>'createUserAction'), array()));
+$routes->add('getEditUserForm', new Route(constant('URL_SUBFOLDER') . '/admin/getEditUserForm', array('controller' => 'UserController', 'method'=>'getEditUserFormAction'), array()));
+$routes->add('updateUserInfo', new Route(constant('URL_SUBFOLDER') . '/admin/updateUserInfo', array('controller' => 'UserController', 'method'=>'updateUserInfoAction'), array()));
+$routes->add('deactiveUser', new Route(constant('URL_SUBFOLDER') . '/admin/deactiveUser', array('controller' => 'UserController', 'method'=>'deactiveUserAction'), array()));
 
 $routes->add('adminBrands', new Route(constant('URL_SUBFOLDER') . '/admin/brands', array('controller' => 'AdminController', 'method'=>'indexBrandAction'), array()));
 $routes->add('createBrands', new Route(constant('URL_SUBFOLDER') . '/admin/brands/create', array('controller' => 'BrandController', 'method'=>'createBrand'), array()));
@@ -60,9 +61,7 @@ $routes->add('editCategory', new Route(constant('URL_SUBFOLDER') . '/admin/categ
 $routes->add('updateCategory', new Route(constant('URL_SUBFOLDER') . '/admin/category/saveChange', array('controller' => 'CategoryController', 'method'=>'updateAction'), array()));
 $routes->add('deleteCategory', new Route(constant('URL_SUBFOLDER') . '/admin/category/delete/{id}', array('controller' => 'CategoryController', 'method'=>'deleteAction'), array('id' => '([^&]*)')));
 
-
 $routes->add('adminRoles', new Route(constant('URL_SUBFOLDER') . '/admin/roles', array('controller' => 'AdminController', 'method'=>'indexRoleAction'), array()));
-
 $routes->add('adminPermissions', new Route(constant('URL_SUBFOLDER') . '/admin/permissions', array('controller' => 'AdminController', 'method'=>'indexPermissionAction'), array()));
 $routes->add('getRolePermission', new Route(constant('URL_SUBFOLDER') . '/admin/getRolePermission', array('controller' => 'RoleController', 'method'=>'getRolePermissionAction'), array()));
 $routes->add('getRoleInformation', new Route(constant('URL_SUBFOLDER') . '/admin/getRoleInformation', array('controller' => 'RoleController', 'method'=>'getRoleInformationAction'), array()));
