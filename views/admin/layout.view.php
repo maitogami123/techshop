@@ -23,6 +23,7 @@ if (isLoggedIn()) {
   <link href="/techshop/public/css/vendor/dataTables.bootstrap5.css" rel="stylesheet" type="text/css" />
   <link href="/techshop/public/css/vendor/responsive.bootstrap5.css" rel="stylesheet" type="text/css" />
   <link href="/techshop/public/css/vendor/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+  <link href="/techshop/public/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
   <link href="/techshop/public/css/icons.min.css" rel="stylesheet" type="text/css" />
   <link href="/techshop/public/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
   <link href="/techshop/public/css/admin.css" rel="stylesheet" type="text/css" />

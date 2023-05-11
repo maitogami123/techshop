@@ -46,6 +46,7 @@ $routes->add('getOrderDetail', new Route(constant('URL_SUBFOLDER') . '/admin/ord
 $routes->add('updateOrderStatus', new Route(constant('URL_SUBFOLDER') . '/admin/order/updateStatus', array('controller' => 'OrderController', 'method'=>'updateOrderStatusAction'), array()));
 
 $routes->add('adminUsers', new Route(constant('URL_SUBFOLDER') . '/admin/users', array('controller' => 'AdminController', 'method'=>'indexUserAction'), array()));
+$routes->add('createUser', new Route(constant('URL_SUBFOLDER') . '/admin/createUser', array('controller' => 'RegisterController', 'method'=>'createUserAction'), array()));
 
 $routes->add('adminBrands', new Route(constant('URL_SUBFOLDER') . '/admin/brands', array('controller' => 'AdminController', 'method'=>'indexBrandAction'), array()));
 $routes->add('createBrands', new Route(constant('URL_SUBFOLDER') . '/admin/brands/create', array('controller' => 'BrandController', 'method'=>'createBrand'), array()));

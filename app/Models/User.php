@@ -514,5 +514,34 @@ public function UpdateUserInfo($userName,$lastName, $firstName, $email, $phoneNu
     $stm = $db->query($sql);
     return $stm->fetch();
   }
-  
+
+  public function createUser(array $data) {
+    $db = connect();
+    $createUserSql = "INSERT INTO `account` (`Username`, `Password`, `Created_at`, `Modified_at`, `Deleted_at`)
+                       VALUES (:username, :pwd, current_timestamp(), NULL, NULL)";
+    $createUserStm = $db->prepare($createUserSql);
+    $createUserStm->execute([
+      ":username" => $data['Username'],
+      ":pwd" => $data['password'],
+    ]);
+
+    $addBasicInfoSql = "INSERT INTO `userdetail` (`userdetailID`, `username`, `FirstName`, `LastName`, 
+                        `Email`, `detailedAddress`, `District`, `City/Province`, `Phone_Number`) 
+                        VALUES (NULL, :username, :firstName, :lastName, :email, NULL, '', '', '')";
+    $addBasicInfoStm = $db->prepare($addBasicInfoSql);
+    $addBasicInfoStm->execute([
+      ":username" => $data['Username'],
+      ":firstName" => $data['fist-name'],
+      ":lastName" => $data['Last-name'],
+      ":email" => $data['email'],
+    ]);
+
+    $addUserToGroupSql = "INSERT INTO `accountgroup` (`ID`, `username`, `accountypeid`) 
+                          VALUES (NULL, :username, :roleId)";
+    $addUserToGroupStm = $db->prepare($addUserToGroupSql);
+    $addUserToGroupStm->execute([
+      ":username" => $data['Username'],
+      ":roleId" => $data['role-id'],
+    ]);
+  }
 }
