@@ -61,6 +61,7 @@
             <select type="text" id="order__address-city" name="city" class="form__input">
               <!-- Provinces -->
             </select>
+            <span class="error-message font-error"></span>
           </div>
           <div class="form__field u-margin-bottom-medium">
             <label for="order__address-district" class="form__label u-margin-bottom-small">Quận, huyện:</label>
@@ -185,11 +186,38 @@
 
 
 // <!--=========================================================BEGIN: validate form user information===============================================-->
+$.ajax({
+                method: 'get',
+                data: {
+                  cartItems: JSON.stringify(cart)
+                },
+                url: "<?php echo getPath($routes, 'getCartItems') ?>",
+                success: (function (res) {
+                  const productList = JSON.parse(res)
+                  for (let index in productList) {
+                    $('.payment__list-item').append(`
+                      <div class="payment__item div-8-col">
+                        <div class="payment__item-info item-col-1">
+                          <h3 class="payment__item-name font-size-4 text-color--4">
+                            ${productList[index].name}
+                          </h3>
+                        </div>
+                        <div class="payment__quantity-box item-col-2">
+                          <input type="number" min="1" max="9" step="1" value="${productList[index].quantity}" class="payment__item-quantity" disabled/>
+                        </div>
+                        <h3 class="payment__item-price font-size-4 text-color--4 item-col-3">
+                          ${formatPrice(productList[index].price)}
+                        </h3>
+                      </div>
+                    `)
+                  }
+                })
+              })
 function Validator(options){
     // hàm thực hiện validate cho form
     function validate(inputElement, rule) {
         let errorElement = inputElement.parentElement.querySelector(".error-message")
-        let errorMessage = rule.test(inputElement.value);
+        let errorMessage = rule.test(inputElement.value,options);
         if (errorMessage) {
             errorElement.innerText = errorMessage;
             // console.log(inputElement.value);
@@ -219,62 +247,30 @@ function Validator(options){
             // không còn lỗi validation thì đăng ký thành công
 //====================================== Xử lý dữ liệu khi không còn lỗi====================================================== 
             if (isFormValid == true) {
-              $.ajax({
-                method: 'get',
-                data: {
-                  cartItems: JSON.stringify(cart)
-                },
-                url: "<?php echo getPath($routes, 'getCartItems') ?>",
-                success: (function (res) {
-                  const productList = JSON.parse(res)
-                  for (let index in productList) {
-                    $('.payment__list-item').append(`
-                      <div class="payment__item div-8-col">
-                        <div class="payment__item-info item-col-1">
-                          <h3 class="payment__item-name font-size-4 text-color--4">
-                            ${productList[index].name}
-                          </h3>
-                        </div>
-                        <div class="payment__quantity-box item-col-2">
-                          <input type="number" min="1" max="9" step="1" value="${productList[index].quantity}" class="payment__item-quantity" disabled/>
-                        </div>
-                        <h3 class="payment__item-price font-size-4 text-color--4 item-col-3">
-                          ${formatPrice(productList[index].price)}
-                        </h3>
-                      </div>
-                    `)
-                  }
-                })
-              })
-
-              $('#user-info-form').submit(function (e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                formData.append('userID', '<?php echo $user->getUsername() ?>');
-                formData.append('cartItems', JSON.stringify(cart));
-                formData.append('total', JSON.stringify(cartTotal.total - cartTotal.discount));
-                $.ajax({
-                  type: "POST",
-                  url: "<?php echo getPath($routes, 'createOrder') ?>",
-                  data: formData,
-                  success: function (res) {
-                    console.log(res);
-                    localStorage.removeItem('cart');
-                    Swal.fire(
-                      'Đặt hàng thành công!',
-                      'Bạn có thể xem đơn đặt hàng của mình trong tài khoản!',
-                      'success'
-                    ).then((result) => {
-                      if (result.isConfirmed) {
-                        window.location = "<?php echo getPath($routes, 'viewOrders')?>"
-                      }
-                    })
-                  },
-                  contentType: false,
-                  processData: false
-                })
-              })
-
+                  var formData = new FormData(this);
+                  formData.append('userID', '<?php echo $user->getUsername() ?>');
+                  formData.append('cartItems', JSON.stringify(cart));
+                  formData.append('total', JSON.stringify(cartTotal.total - cartTotal.discount));
+                  $.ajax({
+                    type: "POST",
+                    url: "<?php echo getPath($routes, 'createOrder') ?>",
+                    data: formData,
+                    success: function (res) {
+                      console.log(res);
+                      localStorage.removeItem('cart');
+                      Swal.fire(
+                        'Đặt hàng thành công!',
+                        'Bạn có thể xem đơn đặt hàng của mình trong tài khoản!',
+                        'success'
+                      ).then((result) => {
+                        if (result.isConfirmed) {
+                          window.location = "<?php echo getPath($routes, 'viewOrders')?>"
+                        }
+                      })
+                    },
+                    contentType: false,
+                    processData: false
+                  })
               }
 //====================================== Xử lý dữ liệu khi không còn lỗi====================================================== 
         }
@@ -374,6 +370,19 @@ Validator.isAddressDetail = function(selector) {
     };
 }
 
+Validator.isAddressCity = function(selector) {
+    return {
+        selector: selector,
+        test: function (value, option) {
+          if (option.addressDistrict.value == '') {
+            // console.log(value);
+                return "Xin vui lòng chọn tỉnh thành!";
+            }
+            return undefined
+        }
+    };
+}
+
 
 
 
@@ -389,6 +398,8 @@ Validator({
       Email:value_Email,
       Tel: value_tel,
       address: value_address,
+      addressCity:value_addressCity,
+      addressDistrict: value_addressDistrict,
       // re_Pass:re_Pass,
       rules: [
         Validator.isFist('#firstName'),
@@ -396,6 +407,7 @@ Validator({
         Validator.isEmail('#order__email'),
         Validator.isTel('#order__tel'),
         Validator.isAddressDetail('#order__address'),
+        Validator.isAddressCity('#order__address-city'),
       ]
     });
 
