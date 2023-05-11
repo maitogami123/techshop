@@ -343,14 +343,14 @@ class User
     $result -> execute();
   }
 
-  public function createUserDetail($username, $FullName, $Email)
+  public function createUserDetail($username, $FirstName, $LastName, $Email)
   {
     $db = connect();
 
     //Main
-    //$sql= "INSERT INTO userdetail(username, FirstName, LastName, Email) Values('$username', '$FirstName', '$LastName', '$Email')";
+    $sql= "INSERT INTO userdetail(username, FirstName, LastName, Email) Values('$username', '$FirstName', '$LastName', '$Email')";
 
-    $sql= "INSERT INTO userdetail(username, FullName, Email) Values('$username', '$FullName','$Email')";
+    // $sql= "INSERT INTO userdetail(username, FullName, Email) Values('$username', '$FullName','$Email')";
     echo $sql;
     $result = $db->prepare($sql);
     $result -> execute();
@@ -457,6 +457,15 @@ public function UpdateUserInfo($userName,$lastName, $firstName, $email, $phoneNu
     return $stm->fetchAll(PDO::FETCH_ASSOC);
 
   }
+
+  public function getGmailInDB(){
+    $db = connect();
+    $sql = "SELECT Email FROM userdetail";
+    $stm = $db->query($sql);
+    return $stm->fetchAll(PDO::FETCH_ASSOC);
+
+  }
+
   public function getCurrentfirstNameInDB($userName){
     $db = connect();
     $sql = "SELECT userdetail.firstName FROM userdetail WHERE userdetail.username='$userName'";

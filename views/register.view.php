@@ -41,13 +41,13 @@ $user = new RegisterController();
       <div class="form__field-box">
         <div class="form__field u-margin-bottom-medium">
           <label for="fist-name" class="form__label u-margin-bottom-small">Họ </label>
-          <input type="text" id="fist-name" name="fist-name" placeholder="Nguyễn Văn A" class="form__input Success" />
+          <input type="text" id="fist-name" name="fist-name" placeholder="Nguyễn Văn" class="form__input Success" />
           <span class="form-message"></span>
         </div>
 
         <div class="form__field u-margin-bottom-medium">
           <label for="Last-name" class="form__label u-margin-bottom-small">Tên</label>
-          <input type="text" id="Last-name" name="Last-name" placeholder="Nguyễn Văn A" class="form__input Success" />
+          <input type="text" id="Last-name" name="Last-name" placeholder="A" class="form__input Success" />
           <span class="form-message"></span>
         </div>
       </div>
@@ -93,10 +93,14 @@ $user = new RegisterController();
 <?php
     $name = $user -> getAccountInDB();//getAccountInDB
     $json_Value = json_encode($name);
+    $Gmail = $user->getGmailInDB();
+    $json_Value_Gmail = json_encode($Gmail);
     ?>
     
-    // let arr = [<?php echo $json_Value ?>]
-    // let accountArray = arr[0] 
+    let arr = [<?php echo $json_Value ?>]
+    let accountArray = arr[0] 
+    let gmailList = [<?php echo $json_Value_Gmail ?>]
+    let gmailArray = gmailList[0]
     let fistName = document.querySelector('#fist-name');
     let lastName = document.querySelector('#Last-name');
     let Email = document.querySelector('#email');
@@ -106,6 +110,7 @@ $user = new RegisterController();
     Validator({
       form:"#form-Register",
       Account: accountArray,
+      Gmail: gmailArray,
       fistName:fistName,
       lastName:lastName,
       Email:Email,

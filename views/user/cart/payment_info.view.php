@@ -1,3 +1,8 @@
+<style>
+  .font-error{
+    color:red
+  }
+</style>
 <div class="breadcrumb container">
   <a href="<?php echo getPath($routes, 'homepage') ?>" class="breadcrumb__link text-color--1">
     <svg class="icon">
@@ -30,20 +35,24 @@
           <div class="form__field u-margin-bottom-medium">
             <label for="firstName" class="form__label u-margin-bottom-small">Họ:</label>
             <input type="text" id="firstName" name="firstName" placeholder="Nguyễn Văn" class="form__input" />
+            <span class="error-message font-error"></span>
           </div>
           <div class="form__field u-margin-bottom-medium">
             <label for="lastName" class="form__label u-margin-bottom-small">Tên:</label>
             <input type="text" id="lastName" name="lastName" placeholder="A" class="form__input" />
+            <span class="error-message font-error"></span>
           </div>
         </div>
         <div class="form__field-box">
           <div class="form__field u-margin-bottom-medium">
             <label for="order__tel" class="form__label u-margin-bottom-small">Số điện thoại:</label>
             <input type="tel" id="order__tel" name="phoneNumber" placeholder="0xx xxx xxxx" class="form__input" />
+            <span class="error-message font-error"></span>
           </div>
           <div class="form__field u-margin-bottom-medium">
             <label for="order__email" class="form__label u-margin-bottom-small">Email:</label>
             <input type="email" id="order__email" name="mail" placeholder="abc@gmail.com" class="form__input" />
+            <span class="error-message font-error"></span>
           </div>
         </div>
         <div class="form__field-box">
@@ -63,7 +72,8 @@
         <div class="form__field u-margin-bottom-medium">
           <label for="password" class="form__label u-margin-bottom-small">Địa chỉ chi tiết:</label>
           <input type="text" id="order__address" name="detailedAddress"
-            placeholder="Số nhà, tên đường, xã, phường, thị trấn,..." class="form__input" />
+          placeholder="Số nhà, tên đường, xã, phường, thị trấn,..." class="form__input" />
+          <span class="error-message font-error"></span>
         </div>
         <div class="form__field u-margin-bottom-medium">
           <label for="order__note" class="form__label u-margin-bottom-small">Ghi chú:</label>
@@ -142,6 +152,7 @@
     });
   }
 
+  
   $(document).ready(function (e) {
     let cart = {}
     if (localStorage.getItem('cart')) {
@@ -159,61 +170,242 @@
 
     getProvincesHanlder();
 
-    $.ajax({
-      method: 'get',
-      data: {
-        cartItems: JSON.stringify(cart)
-      },
-      url: "<?php echo getPath($routes, 'getCartItems') ?>",
-      success: (function (res) {
-        const productList = JSON.parse(res)
-        for (let index in productList) {
-          $('.payment__list-item').append(`
-            <div class="payment__item div-8-col">
-              <div class="payment__item-info item-col-1">
-                <h3 class="payment__item-name font-size-4 text-color--4">
-                  ${productList[index].name}
-                </h3>
-              </div>
-              <div class="payment__quantity-box item-col-2">
-                <input type="number" min="1" max="9" step="1" value="${productList[index].quantity}" class="payment__item-quantity" disabled/>
-              </div>
-              <h3 class="payment__item-price font-size-4 text-color--4 item-col-3">
-                ${formatPrice(productList[index].price)}
-              </h3>
-            </div>
-          `)
-        }
-      })
-    })
+    
 
-    $('#user-info-form').submit(function (e) {
-      e.preventDefault();
-      var formData = new FormData(this);
-      formData.append('userID', '<?php echo $user->getUsername() ?>');
-      formData.append('cartItems', JSON.stringify(cart));
-      formData.append('total', JSON.stringify(cartTotal.total - cartTotal.discount));
-      $.ajax({
-        type: "POST",
-        url: "<?php echo getPath($routes, 'createOrder') ?>",
-        data: formData,
-        success: function (res) {
-          console.log(res);
-          localStorage.removeItem('cart');
-          Swal.fire(
-            'Đặt hàng thành công!',
-            'Bạn có thể xem đơn đặt hàng của mình trong tài khoản!',
-            'success'
-          ).then((result) => {
-            if (result.isConfirmed) {
-              window.location = "<?php echo getPath($routes, 'viewOrders')?>"
+
+    let formPay = document.querySelector('user-info-form')  
+
+    let value_FirstName = document.querySelector('#firstName');
+    let value_LastName = document.querySelector('#lastName');
+    let value_Email = document.querySelector('#order__email');
+    let value_tel = document.querySelector('#order__tel');
+    let value_addressCity = document.querySelector('#order__address-city');
+    let value_addressDistrict = document.querySelector('#order__address-district');
+    let value_address = document.querySelector('#order__address');
+
+
+// <!--=========================================================BEGIN: validate form user information===============================================-->
+function Validator(options){
+    // hàm thực hiện validate cho form
+    function validate(inputElement, rule) {
+        let errorElement = inputElement.parentElement.querySelector(".error-message")
+        let errorMessage = rule.test(inputElement.value);
+        if (errorMessage) {
+            errorElement.innerText = errorMessage;
+            // console.log(inputElement.value);
+        }else {
+            errorElement.innerText = ''
+            // console.log(inputElement.value);
+        }
+        return !errorMessage;// trả về true(undefined) khi khong có lỗi và ngược lại
+
+    }
+
+    let formRegister = document.querySelector(options.form);
+    if (formRegister) {
+        // khi submit form
+        formRegister.onsubmit = function(e){
+            e.preventDefault();
+            let isFormValid = true
+            options.rules.forEach(function (rule) {
+                let inputElement = formRegister.querySelector(rule.selector)
+                let isValid = validate(inputElement, rule);
+                if (isValid == false) {//valid có lỗi
+                    isFormValid = false;
+                }
+            });
+            console.log(isFormValid);
+
+            // không còn lỗi validation thì đăng ký thành công
+//====================================== Xử lý dữ liệu khi không còn lỗi====================================================== 
+            if (isFormValid == true) {
+              $.ajax({
+                method: 'get',
+                data: {
+                  cartItems: JSON.stringify(cart)
+                },
+                url: "<?php echo getPath($routes, 'getCartItems') ?>",
+                success: (function (res) {
+                  const productList = JSON.parse(res)
+                  for (let index in productList) {
+                    $('.payment__list-item').append(`
+                      <div class="payment__item div-8-col">
+                        <div class="payment__item-info item-col-1">
+                          <h3 class="payment__item-name font-size-4 text-color--4">
+                            ${productList[index].name}
+                          </h3>
+                        </div>
+                        <div class="payment__quantity-box item-col-2">
+                          <input type="number" min="1" max="9" step="1" value="${productList[index].quantity}" class="payment__item-quantity" disabled/>
+                        </div>
+                        <h3 class="payment__item-price font-size-4 text-color--4 item-col-3">
+                          ${formatPrice(productList[index].price)}
+                        </h3>
+                      </div>
+                    `)
+                  }
+                })
+              })
+
+              $('#user-info-form').submit(function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                formData.append('userID', '<?php echo $user->getUsername() ?>');
+                formData.append('cartItems', JSON.stringify(cart));
+                formData.append('total', JSON.stringify(cartTotal.total - cartTotal.discount));
+                $.ajax({
+                  type: "POST",
+                  url: "<?php echo getPath($routes, 'createOrder') ?>",
+                  data: formData,
+                  success: function (res) {
+                    console.log(res);
+                    localStorage.removeItem('cart');
+                    Swal.fire(
+                      'Đặt hàng thành công!',
+                      'Bạn có thể xem đơn đặt hàng của mình trong tài khoản!',
+                      'success'
+                    ).then((result) => {
+                      if (result.isConfirmed) {
+                        window.location = "<?php echo getPath($routes, 'viewOrders')?>"
+                      }
+                    })
+                  },
+                  contentType: false,
+                  processData: false
+                })
+              })
+
+              }
+//====================================== Xử lý dữ liệu khi không còn lỗi====================================================== 
+        }
+        options.rules.forEach(function (rule) {
+            let inputElement = formRegister.querySelector(rule.selector)
+            if (inputElement) {
+                //xử lý trường hợp blue khỏi input
+                inputElement.onblur = function () {
+                    validate(inputElement, rule);
+                }
+                
+                // xử lý mỗi khi người dùng gõ vào input
+                inputElement.oninput = function () {
+                    let errorElement = inputElement.parentElement.querySelector(".error-message")
+                    errorElement.innerText = ''
+                }
             }
-          })
-        },
-        contentType: false,
-        processData: false
-      })
-    })
+
+        });
+    }
+}
+
+// Định nghĩa rules
+Validator.isFist = function (selector) {
+    return {
+        selector: selector,
+        test: function(value){
+          regex = /[!@#$%^&*()\-+={}\[\]|\\:;"\'<>,.?/]/;
+          if (value == "") {
+            return "Xin vui lòng nhập họ và tên đệm!"
+          }else if (value !="" && regex.test(value)) {//trim() loại bỏ khoảng trắng
+              return "Không được chứa ký tự đặc biệt!";
+            }
+            return undefined
+        }
+    };
+}
+
+Validator.isLast = function (selector) {
+    return {
+        selector: selector,
+        test: function(value){
+          regex = /[!@#$%^&*()\-+={}\[\]|\\:;"\'<>,.?/]/;
+          if (value == "") {
+            return "Xin vui lòng nhập tên!"
+          }else if (value !=""&& regex.test(value)) {//trim() loại bỏ khoảng trắng
+                return "không được chứa ký tự đặc biệt!";
+            }
+            return undefined
+        }
+    };
+}
+
+Validator.isEmail = function (selector) {
+    return {
+        selector: selector,
+        test: function(value){
+          regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+          if (value == "") {
+            return "Không được để trống địa chỉ gmail!"
+          }else if (value !=""&& value!="" && !regex.test(value)) {
+              return "Email vừa nhập không đúng. Vui lòng nhập lại!"
+          }
+          return undefined
+        }
+    };
+}
+
+Validator.isTel = function(selector){
+    return {
+        selector: selector,
+        test: function(value){
+          
+          regex = /^(0|84)(2(0[3-9]|1[0-6|8|9]|2[0-2|5-9]|3[2-9]|4[0-9]|5[1|2|4-9]|6[0-3|9]|7[0-7]|8[0-9]|9[0-4|6|7|9])|3[2-9]|5[5|6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$/;
+          if (value == "") {
+            return "Số điện thoại không được để trống!"
+          }else if (value !=""&& !regex.test(value)) {//trim() loại bỏ khoảng trắng
+                return "Số điện thoại không đúng!";
+            }
+            return undefined
+            
+        }
+    };
+}
+Validator.isAddressDetail = function(selector) {
+    return {
+        selector: selector,
+        test: function (value) {
+          regex = /[!@#$%^&*()\-+={}\[\]|\\:;"\'<>,.?/]/;
+          if (value == "") {
+            return "Không được để trống địa chỉ nhà!"
+          }else if (value !=""&& regex.test(value)) {//trim() loại bỏ khoảng trắng
+                return "Không được chứa ký tự đặc biệt!";
+            }
+            return undefined
+        }
+    };
+}
+
+
+
+
+
+
+// <!--====================================================END: validate form user information====================================================-->
+
+// -================================================Gọi hàm Validator==========================================================
+Validator({
+      form:"#user-info-form",
+      fistName:value_FirstName,
+      lastName:value_LastName,
+      Email:value_Email,
+      Tel: value_tel,
+      address: value_address,
+      // re_Pass:re_Pass,
+      rules: [
+        Validator.isFist('#firstName'),
+        Validator.isLast('#lastName'),
+        Validator.isEmail('#order__email'),
+        Validator.isTel('#order__tel'),
+        Validator.isAddressDetail('#order__address'),
+      ]
+    });
+
+
+
+
+
+
+
 
   })
+
 </script>

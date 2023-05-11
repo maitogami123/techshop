@@ -398,7 +398,7 @@ Validator.isEmail = function (selector) {
         selector: selector,
         test: function(value){
           let regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-          if (!regex.test(value)) {
+          if (value!="" && !regex.test(value)) {
               return "Email vừa nhập không đúng. Vui lòng nhập lại!"
           }
           return undefined
