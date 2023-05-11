@@ -300,7 +300,6 @@
     $('#create-form').submit(function (e) {
       e.preventDefault();
       var formData = new FormData(this);
-      formData.append('userID', '<?php echo $user->getUsername() ?>');
       $.ajax({
         type: "POST",
         url: "<?php echo getPath($routes, 'createProduct') ?>",

@@ -48,6 +48,10 @@ $routes->add('updateOrderStatus', new Route(constant('URL_SUBFOLDER') . '/admin/
 $routes->add('adminUsers', new Route(constant('URL_SUBFOLDER') . '/admin/users', array('controller' => 'AdminController', 'method'=>'indexUserAction'), array()));
 
 $routes->add('adminBrands', new Route(constant('URL_SUBFOLDER') . '/admin/brands', array('controller' => 'AdminController', 'method'=>'indexBrandAction'), array()));
+$routes->add('createBrands', new Route(constant('URL_SUBFOLDER') . '/admin/brands/create', array('controller' => 'BrandController', 'method'=>'createBrand'), array()));
+$routes->add('editBrands', new Route(constant('URL_SUBFOLDER') . '/admin/brand/edit/{id}', array('controller' => 'BrandController', 'method'=>'editAction'), array('id' => '([^&]*)')));
+$routes->add('updateBrand', new Route(constant('URL_SUBFOLDER') . '/admin/brand/saveChange', array('controller' => 'BrandController', 'method'=>'updateAction'), array()));
+
 
 $routes->add('adminRoles', new Route(constant('URL_SUBFOLDER') . '/admin/roles', array('controller' => 'AdminController', 'method'=>'indexRoleAction'), array()));
 

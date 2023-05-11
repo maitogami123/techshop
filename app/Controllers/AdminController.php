@@ -66,7 +66,9 @@ class AdminController {
 
   public function indexBrandAction(RouteCollection $routes, Request $request) {
     startSession();
-    $name = 'brand/index';
+    $name = 'brand/index';    
+    $BrandList = new Brands();
+    $BrandList->getAllBrands();
     require_once APP_ROOT . '/views/admin/layout.view.php';
   }
   public function indexRoleAction(RouteCollection $routes, Request $request) {
