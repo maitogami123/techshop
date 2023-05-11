@@ -111,10 +111,10 @@ if (isLoggedIn()) {
           <img src="/techshop/public/images/productImg/Image.png" alt="User's Avatar" class="user__img" />
           <div class="user__sidebar--top-right">
             <h3 class="user__name font-size-4 text-color--1">
-              <?php echo $user->getFullName() ?>
+              <?php echo $user -> getCurrentfirstNameInDB($user->getUsername())[0]. " " .  $user -> getCurrentLastNameInDB($user->getUsername())[0] ?>
             </h3>
             <span class="user__email font-size-3 text-color--4">
-              <?php echo $user->getEmail() ?>
+              <?php echo $user -> getCurrentEmailInDB($user->getUsername())[0]?>
             </span>
           </div>
         </div>

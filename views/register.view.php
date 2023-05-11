@@ -94,8 +94,8 @@ $user = new RegisterController();
     $json_Value = json_encode($name);
     ?>
     
-    let arr = [<?php echo $json_Value ?>]
-    let accountArray = arr[0] 
+    // let arr = [<?php echo $json_Value ?>]
+    // let accountArray = arr[0] 
     let fistName = document.querySelector('#fist-name');
     let lastName = document.querySelector('#Last-name');
     let Email = document.querySelector('#email');
