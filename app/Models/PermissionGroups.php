@@ -21,7 +21,7 @@ class PermissionGroups {
       $permissionGroup->setID($item['PermisionGroupID']);
       $permissionGroup->setName($item['PermisionGroupName']);
       $permissionGroup->setDescription($item['Description']);
-      $permissionGroup->setDeletedAt($item['DeletedAt']);
+      $permissionGroup->setDisabled($item['Disabled']);
       $this->groups[] = $permissionGroup;
     }
 

@@ -48,7 +48,6 @@
 </div>
 
 <script>
-
   $(document).ready(function(e) {
     $('#role-select').change(function() {
       if($(this).find(':selected').attr('data-role-id')) {

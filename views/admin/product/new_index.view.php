@@ -215,6 +215,7 @@
     </div>
   </div>
 </div>
+
 <div id="change-product" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content" id="editModal">
@@ -281,10 +282,6 @@
     $('#add-product-btn').click(function (e) {
       console.log('clicked')
     })
-
-    // $('.edit-btn').click(function (e) {
-    //   window.location.href = "<?php echo getPath($routes, 'editProduct') ?>".replace('{id}', $(this).attr('data-id'));
-    // })
   })
 </script>
 <script>
