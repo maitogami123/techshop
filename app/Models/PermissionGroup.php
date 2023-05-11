@@ -91,6 +91,26 @@ class PermissionGroup {
     return $this;
   }
 
+  public function read(string $id) {
+    $db = connect();
+
+    $readSql = "SELECT `permissiongroup`.*
+                FROM `permissiongroup`
+                WHERE `permissiongroup`.`PermisionGroupID` = :permissionGroupId;";
+    $readStm = $db->prepare($readSql);
+    $readStm->execute([
+      ":permissionGroupId" => $id
+    ]);
+
+    $data = $readStm->fetch(PDO::FETCH_ASSOC);
+    $this->ID = $data['PermisionGroupID'];
+    $this->Name = $data['PermisionGroupName'];
+    $this->description = $data['Description'];
+    $this->disabled = $data['Disabled'];
+
+    return $this;
+  }
+
   public function create($name, $description)
   {
     $db = connect();
@@ -115,6 +135,20 @@ class PermissionGroup {
     $updateStateStm->execute([
       ':isDisabled' => $state,
       ':permissionGroupId' => $permissionGroupId,
+    ]);
+  }
+
+  public function updatePermissionGroup(array $data) {
+    $db = connect();
+
+    $updateSql = "UPDATE `permissiongroup` 
+                      SET `PermisionGroupName` = :permissionGroupName, `Description` = :permissionGroupDescription
+                      WHERE `permissiongroup`.`PermisionGroupID` = :permissionGroupId";
+    $updateStm = $db->prepare($updateSql);
+    $updateStm->execute([
+      ":permissionGroupName" => $data["permission_group_name"],
+      ":permissionGroupDescription" => $data["permission_group_description"],
+      ":permissionGroupId" => $data["permission_group_id"],
     ]);
   }
 

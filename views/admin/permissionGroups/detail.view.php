@@ -1,6 +1,6 @@
 <div class="modal-header modal-colored-header bg-info">
   <h4 class="modal-title" id="fill-info-modalLabel">
-    <?php echo $roleName ?> Permission Details
+    <?php echo $permissionGroupName ?> Permission Details
   </h4>
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
 </div>
@@ -46,7 +46,7 @@
         type: 'post',
         url: `/techshop/admin/updatePermissionState`,
         data: {
-          'roleId': JSON.stringify(permissionId),
+          'permissionId': JSON.stringify(permissionId),
           'state': JSON.stringify(isDisabled)
         },
         success: function (res) {

@@ -37,8 +37,8 @@
               <tr>
                 <th class="all" style="width: 100px">Group</th>
                 <th>Description</th>
-                <th style="width: 85px">Active</th>
-                <th style="width: 100px">Action</th>
+                <th style="width: 150px">Active</th>
+                <th style="width: 150px">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -62,13 +62,19 @@
                   <td class="table-action">
                     <button type="button" class="action-icon btn" data-bs-toggle="modal"
                       data-bs-target="#detail-permission" id="detail-permission-selected"
-                      data-role-id="<?php echo $permissionGroup->getID() ?>"
-                      data-role-name="<?php echo $permissionGroup->getName() ?>">
+                      data-permission-group-id="<?php echo $permissionGroup->getID() ?>"
+                      data-permission-group-name="<?php echo $permissionGroup->getName() ?>">
                       <i class="mdi mdi-eye"></i>
                     </button>
                     <button type="button" class="action-icon btn edit-btn" data-bs-toggle="modal"
-                      data-bs-target="#edit-permission" data-role-id="<?php echo $permissionGroup->getID() ?>">
+                      data-bs-target="#edit-permission" data-permission-group-id="<?php echo $permissionGroup->getID() ?>"
+                      data-permission-group-name="<?php echo $permissionGroup->getName() ?>"
+                      >
                       <i class="mdi mdi-square-edit-outline"></i>
+                    </button>
+                    <button type="button" class="action-icon btn add-btn" data-bs-toggle="modal"
+                      data-bs-target="#add-permission" data-role-id="<?php echo $permissionGroup->getID() ?>">
+                      <i class="mdi mdi-database-plus"></i>
                     </button>
                   </td>
                 </tr>
@@ -82,6 +88,13 @@
     <!-- end card-->
   </div>
   <!-- end col -->
+</div>
+
+<div id="add-permission" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" id="addPermissionModal">
+    </div>
+  </div>
 </div>
 
 <div id="edit-permission" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -181,14 +194,14 @@
   $(document).ready(function () {
     $('#detail-permission').on('shown.bs.modal', function (event) {
       var button = $(event.relatedTarget)
-      var roleId = button.data('role-id')
-      var roleName = button.data('role-name')
+      var permissionGroupId = button.data('permission-group-id')
+      var permissionGroupName = button.data('permission-group-name')
       $.ajax({
         type: 'get',
         url: `/techshop/admin/getPermissionDetail`,
         data: {
-          'roleId': JSON.stringify(roleId),
-          'roleName': JSON.stringify(roleName)
+          'permissionGroupId': JSON.stringify(permissionGroupId),
+          'permissionGroupName': JSON.stringify(permissionGroupName)
         },
         success: function (res) {
           $('#detailModal').html(res);
@@ -201,15 +214,35 @@
   $(document).ready(function () {
     $('#edit-permission').on('shown.bs.modal', function (event) {
       var button = $(event.relatedTarget)
+      var permissionGroupId = button.data('permission-group-id')
+      var permissionGroupName = button.data('permission-group-name')
+      $.ajax({
+        type: 'get',
+        url: `/techshop/admin/getEditPermissionGroupForm`,
+        data: {
+          'permissionGroupId': JSON.stringify(permissionGroupId),
+          'permissionGroupName': JSON.stringify(permissionGroupName)
+        },
+        success: function (res) {
+          $('#editModal').html(res);
+        }
+      })
+    })
+  })
+
+  // Show Add permission to permission group
+  $(document).ready(function () {
+    $('#add-permission').on('shown.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
       var roleId = button.data('role-id')
       $.ajax({
         type: 'get',
         url: `/techshop/admin/getPermissionForm`,
         data: {
-          'roleId': JSON.stringify(roleId),
+          'permissionGroupId': JSON.stringify(roleId),
         },
         success: function (res) {
-          $('#editModal').html(res);
+          $('#addPermissionModal').html(res);
         }
       })
     })

@@ -99,7 +99,7 @@
                           <i class="mdi mdi-database-plus"></i>
                         </button>
                         <button type="button" class="action-icon btn delete-btn"
-                          data-role-id="<?php echo $product->getProductLine() ?>">
+                          data-product-id="<?php echo $product->getProductLine() ?>">
                           <i class="mdi mdi-delete"></i>
                         </button>
                       <?php endif ?>
@@ -282,10 +282,6 @@
     $('#add-product-btn').click(function (e) {
       console.log('clicked')
     })
-
-    // $('.edit-btn').click(function (e) {
-    //   window.location.href = "<?php echo getPath($routes, 'editProduct') ?>".replace('{id}', $(this).attr('data-id'));
-    // })
   })
 </script>
 <script>

@@ -9,8 +9,8 @@ use Symfony\Component\Routing\RouteCollection;
 class PermissionController {
 
   public function getPermissionFormAction(RouteCollection $routes, Request $request) {
-    $roleId = json_decode($_GET['roleId']);
-    require_once APP_ROOT . '/views/admin/permissionGroups/edit.view.php';
+    $permissionGroupId = json_decode($_GET['permissionGroupId']);
+    require_once APP_ROOT . '/views/admin/permissionGroups/add_permission.view.php';
   }
   public function postPermissionFormAction(RouteCollection $routes, Request $request) {
     startSession();
@@ -18,19 +18,19 @@ class PermissionController {
     $permission->createPermission($_POST);
   }
   public function getPermissionDetailAction(RouteCollection $routes, Request $request) {
-    $roleId = json_decode($_GET['roleId']);
-    $roleName = json_decode($_GET['roleName']);
+    $permissionGroupId = json_decode($_GET['permissionGroupId']);
+    $permissionGroupName = json_decode($_GET['permissionGroupName']);
 
     $permissions = new Permissions();
-    $permissions->getPermissionsWithGroupId($roleId);
+    $permissions->getPermissionsWithGroupId($permissionGroupId);
     require_once APP_ROOT . '/views/admin/permissionGroups/detail.view.php';
   }
 
   public function updatePermissionStateAction(RouteCollection $routes, Request $request) {
-    $roleId = json_decode($_POST['roleId']);
+    $permissionId = json_decode($_POST['permissionId']);
     $state = json_decode($_POST['state']);
     $permission = new Permission();
-    $permission->updatePermissionState($roleId, $state);
+    $permission->updatePermissionState($permissionId, $state);
   }
 
   public function removeUserGroupPermissionAction(RouteCollection $routes, Request $request) {

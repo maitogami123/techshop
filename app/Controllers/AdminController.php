@@ -71,6 +71,8 @@ class AdminController {
   }
   public function indexRoleAction(RouteCollection $routes, Request $request) {
     startSession();
+    $roles = new Roles();
+    $roles->getAll();
     $name = 'roles/index';
     require_once APP_ROOT . '/views/admin/layout.view.php';
   }

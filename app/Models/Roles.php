@@ -24,6 +24,8 @@ class Roles {
       $role->setCreatedAt($item['created_at']);
       $role->setDeteleAble($item['Delete_able']);
       $role->setDeletedAt($item['Deleted_at']);
+      $role->setDisabled($item['Disabled']);
+      
       $this->roles[] = $role;
     }
     return $this;

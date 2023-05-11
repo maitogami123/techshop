@@ -144,7 +144,7 @@ class Permission {
       ':permissionID' => $data["permission_id"],
       ':permissionName' => $data["permission_name"],
       ':description' => $data["permission_description"],
-      ':groupId' => $data["roleId"],
+      ':groupId' => $data["permissionGroupId"],
     ]);
   }
 
