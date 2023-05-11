@@ -1,8 +1,7 @@
 <?php
-if (!isLoggedIn() || !in_array('P_Create', $user->getPermissions()))
-  redirect($routes->get('homepage')->getPath())
-    ?>
-
+  if (!isLoggedIn() || !in_array('P_Create', $user->getPermissions()))
+    redirect($routes->get('homepage')->getPath())
+?>
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">

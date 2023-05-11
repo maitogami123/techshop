@@ -44,7 +44,7 @@
   background-color: #e5e7eb; }
 
 .order-detail__title:first-child, .order-detail__product-name {
-  /* grid-column: 1/6;  */
+  grid-column: 1/6; 
 }
 
 .order-detail__title:nth-child(2), .order-detail__product-quantity {
@@ -61,10 +61,3 @@
   display: block;
   color: #28a745;
   font-style: italic; }
-  @media (min-width: 576px) {
-    .modal-dialog {
-        max-width: 80vw;
-        margin: 1.75rem auto;
-    }
-
-  }

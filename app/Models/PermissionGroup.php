@@ -8,7 +8,7 @@ class PermissionGroup {
   protected $ID;
   protected $Name;
   protected $description;
-  protected $deletedAt;
+  protected $disabled;
   
 
   /**
@@ -72,24 +72,50 @@ class PermissionGroup {
   }
 
   /**
-   * Get the value of deletedAt
+   * Get the value of disabled
    */ 
-  public function getDeletedAt()
+  public function getDisabled()
   {
-    return $this->deletedAt;
+    return $this->disabled;
   }
 
   /**
-   * Set the value of deletedAt
+   * Set the value of disabled
    *
    * @return  self
    */ 
-  public function setDeletedAt($deletedAt)
+  public function setDisabled($disabled)
   {
-    $this->deletedAt = $deletedAt;
+    $this->disabled = $disabled;
 
     return $this;
   }
 
-  
+  public function create($name, $description)
+  {
+    $db = connect();
+    $createPermissionGroupSql = "INSERT INTO `permissiongroup` 
+                                  (`PermisionGroupID`, `PermisionGroupName`, `Description`, `Disabled`) 
+                                VALUES (NULL, :groupName, :groupDescription, '0')";
+    $createPermissionGroupStm = $db->prepare($createPermissionGroupSql);
+    $createPermissionGroupStm->execute([
+      ':groupName' => $name,
+      ':groupDescription' => $description,
+    ]);
+  }
+
+
+  public function updatePermissionGroupState($permissionGroupId, $state) {
+    $db = connect();
+
+    $updateStateSql = "UPDATE `permissiongroup` 
+                      SET `Disabled` = :isDisabled 
+                      WHERE `permissiongroup`.`PermisionGroupID` = :permissionGroupId";
+    $updateStateStm = $db->prepare($updateStateSql);
+    $updateStateStm->execute([
+      ':isDisabled' => $state,
+      ':permissionGroupId' => $permissionGroupId,
+    ]);
+  }
+
 }

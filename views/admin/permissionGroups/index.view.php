@@ -22,7 +22,7 @@
       <div class="card-body">
         <div class="row mb-2">
           <div class="col-sm-4">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-new-permission">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-new-permission-group">
               <i class="mdi mdi-file-plus"></i>
               Add new permission group
             </button>
@@ -42,21 +42,37 @@
               </tr>
             </thead>
             <tbody>
-              <?php foreach($permissionGroups->groups as $permissionGroup):?>
+              <?php foreach ($permissionGroups->groups as $permissionGroup): ?>
                 <tr>
-                  <td><?php echo $permissionGroup->getName()?></td>
-                  <td><?php echo $permissionGroup->getDescription()?></td>
                   <td>
-                    <input type="checkbox" id="switch1" <?php echo (empty($permissionGroup->getDeletedAt()) ? 'checked' : '')?> data-switch="success" />
-                    <label for="switch1" data-on-label="Yes" data-off-label="No"></label>
+                    <?php echo $permissionGroup->getName() ?>
+                  </td>
+                  <td>
+                    <?php echo $permissionGroup->getDescription() ?>
+                  </td>
+                  <td>
+                    <input type="checkbox" id="<?php echo $permissionGroup->getID() ?>" 
+                      <?php echo ($permissionGroup->getDisabled() == 0 ? 'checked' : '') ?> 
+                      data-permission-group="<?php echo $permissionGroup->getID() ?>"
+                      data-switch="success" 
+                    />
+                    <label for="<?php echo $permissionGroup->getID() ?>" data-on-label="Yes" data-off-label="No"></label>
                   </td>
 
                   <td class="table-action">
-                    <a href="javascript:void(0);" class="action-icon">
-                      <i class="mdi mdi-square-edit-outline"></i></a>
+                    <button type="button" class="action-icon btn" data-bs-toggle="modal"
+                      data-bs-target="#detail-permission" id="detail-permission-selected"
+                      data-role-id="<?php echo $permissionGroup->getID() ?>"
+                      data-role-name="<?php echo $permissionGroup->getName() ?>">
+                      <i class="mdi mdi-eye"></i>
+                    </button>
+                    <button type="button" class="action-icon btn edit-btn" data-bs-toggle="modal"
+                      data-bs-target="#edit-permission" data-role-id="<?php echo $permissionGroup->getID() ?>">
+                      <i class="mdi mdi-square-edit-outline"></i>
+                    </button>
                   </td>
                 </tr>
-              <?php endforeach?>
+              <?php endforeach ?>
             </tbody>
           </table>
         </div>
@@ -67,3 +83,136 @@
   </div>
   <!-- end col -->
 </div>
+
+<div id="edit-permission" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" id="editModal">
+    </div>
+  </div>
+</div>
+
+<div id="detail-permission" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" id="detailModal">
+    </div>
+  </div>
+</div>
+
+
+<div id="add-new-permission-group" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header modal-colored-header bg-info">
+        <h4 class="modal-title" id="fill-info-modalLabel">
+          Add new product
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+      </div>
+      <div class="modal-body">
+        <form class="ps-3 pe-3" id="add-permission-group-form" method="POST" action="">
+          <div class="mb-3">
+            <label for="permission-group-name" class="form-label">Name</label>
+            <input class="form-control" type="text" name='permission_group_name' id="permission-group-name" placeholder="" />
+          </div>
+          <div class="mb-3">
+            <label for="permission_group_description" class="form-label">Description</label>
+            <input class="form-control" type="text" name='permission_group_desc' id="permission_group_description" placeholder="" />
+          </div>
+          <div class="mb-3 modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button class="btn btn-primary" type="submit" id="submit">
+              Add new product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $(document).ready(function() {
+    $('#add-permission-group-form').submit(function (e) {
+      e.preventDefault();
+      var formData = new FormData(this);
+      $.ajax({
+        type: "POST",
+        url: "<?php echo getPath($routes, 'createPermissionGroup') ?>",
+        data: formData,
+        success: function (res) {
+          console.log(res)
+          // Swal.fire({
+          //   title: 'Success!',
+          //   text: 'Product successfully added!',
+          //   icon: 'success',
+          //   confirmButtonTeNxt: 'Cool!'
+          // })
+          // $('#create-form')[0].reset();
+        },
+        contentType: false,
+        processData: false
+      })
+    })
+  })
+
+  $(document).ready(function () {
+    $('input[type=checkbox]').change(function () {
+      let isDisabled = $(this).is(':checked') ? 0 : 1;
+      let permissionGroupId = $(this).attr('data-permission-group')
+      console.log(permissionGroupId, isDisabled)
+      $.ajax({
+        type: 'post',
+        url: `/techshop/admin/updatePermissionGroupState`,
+        data: {
+          'permissionGroupId': JSON.stringify(permissionGroupId),
+          'state': JSON.stringify(isDisabled)
+        },
+        success: function (res) {
+          console.log(res)
+        }
+      })
+    })
+  })
+
+  // Show Detail Modal
+  $(document).ready(function () {
+    $('#detail-permission').on('shown.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var roleId = button.data('role-id')
+      var roleName = button.data('role-name')
+      $.ajax({
+        type: 'get',
+        url: `/techshop/admin/getPermissionDetail`,
+        data: {
+          'roleId': JSON.stringify(roleId),
+          'roleName': JSON.stringify(roleName)
+        },
+        success: function (res) {
+          $('#detailModal').html(res);
+        }
+      })
+    })
+  })
+
+  // Show Edit Modal
+  $(document).ready(function () {
+    $('#edit-permission').on('shown.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var roleId = button.data('role-id')
+      $.ajax({
+        type: 'get',
+        url: `/techshop/admin/getPermissionForm`,
+        data: {
+          'roleId': JSON.stringify(roleId),
+        },
+        success: function (res) {
+          $('#editModal').html(res);
+        }
+      })
+    })
+  })
+
+</script>

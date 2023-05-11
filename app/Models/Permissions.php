@@ -25,6 +25,7 @@ class Permissions {
       $permission->setPermissionId($item['PermissionID']);
       $permission->setPermissionName($item['PermissionName']);
       $permission->setPermissionDescription($item['description']);
+      $permission->setDisabled($item['disabled']);
       $this->permissions[] = $permission; 
     }
     return $this;
@@ -54,6 +55,7 @@ class Permissions {
     $permissionGroups->getAll();
 
     foreach($permissionGroups->groups as $group) {
+      if ($group->getDisabled() == 1) continue;
       $getPermissionStm->execute([
         ":group" => $group->getID()
       ]);
@@ -65,6 +67,7 @@ class Permissions {
         $permission->setPermissionId($item['PermissionID']);
         $permission->setPermissionName($item['PermissionName']);
         $permission->setPermissionDescription($item['description']);
+        $permission->setDisabled($item['disabled']);
         $permissions[] = $permission;
       }
       $this->permissions[] = array($group->getName() => $permissions); 

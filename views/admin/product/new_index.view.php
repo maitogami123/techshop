@@ -99,7 +99,7 @@
                           <i class="mdi mdi-database-plus"></i>
                         </button>
                         <button type="button" class="action-icon btn delete-btn"
-                          data-product-id="<?php echo $product->getProductLine() ?>">
+                          data-role-id="<?php echo $product->getProductLine() ?>">
                           <i class="mdi mdi-delete"></i>
                         </button>
                       <?php endif ?>
@@ -215,6 +215,7 @@
     </div>
   </div>
 </div>
+
 <div id="change-product" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content" id="editModal">

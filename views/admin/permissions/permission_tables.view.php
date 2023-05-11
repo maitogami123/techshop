@@ -19,6 +19,7 @@
               </tr>
             <?php else: ?>
               <?php foreach ($groupPermission as $permission): ?>
+                <?php if($permission->getDisabled() == 1) continue?>
                 <tr>
                   <td>
                     <?php echo $permission->getPermissionName() ?>

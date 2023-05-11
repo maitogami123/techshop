@@ -60,8 +60,6 @@ class ProductController
         startSession();
         $product = new Product();
         $product->update($_POST, $_FILES);
-        // print_r($_POST);
-        // print_r($_FILES);
     }
 
     public function deleteAction(string $id, RouteCollection $routes, Request $request) {

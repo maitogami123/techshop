@@ -53,5 +53,12 @@ $routes->add('adminRoles', new Route(constant('URL_SUBFOLDER') . '/admin/roles',
 
 $routes->add('adminPermissions', new Route(constant('URL_SUBFOLDER') . '/admin/permissions', array('controller' => 'AdminController', 'method'=>'indexPermissionAction'), array()));
 $routes->add('getRolePermission', new Route(constant('URL_SUBFOLDER') . '/admin/getRolePermission', array('controller' => 'RoleController', 'method'=>'getRolePermissionAction'), array()));
+$routes->add('getRoleInformation', new Route(constant('URL_SUBFOLDER') . '/admin/getRoleInformation', array('controller' => 'RoleController', 'method'=>'getRoleInformationAction'), array()));
+$routes->add('getPermissionFormAction', new Route(constant('URL_SUBFOLDER') . '/admin/getPermissionForm', array('controller' => 'PermissionController', 'method'=>'getPermissionFormAction'), array()));
+$routes->add('addPermission', new Route(constant('URL_SUBFOLDER') . '/admin/addPermission', array('controller' => 'PermissionController', 'method'=>'postPermissionFormAction'), array()));
+$routes->add('getPermissionDetail', new Route(constant('URL_SUBFOLDER') . '/admin/getPermissionDetail', array('controller' => 'PermissionController', 'method'=>'getPermissionDetailAction'), array()));
+$routes->add('updatePermissionState', new Route(constant('URL_SUBFOLDER') . '/admin/updatePermissionState', array('controller' => 'PermissionController', 'method'=>'updatePermissionStateAction'), array()));
 
 $routes->add('adminPermissionGroups', new Route(constant('URL_SUBFOLDER') . '/admin/permissionGroups', array('controller' => 'AdminController', 'method'=>'indexPermissionGroupAction'), array()));
+$routes->add('createPermissionGroup', new Route(constant('URL_SUBFOLDER') . '/admin/createPermissionGroup', array('controller' => 'PermissionGroupController', 'method'=>'createPermissionGroupAction'), array()));
+$routes->add('updatePermissionGroupState', new Route(constant('URL_SUBFOLDER') . '/admin/updatePermissionGroupState', array('controller' => 'PermissionGroupController', 'method'=>'updatePermissionGroupStateAction'), array()));

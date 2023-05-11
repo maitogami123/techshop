@@ -11,6 +11,7 @@ class Permission {
   protected $permissionDescription;
   protected $permissionGroupId;
   protected $permissionGroupName;
+  protected $disabled;
 
   /**
    * Get the value of permissionId
@@ -110,5 +111,53 @@ class Permission {
     $this->permissionGroupName = $permissionGroupName;
 
     return $this;
+  }
+
+  /**
+   * Get the value of disabled
+   */ 
+  public function getDisabled()
+  {
+    return $this->disabled;
+  }
+
+  /**
+   * Set the value of disabled
+   *
+   * @return  self
+   */ 
+  public function setDisabled($disabled)
+  {
+    $this->disabled = $disabled;
+
+    return $this;
+  }
+
+  public function addPerrmission(array $data) {
+    $db = connect();
+
+    $addPermissionSql = "INSERT INTO 
+                        `permission` (`PermissionID`, `PermissionName`, `description`, `disabled`, `PermisionGroupID`) 
+                        VALUES (:permissionID, :permissionName, :description, '0', :groupId)";
+    $addPermissionStm = $db->prepare($addPermissionSql);
+    $addPermissionStm->execute([
+      ':permissionID' => $data["permission_id"],
+      ':permissionName' => $data["permission_name"],
+      ':description' => $data["permission_description"],
+      ':groupId' => $data["roleId"],
+    ]);
+  }
+
+  public function updatePermissionState($permissionId, $state) {
+    $db = connect();
+
+    $updateStateSql = "UPDATE `permission` 
+                      SET `disabled` = :isDisabled 
+                      WHERE `permission`.`PermissionID` = :permissionId";
+    $updateStateStm = $db->prepare($updateStateSql);
+    $updateStateStm->execute([
+      ':isDisabled' => $state,
+      ':permissionId' => $permissionId,
+    ]);
   }
 }
