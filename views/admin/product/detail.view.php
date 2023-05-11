@@ -8,23 +8,22 @@
   <form class="ps-3 pe-3" action="#">
     <div class="mb-3">
       <label for="product-line" class="form-label">Line</label>
-      <p class="form-control" type="text"><?php echo $product->getProductLine() ?></p>
+      <p class="form-control" type="text">
+        <?php echo $product->getProductLine() ?>
+      </p>
     </div>
     <div class="mb-3">
       <label for="product-name" class="form-label">Name</label>
-      <p class="form-control" type="text"><?php echo $product->getProductName() ?></p>
+      <p class="form-control" type="text">
+        <?php echo $product->getProductName() ?>
+      </p>
     </div>
 
     <div class="mb-3">
       <label class="form-label" for="see-product-thumbnail">Thumbnail</label>
       <div>
-        <?php if ($product->getImages()): ?>
-          <img
-            src="<?php echo "/techshop/public/images/productImg/" . $product->getProductLine() . "/" . $product->getImages()[0] ?>"
-            alt="" class="img-fluid rounded" id="see-product-thumbnail" width="200"/>
-        <?php else: ?>
-          <img src="<?php echo "/techshop/public/images/thumbNail/" . $product->getThumbNail() ?>" alt="" class="img-fluid rounded" id="see-product-thumbnail" width="200"/>
-        <?php endif ?>
+        <img src="<?php echo "/techshop/public/images/thumbNail/" . $product->getThumbNail() ?>" alt=""
+          class="img-fluid rounded" id="see-product-thumbnail" width="200" />
       </div>
     </div>
     <div class="mb-3">
@@ -44,7 +43,15 @@
       </div>
       <div class="col-sm-6">
         <label for="product-discount" class="form-label">Discount(%):</label>
-        <input disabled class="form-control" type="number" id="product-discount" value="<?php echo $product->getDiscount()?>" />
+        <input disabled class="form-control" type="number" id="product-discount"
+          value="<?php echo $product->getDiscount() ?>" />
+      </div>
+    </div>
+    <div class="row g-2 mb-3">
+      <div class="col-sm-6">
+        <label for="example-select" class="form-label">Warranty Period</label>
+        <input disabled class="form-control" type="text" id="example-select"
+          value="<?php echo $product->getWarrantyId() ?? "Không có bảo hành" ?>" />
       </div>
     </div>
     <div class="row g-2 mb-3">
@@ -64,7 +71,9 @@
       <label for="information" class="form-label">Information</label>
       <div id="information-group">
         <?php foreach ($product->getInfor() as $info): ?>
-          <p class="form-control" type="text"><?php echo $info ?></p>
+          <p class="form-control" type="text">
+            <?php echo $info ?>
+          </p>
         <?php endforeach ?>
       </div>
     </div>

@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Models\Order;
 use App\Models\Orders;
+use App\Models\OrderStatuses;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Products;
@@ -78,4 +79,26 @@ class OrderController {
   public function getUserOrder(string $username, RouteCollection $routes, Request $request) {
     startSession();
   }
+
+  public function getOrderDetail(string $id, RouteCollection $routes, Request $request) {
+    startSession();
+    $order = new Order();
+    $data = $order->read($id);
+    $statusList = new OrderStatuses();
+    $statusList->getAll();
+    require_once APP_ROOT . '/views/admin/orders/detail.view.php';
+  }
+
+  public function updateOrderStatusAction(RouteCollection $routes, Request $request) {
+    startSession();
+    $id = json_decode($_POST['orderId']);
+    $statusId = json_decode(($_POST['orderStatus']));
+    $order = new Order();
+    if ($statusId == 5) {
+      $order->cancelOrder($id);
+    } else {
+      $order->updateOrderStatus($id, $statusId);
+    }
+  }
+
 }

@@ -7,7 +7,13 @@ if (!isLoggedIn()) {
 if (isLoggedIn()) {
   $user = new User();
   $user = unserialize($_SESSION['user']);
+  if ($user->getUserGroup() != 'CUSTOMER') {
+    redirect(getPath($routes, 'admin'));
+  }
 }
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,13 +31,15 @@ if (isLoggedIn()) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/nouislider@10.0.0/distribute/nouislider.min.css" />
   <link rel="stylesheet" href="/techshop/public/css/bootstrap.min.css">
   <link rel="stylesheet" href="/techshop/public/css/simple-notify.min.css" />
-  <link rel="stylesheet" href="/techshop/public/css/index.css">
   <link rel="stylesheet" href="/techshop/public/css/style1.css">
   <script src="/techshop/public/js/jquery.min.js"></script>
+  <script src="/techshop/public/js/jquery.redirect.js"></script>
   <script src="/techshop/public/js/simple-notify.min.js"></script>
   <script src="/techshop/public/js/sweetalert2.all.min.js"></script>
+  <script src="/techshop/public/js/wNumb.min.js"></script>
 </head>
 
 <body>
@@ -50,7 +58,7 @@ if (isLoggedIn()) {
         </form>
         <nav class="nav-user">
           <?php if ($_SESSION['isLoggedIn'] == true): ?>
-            <a class="nav-user__icon-box" href="<?php echo getPath($routes, 'viewCart')?>">
+            <a class="nav-user__icon-box" href="<?php echo getPath($routes, 'viewCart') ?>">
               <svg class="icon">
                 <use xlink:href="/techshop/public/images/SVG/symbol-defs.svg#icon-location-shopping"></use>
               </svg>
@@ -67,11 +75,13 @@ if (isLoggedIn()) {
                   </span>
                 </li>
                 <li class="nav-user__options">
-                  <a href="<?php echo $routes->get('viewOrders')->getPath() ?>" class="nav-user__option font-size-2">Đơn hàng</a>
-                  <a href="<?php echo $routes->get('viewPersonalInfo')->getPath() ?>" class="nav-user__option font-size-2">Thông tin cá nhân</a>
+                  <a href="<?php echo $routes->get('viewOrders')->getPath() ?>" class="nav-user__option font-size-2">Đơn
+                    hàng</a>
+                  <a href="<?php echo $routes->get('viewPersonalInfo')->getPath() ?>"
+                    class="nav-user__option font-size-2">Thông tin cá nhân</a>
                 </li>
                 <li class="nav-user__log-out">
-                  <a href="<?php echo $routes->get('logout')->getPath() ?>" class="log-out btn">
+                  <a href="#" class="log-out btn" id="log-out-btn">
                     <i class="fa-solid fa-right-from-bracket color--red font-size-1"></i>
                     <span class="color--red font-size-2">Sign Out</span>
                   </a>
@@ -149,13 +159,19 @@ if (isLoggedIn()) {
 </body>
 <script src="/techshop/public/js/index.js"></script>
 <script>
-  $(document).ready(function(e) {
-    $('.search__form').submit(function(e) {
+  $(document).ready(function (e) {
+    $('.search__form').submit(function (e) {
       e.preventDefault();
       let searchString = $('.search__input').val()
       let url = "<?php echo getPath($routes, 'search') ?>"
       window.location.replace(url.replace('{searchStr}', `${searchString}`));
     })
+
+    $('#log-out-btn').click(function(e) {
+      localStorage.removeItem('cart');
+      location.href = '<?php echo $routes->get('logout')->getPath() ?>'
+    })
   })
 </script>
+
 </html>

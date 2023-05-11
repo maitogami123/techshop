@@ -7,13 +7,16 @@ use Symfony\Component\Routing\RouteCollection;
 $routes = new RouteCollection();
 
 $routes->add('product', new Route(constant('URL_SUBFOLDER') . '/product/{id}', array('controller' => 'ProductController', 'method'=>'showAction'), array('id' => '([^&]*)')));
-$routes->add('viewProduct', new Route(constant('URL_SUBFOLDER') . '/view/product', array('controller' => 'ProductController', 'method'=>'indexAction'), array()));
+// $routes->add('viewProduct', new Route(constant('URL_SUBFOLDER') . '/view/product', array('controller' => 'ProductController', 'method'=>'indexAction'), array()));
 // $routes->add('editProduct', new Route(constant('URL_SUBFOLDER') . '/edit/product/{id}', array('controller' => 'ProductController', 'method'=>'editAction'), array('id' => '([^&]*)')));
 $routes->add('deleteProduct', new Route(constant('URL_SUBFOLDER') . '/delete/product/{id}', array('controller' => 'ProductController', 'method'=>'deleteAction'), array('id' => '([^&]*)')));
 
 $routes->add('homepage', new Route(constant('URL_SUBFOLDER') . '/', array('controller' => 'PageController', 'method'=>'indexAction'), array()));
 $routes->add('getCategory', new Route(constant('URL_SUBFOLDER') . '/getCategory', array('controller' => 'PageController', 'method'=>'changeCategory'), array()));
 $routes->add('search', new Route(constant('URL_SUBFOLDER') . '/search/{searchStr}', array('controller' => 'PageController', 'method'=>'searchAction'), array('searchStr' => '([^&]*)')));
+$routes->add('viewProducts', new Route(constant('URL_SUBFOLDER') . '/view/product', array('controller' => 'PageController', 'method'=>'viewProduct'), array('searchStr' => '([^&]*)')));
+$routes->add('viewCategory', new Route(constant('URL_SUBFOLDER') . '/view/category/{category}', array('controller' => 'PageController', 'method'=>'viewCategory'), array('category' => '([^&]*)')));
+$routes->add('updateViewCategory', new Route(constant('URL_SUBFOLDER') . '/filter/category', array('controller' => 'PageController', 'method'=>'filterCategory'), array()));
 
 $routes->add('viewCart', new Route(constant('URL_SUBFOLDER') . '/cart', array('controller' => 'CartController', 'method'=>'indexAction'), array()));
 $routes->add('getCartItems', new Route(constant('URL_SUBFOLDER') . '/getCart', array('controller' => 'CartController', 'method'=>'getCartItemsAction'), array()));
@@ -39,9 +42,16 @@ $routes->add('addQty', new Route(constant('URL_SUBFOLDER') . '/admin/product/add
 $routes->add('saveQty', new Route(constant('URL_SUBFOLDER') . '/admin/product/saveQty', array('controller' => 'ProductController', 'method'=>'saveQtyAction'), array()));
 
 $routes->add('adminOrders', new Route(constant('URL_SUBFOLDER') . '/admin/orders', array('controller' => 'AdminController', 'method'=>'indexOrderAction'), array()));
+$routes->add('getOrderDetail', new Route(constant('URL_SUBFOLDER') . '/admin/order/detail/{id}', array('controller' => 'OrderController', 'method'=>'getOrderDetail'), array('id' => '([^&]*)')));
+$routes->add('updateOrderStatus', new Route(constant('URL_SUBFOLDER') . '/admin/order/updateStatus', array('controller' => 'OrderController', 'method'=>'updateOrderStatusAction'), array()));
 
 $routes->add('adminUsers', new Route(constant('URL_SUBFOLDER') . '/admin/users', array('controller' => 'AdminController', 'method'=>'indexUserAction'), array()));
 
 $routes->add('adminBrands', new Route(constant('URL_SUBFOLDER') . '/admin/brands', array('controller' => 'AdminController', 'method'=>'indexBrandAction'), array()));
 
 $routes->add('adminRoles', new Route(constant('URL_SUBFOLDER') . '/admin/roles', array('controller' => 'AdminController', 'method'=>'indexRoleAction'), array()));
+
+$routes->add('adminPermissions', new Route(constant('URL_SUBFOLDER') . '/admin/permissions', array('controller' => 'AdminController', 'method'=>'indexPermissionAction'), array()));
+$routes->add('getRolePermission', new Route(constant('URL_SUBFOLDER') . '/admin/getRolePermission', array('controller' => 'RoleController', 'method'=>'getRolePermissionAction'), array()));
+
+$routes->add('adminPermissionGroups', new Route(constant('URL_SUBFOLDER') . '/admin/permissionGroups', array('controller' => 'AdminController', 'method'=>'indexPermissionGroupAction'), array()));

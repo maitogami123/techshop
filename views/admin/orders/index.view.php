@@ -1,4 +1,22 @@
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="page-title-box">
+        <div class="page-title-right">
+          <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item">
+              <a href="javascript: void(0);">TechShop</a>
+            </li>
+
+            <li class="breadcrumb-item active">Orders</li>
+          </ol>
+        </div>
+        <h4 class="page-title">Orders</h4>
+      </div>
+    </div>
+  </div>
+
 <div class="row">
   <div class="col-12">
     <div class="card">
@@ -7,10 +25,6 @@
           <div class="col-xl-8">
             <form class="row gy-2 gx-2 align-items-center justify-content-xl-start justify-content-between">
               <!-- <div class="col-auto">
-                <label for="search-box" class="visually-hidden">Search</label>
-                <input type="search" class="form-control" id="search-box" placeholder="Search..." />
-              </div> -->
-              <div class="col-auto">
                 <div class="d-flex align-items-center">
                   <label for="status-select" class="me-2">Status</label>
                   <select class="form-select" id="status-select">
@@ -24,21 +38,15 @@
               </div>
               <div class="col-1">
                 <button class="btn btn-primary" id="filter-btn" type="button">Apply</button>
-              </div>
+              </div> -->
             </form>
           </div>
         </div>
 
         <div class="table-responsive">
-          <table class="table table-centered mb-0">
+          <table class="table table-centered mb-0" id="orders-datatable">
             <thead class="table-light">
               <tr>
-                <th style="width: 20px">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="customCheck1" />
-                    <label class="form-check-label" for="customCheck1">&nbsp;</label>
-                  </div>
-                </th>
                 <th>Order ID</th>
                 <th>Date</th>
                 <th>Payment Status</th>
@@ -60,8 +68,15 @@
   <!-- end col -->
 </div>
 
-<script>
+<div id="order-detail" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" id="detailModal">
 
+    </div>
+  </div>
+</div>
+
+<script>
   $(document).ready(function() {
     $("#filter-btn").click(function(e) {
       e.preventDefault();
@@ -80,4 +95,57 @@
     })
   })
 
+  $(document).ready(function () {
+    $('#order-detail').on('shown.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var productId = button.data('order-id')
+      $.ajax({
+        type: 'get',
+        url: `/techshop/admin/order/detail/${productId}`,
+        success: function (res) {
+          $('#detailModal').html(res)
+        }
+      })
+    })
+  })
+
+</script>
+
+<script>
+
+  $(document).ready(function () {
+    $("#orders-datatable").DataTable({
+      language: {
+        paginate: {
+          previous: "<i class='mdi mdi-chevron-left'>",
+          next: "<i class='mdi mdi-chevron-right'>"
+        },
+        info: "Showing orders _START_ to _END_ of _TOTAL_",
+        lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="5">5</option><option value="10">10</option><option value="20">20</option><option value="-1">All</option></select> products'
+      },
+      pageLength: 5,
+      columns: [
+        {
+          orderable: !0
+        }, {
+          orderable: !0
+        }, {
+          orderable: !0
+        }, {
+          orderable: !0
+        }, {
+          orderable: !0
+        }, {
+          orderable: !1
+        }],
+      select: {
+        style: "multi"
+      },
+      order: [[1, "asc"]],
+      drawCallback: function () {
+        $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
+          $("#products-datatable_length label").addClass("form-label")
+      }
+    })
+  });
 </script>

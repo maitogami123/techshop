@@ -76,6 +76,7 @@ class Products
       $product->setPrice($item['Price']);
       $product->setDiscount($item['Discount']);
       $product->setBrandID($item['BrandID']);
+      $product->setCategory($item['Category']);
       $this->productList[] = $product;
     }
     $db = null;
@@ -115,7 +116,7 @@ class Products
         continue;
       } else {
         $product = new Product();
-        $product->setStock($countStm->fetchColumn() ?? 0);
+        $product->setStock($stock);
         $product->setProductLine($item['Product_Line']);
         $product->setProductName($item['Product_Name']);
         $product->setThumbNail($item['Thumbnail']);

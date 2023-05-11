@@ -30,7 +30,7 @@
             </div>
 
             <div class="table-responsive">
-              <table class="table table-centered table-striped dt-responsive nowrap w-100" id="products-datatable">
+              <table class="table table-centered table-striped dt-responsive nowrap w-100" id="accounts-datatable">
                 <thead>
                   <tr>
                     <th>Customer</th>
@@ -56,3 +56,43 @@
   </div>
   <!-- end col -->
 </div>
+
+<script>
+  $(document).ready(function () {
+    $("#accounts-datatable").DataTable({
+      language: {
+        paginate: {
+          previous: "<i class='mdi mdi-chevron-left'>",
+          next: "<i class='mdi mdi-chevron-right'>"
+        },
+        info: "Showing accounts _START_ to _END_ of _TOTAL_",
+        lengthMenu: 'Display <select class=\'form-select form-select-sm ms-1 me-1\'><option value="5">5</option><option value="10">10</option><option value="20">20</option><option value="-1">All</option></select> accounts'
+      },
+      pageLength: 5,
+      columns: [
+        {
+          orderable: !0
+        }, {
+          orderable: !0
+        }, {
+          orderable: !0
+        }, {
+          orderable: !0
+        }, {
+          orderable: !0
+        }, {
+          orderable: !0
+        }, {
+          orderable: !1
+        }],
+      select: {
+        style: "multi"
+      },
+      order: [[1, "asc"]],
+      drawCallback: function () {
+        $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
+          $("#products-datatable_length label").addClass("form-label")
+      }
+    })
+  });
+</script>
