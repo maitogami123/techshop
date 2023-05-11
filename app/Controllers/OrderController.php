@@ -46,23 +46,35 @@ class OrderController {
   public function viewPersonalInformationAction(RouteCollection $routes, Request $request) {
     startSession();
     $name = 'information/index';
-      $user = new User();
-      $this -> UpdateUserInfo($user);
-      require_once APP_ROOT . '/views/user/layout.view.php';
-  }
-  public function UpdateUserInfo($user){
+
     if (!isLoggedIn()) {
       $_SESSION['isLoggedIn'] = false;
+      redirect(getPath($routes, 'homepage'));
     }
     if (isLoggedIn()) {
+      $user = new User();
       $user = unserialize($_SESSION['user']);
     }
-    if (isset($_GET['account'])) {
-      # code...
-      $Fullname = $_GET['account'];
-      $user -> UpdateUserInfo($Fullname,$user -> getUsername());
-    }
+    $userName = $user -> getUsername();
+    // $data = json_decode(file_get_contents("php://input"));
+    // var_dump($data);
+   if(isset($_POST['jsonData'])) {
+     $data = json_decode($_POST['jsonData']);
+     var_dump($data);
+    $user ->UpdateUserInfo($userName, $data -> user__lastName, $data->user__firstName,$data-> user__email, $data->user__tel, $data->order__addressCity, $data->order__addressDistrict, $data->order__address);
+    die();
   }
+    // $LastName = $_GET['user__last-name'];
+    // $email = $_GET['user__email'];
+    // $tel = $_GET['user__tel'];
+    // $addressCity = $_GET['city'];
+    // $addressDistrict = $_GET['district'];
+    // $Detailaddress = $_GET['detailedAddress'];
+    // print_r($_GET);
+
+    require_once APP_ROOT . '/views/user/layout.view.php';
+  }
+
   public function createOrderAction(RouteCollection $routes, Request $request) {
     startSession();
     $order = new Order();

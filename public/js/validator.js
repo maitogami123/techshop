@@ -22,7 +22,7 @@ function Validator(options){
     }
     let formRegister = document.querySelector(options.form);
     if (formRegister) {
-        // khi submit form
+        // khi submit formAccount
         formRegister.onsubmit = function(e){
             e.preventDefault();
             let isFormValid = true
@@ -152,12 +152,10 @@ Validator.isPassword = function(selector){
         test: function(value){
             if (value.trim() == '') {//trim() loại bỏ khoảng trắng
                 return "Xin vui lòng nhập mật khẩu"
-            }else if(value.length < 8){
-                return "Tối thiểu là 8 ký tự";
             }else {
-                let regex = /^.*(?=.*\d).(?=.*[A-Z]).(?=.*[a-z]).*$/ //kiểm tra xem có ít nhất một ký tự chữ cái (viết hoa hoặc viết thường) xuất hiện trong chuỗi.
+                let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
                 if (!regex.test(value)) {
-                    return "Chứa ít nhất một ký tự viết hoa và một ký tự viết thường và chỉ bao gồm các chữ cái và số." 
+                    return "Tối thiểu 8 ký tự. Chứa ít nhất một ký tự viết hoa, một ký tự viết thường, ký tự đặc biệt và chỉ bao gồm các chữ cái và số." 
                 }
                 return undefined
             }              
