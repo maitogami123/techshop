@@ -31,6 +31,7 @@ $routes->add('logout', new Route(constant('URL_SUBFOLDER') . '/logout', array('c
 $routes->add('register', new Route(constant('URL_SUBFOLDER') . '/register', array('controller' => 'RegisterController', 'method'=>'indexAction')));
 
 $routes->add('admin', new Route(constant('URL_SUBFOLDER') . '/admin', array('controller' => 'AdminController', 'method'=>'indexHomeAction'), array()));
+
 $routes->add('adminProduct', new Route(constant('URL_SUBFOLDER') . '/admin/product', array('controller' => 'AdminController', 'method'=>'indexProductAction'), array()));
 $routes->add('createProduct', new Route(constant('URL_SUBFOLDER') . '/admin/product/create', array('controller' => 'ProductController', 'method'=>'createProduct'), array()));
 $routes->add('getProductDetail', new Route(constant('URL_SUBFOLDER') . '/admin/product/detail/{id}', array('controller' => 'ProductController', 'method'=>'getProductDetail'), array('id' => '([^&]*)')));
