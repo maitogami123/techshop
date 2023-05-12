@@ -400,7 +400,7 @@ class Product
     $this->productLine = $data['product_line'];
     $this->productName = $data['product_name'];
     $this->price = $data['price'];
-    $this->discount = $data['discount'] ?? 0;
+    $this->discount = empty($data['discount']) ?? 0;
     $this->createdBy = $data['userID'];
     $this->brandID = $data['brand'];
     $this->category = $data['category'];
@@ -420,7 +420,7 @@ class Product
         $sql = "INSERT INTO `product` (`Product_Line`, `Product_Name`, `Thumbnail`, `Price`, 
           `Discount`, `warranty_period`, `Created_at`, `Modified_at`, `Deleted_at`, `Created_by`, `BrandID`, `Category`) 
           VALUES ('$this->productLine', '$this->productName', '$this->productLine.$ext', $this->price,
-          '$this->discount', '$this->warrantyId', current_timestamp(), NULL, NULL, '$this->createdBy', '$this->brandID', '$this->category')";
+          '($this->discount)', '$this->warrantyId', current_timestamp(), NULL, NULL, '$this->createdBy', '$this->brandID', '$this->category')";
         $statement = $db->prepare($sql);
         $statement->execute();
       } catch (PDOException $err) {

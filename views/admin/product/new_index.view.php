@@ -326,8 +326,9 @@
               text: 'Product successfully added!',
               icon: 'success',
               confirmButtonTeNxt: 'Cool!'
+            }).then(() => {
+              location.reload();
             })
-            $('#create-form')[0].reset();
           },
           contentType: false,
           processData: false
