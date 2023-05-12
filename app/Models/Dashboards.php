@@ -60,11 +60,14 @@ class Dashboards{
     public function getProductBestSeller(){
         $db = connect();
 
-        $query = ('SELECT `product`.`Product_Name`, `product`.`price` ,`product`.`Created_at`, COUNT(`orderdetail`.`ProductId`) AS totalOrder FROM `product` 
-                        LEFT JOIN `product_warranty` ON `product_warranty`.`product_line` = `product`.`Product_Line` 
-                        LEFT JOIN `orderdetail` ON `orderdetail`.`ProductId` = `product_warranty`.`product_id` 
-                        GROUP BY `product`.`Product_Line`,`product`.`price` ,`product`.`Created_at` 
-                        ORDER BY totalOrder DESC LIMIT 5');
+        $query = ('SELECT `product`.`Product_Name`, `product`.`price` ,`product`.`Created_at`, COUNT(`product_warranty`.`product_id`) as totalOrder, product_warranty.product_line
+                    FROM `product_warranty`
+                    LEFT JOIN `product` ON `product`.`Product_Line` = `product_warranty`.`product_line`
+                    WHERE `product_warranty`.`purchased_at` IS NOT NULL
+                    GROUP BY  `product_warranty`.`product_line`
+                    ORDER BY `product`.`Price` DESC, totalOrder DESC
+                    LIMIT 5
+                    ;');
         $statement = $db->prepare($query);
         $statement->execute();
         $data = $statement->fetchAll(PDO::FETCH_ASSOC);
