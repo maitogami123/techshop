@@ -24,7 +24,7 @@
 </div>
 <!-- end page title -->
 <div class="row">
-  <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
+  <div class="col-xl-9 col-lg-16 order-lg-2 order-xl-1">
     <div class="card">
       <div class="card-body">
         <h4 class="header-title mt-2 mb-3">Top Selling Products</h4>
@@ -32,106 +32,28 @@
         <div class="table-responsive">
           <table class="table table-centered table-nowrap table-hover mb-0">
             <tbody>
+            <?php foreach ($productSeller->productSeller as $product): ?>
               <tr>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">
-                    ASOS Ridley High Waist
+                <td style="w-75">
+                  <h5 class="font-14 my-1 fw-normal w-75 text-lg-left text-wrap">
+                  <?php echo $product->getProductLine() ?>
                   </h5>
-                  <span class="text-muted font-13">07 April 2018</span>
+                  <span class="text-muted font-13"><?php echo $product->getCreatedAt() ?></span>
                 </td>
                 <td>
-                  <h5 class="font-14 my-1 fw-normal">$79.49</h5>
+                  <h5 class="font-14 my-1 fw-normal"><?php echo number_format($product->getPrice()) ?>đ</h5>
                   <span class="text-muted font-13">Price</span>
                 </td>
                 <td>
-                  <h5 class="font-14 my-1 fw-normal">82</h5>
+                  <h5 class="font-14 my-1 fw-normal"><?php echo $product->getTotalOrder() ?></h5>
                   <span class="text-muted font-13">Quantity</span>
                 </td>
                 <td>
-                  <h5 class="font-14 my-1 fw-normal">$6,518.18</h5>
+                  <h5 class="font-14 my-1 fw-normal"><?php echo number_format($product->getPrice()*$product->getTotalOrder()) ?>đ</h5>
                   <span class="text-muted font-13">Amount</span>
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">
-                    Marco Lightweight Shirt
-                  </h5>
-                  <span class="text-muted font-13">25 March 2018</span>
-                </td>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">$128.50</h5>
-                  <span class="text-muted font-13">Price</span>
-                </td>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">37</h5>
-                  <span class="text-muted font-13">Quantity</span>
-                </td>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">$4,754.50</h5>
-                  <span class="text-muted font-13">Amount</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">
-                    Half Sleeve Shirt
-                  </h5>
-                  <span class="text-muted font-13">17 March 2018</span>
-                </td>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">$39.99</h5>
-                  <span class="text-muted font-13">Price</span>
-                </td>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">64</h5>
-                  <span class="text-muted font-13">Quantity</span>
-                </td>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">$2,559.36</h5>
-                  <span class="text-muted font-13">Amount</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">
-                    Lightweight Jacket
-                  </h5>
-                  <span class="text-muted font-13">12 March 2018</span>
-                </td>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">$20.00</h5>
-                  <span class="text-muted font-13">Price</span>
-                </td>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">184</h5>
-                  <span class="text-muted font-13">Quantity</span>
-                </td>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">$3,680.00</h5>
-                  <span class="text-muted font-13">Amount</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">
-                    Marco Shoes
-                  </h5>
-                  <span class="text-muted font-13">05 March 2018</span>
-                </td>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">$28.49</h5>
-                  <span class="text-muted font-13">Price</span>
-                </td>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">69</h5>
-                  <span class="text-muted font-13">Quantity</span>
-                </td>
-                <td>
-                  <h5 class="font-14 my-1 fw-normal">$1,965.81</h5>
-                  <span class="text-muted font-13">Amount</span>
-                </td>
-              </tr>
+              <?php endforeach ?>
             </tbody>
           </table>
         </div>
@@ -146,89 +68,29 @@
   <div class="col-xl-3 col-lg-6 order-lg-1">
     <div class="card">
       <div class="card-body">
-        <div class="dropdown float-end">
-          <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="mdi mdi-dots-vertical"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-end">
-            <!-- item-->
-            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
-            <!-- item-->
-            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-            <!-- item-->
-            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
-            <!-- item-->
-            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-          </div>
-        </div>
         <h4 class="header-title">Total Orders</h4>
 
-        <div id="average-orders" class="apex-charts mb-4 mt-4" data-colors="#727cf5,#0acf97,#fa5c7c,#ffbc00">
+        <div id="average-orders" class="apex-charts mb-4 mt-4" >
         </div>
 
         <div class="chart-widget-list">
-          <p>
-            <i class="mdi mdi-square text-primary"></i> Đang xử lý
-            <span class="float-end">10</span>
-          </p>
-          <p>
-            <i class="mdi mdi-square text-danger"></i> Đang giao
-            <span class="float-end">12</span>
-          </p>
-          <p>
-            <i class="mdi mdi-square text-success"></i> Đã giao
-            <span class="float-end">34</span>
-          </p>
-          <p class="mb-0">
-            <i class="mdi mdi-square text-warning"></i> Đã hủy
-            <span class="float-end">50</span>
-          </p>
-        </div>
-      </div>
-      <!-- end card-body-->
-    </div>
-    <!-- end card-->
-  </div>
-  <div class="col-xl-3 col-lg-6 order-lg-1">
-    <div class="card">
-      <div class="card-body">
-        <div class="dropdown float-end">
-          <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="mdi mdi-dots-vertical"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-end">
-            <!-- item-->
-            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
-            <!-- item-->
-            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-            <!-- item-->
-            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
-            <!-- item-->
-            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-          </div>
-        </div>
-        <h4 class="header-title">Total Orders</h4>
-
-        <div id="average-sales" class="apex-charts mb-4 mt-4" data-colors="#727cf5,#0acf97,#fa5c7c,#ffbc00">
-        </div>
-
-        <div class="chart-widget-list">
-          <p>
-            <i class="mdi mdi-square text-primary"></i> Đang xử lý
-            <span class="float-end">10</span>
-          </p>
-          <p>
-            <i class="mdi mdi-square text-danger"></i> Đang giao
-            <span class="float-end">12</span>
-          </p>
-          <p>
-            <i class="mdi mdi-square text-success"></i> Đã giao
-            <span class="float-end">34</span>
-          </p>
-          <p class="mb-0">
-            <i class="mdi mdi-square text-warning"></i> Đã hủy
-            <span class="float-end">50</span>
-          </p>
+        <?php foreach ($totalStatus->totalStatus as $status): ?>
+            <?php
+                $class = '';
+                if ($status->getOrderStatusName() == "Đã Giao") {
+                  $class = 'text-success';
+                } elseif ($status->getOrderStatusName() == "Đã Hủy") {
+                  $class = 'text-danger';
+                } elseif ($status->getOrderStatusName() == "Đang Giao") {
+                  $class = 'text-primary';
+                }
+                else $class= 'text-warning';
+            ?>
+            <p>
+                <i class="mdi mdi-square <?php echo $class ?>"></i> <?php echo $status->getOrderStatusName() ?>
+                <span class="float-end"> <?php echo $status->getOrderStatusTotal() ?></span>
+            </p>
+          <?php endforeach ?>
         </div>
       </div>
       <!-- end card-body-->
@@ -237,7 +99,20 @@
   </div>
   <!-- end col-->
 </div>
-<!-- end row -->
+<div class="row">
+  <div class="col-xl-9">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="header-title mb-4">Revenue of month</h4>
+        <div id="average-revenue" class="apex-charts mb-4 mt-4">
+        </div>
+      </div>
+      <!-- end card body-->
+    </div>
+    <!-- end card -->
+  </div>
+  <!--  -->
+</div>
 <script>
 
   $(document).ready(function() {
@@ -245,11 +120,26 @@
       chart: {
         type: 'donut'
       },
-      series: [10, 12, 34, 50],
-      labels: ['Đang xử lý', 'Đang Giao', 'Đã giao', 'Đã hủy'],
+      colors:['#ffbc00','#fa5c7c','#0acf97','#727cf5','#ffbc00'],
+      fill: {
+        colors: ['#ffbc00','#fa5c7c','#0acf97','#727cf5','#ffbc00'],
+      },
+      series: [
+        <?php foreach ($totalStatus->totalStatus as $status): ?>
+          <?php echo $status->getOrderStatusTotal() ?>,
+        <?php endforeach ?>
+      ],
+      
+      labels: ['Đang xử lý', 'Đã hủy', 'Đã giao', 'Đang Giao'],
       legend: {
         show: false
       }
+      // dataLabels: {
+      //   style: {
+      //     colors: ['#F44336', '#E91E63', '#9C27B0','#9C27B0']
+      //   }
+      // },
+
     }
 
     var chart = new ApexCharts(document.querySelector("#average-orders"), options);
@@ -257,4 +147,60 @@
     chart.render();
   })
 
+</script>
+<script>
+  <?php
+  $revenues = []; // Initialize an empty array to store monthly revenues
+
+  // Loop through 12 months of current year
+  for ($month = 1; $month <= 12; $month++) {
+    $revenue = 0; // Initialize revenue as 0
+    foreach ($RevenueOfMonth->RevenueOfMonth as $status) {
+      // Get the revenue for the current month if available
+      if ($status->getMonth() == $month ) {
+        $revenue = $status->getTotalRevenue();
+        break;
+      }
+    }
+    $revenues[] = $revenue; // Add monthly revenue to the array
+  }
+  echo $revenue;
+  ?>
+  $(document).ready(function() {
+    var options = {
+          series: [{
+            name: "Desktops",
+            data: [
+              <?php foreach ($revenues->revenues as $revenue): ?>
+                  <?php echo $revenue ?>,
+              <?php endforeach ?>
+            ],
+        }],
+          chart: {
+          height: 350,
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        },
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        xaxis: {
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        }
+    };
+    var chart = new ApexCharts(document.querySelector("#average-revenue"), options);
+
+    chart.render();
+  })
 </script>
