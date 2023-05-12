@@ -77,7 +77,8 @@ class PageController
 		startSession();
 		$productList = new Products();
 		$productList->search($searchStr);
-		$name = 'search_result';
+		$category = $searchStr;
+		$name = 'product_filter';
 		require APP_ROOT . "/views/layout.view.php";
 	}
 

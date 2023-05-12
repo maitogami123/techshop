@@ -3,6 +3,7 @@ use App\Models\User;
 
 if (!isLoggedIn()) {
   $_SESSION['isLoggedIn'] = false;
+  redirect(getPath($routes, 'homepage'));
 }
 if (isLoggedIn()) {
   $user = new User();
