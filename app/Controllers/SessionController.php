@@ -21,6 +21,11 @@ class SessionController
 			$user = new User();
 			try {
 				$user->read($username, $pwd);
+				if($user->getDeletedAt() != null) {
+					$package = ['status' => 'fail', 'message' => 'Tài khoản đã bị khóa'];
+					echo json_encode($package);
+					die();
+				}
 				$_SESSION['user'] = serialize($user);
 				$_SESSION['isLoggedIn'] = true;
 			} catch (ErrorException $err) {
