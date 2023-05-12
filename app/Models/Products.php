@@ -12,7 +12,7 @@ class Products
   {
     $db = connect();
 
-    $query = ('SELECT * FROM product WHERE BrandID = :brand');
+    $query = ('SELECT * FROM product WHERE BrandID = :brand ORDER BY `product`.`Created_at` DESC');
     $statement = $db->prepare($query);
     $statement->bindParam(':brand', $brand, PDO::PARAM_STR);
     $statement->execute();
@@ -43,6 +43,7 @@ class Products
       FROM `product` 
       LEFT JOIN `category` ON `product`.`Category` = `category`.`CategoryID`
       WHERE `category`.`CategoryName` = :category
+      ORDER BY `product`.`Created_at` DESC
     ;');
     $statement = $db->prepare($query);
     $statement->bindParam(':category', $category, PDO::PARAM_STR);
@@ -90,7 +91,9 @@ class Products
 
     $query = ('SELECT `product`.*, `category`.`CategoryName`
                 FROM `product` 
-                  LEFT JOIN `category` ON `product`.`Category` = `category`.`CategoryID`;');
+                  LEFT JOIN `category` ON `product`.`Category` = `category`.`CategoryID`
+                  ORDER BY `product`.`Created_at` DESC
+                  ;');
     $statement = $db->prepare($query);
     $statement->execute();
     $data = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -177,6 +180,20 @@ class Products
     $db = null;
     $query = null;
     return $this->productList;
+  }
+
+  public function getProductItem(string $productLine) {
+    $db = connect();
+
+    $getItemSql = "SELECT `product_warranty`.`product_id`
+                    FROM `product_warranty` 
+                    WHERE `product_warranty`.`product_line` = :productLine";
+    $getItemStm = $db->prepare($getItemSql);
+    $getItemStm->execute([
+      ":productLine" => $productLine
+    ]);
+    $data = $getItemStm->fetchAll();
+    return $data;
   }
 
 }

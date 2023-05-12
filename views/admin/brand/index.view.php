@@ -24,10 +24,14 @@
           <div class="card-body">
             <div class="row mb-2">
               <div class="col-sm-4">
-              <button type="button" class="btn btn-primary" id="add-product-btn" data-bs-toggle="modal"
-                data-bs-target="#add-new-brand">
-                Add product
-              </button>
+                <?php
+                  if (isLoggedIn() && in_array('Br_Create', $user->getPermissions())):
+                ?>
+                  <button type="button" class="btn btn-primary" id="add-product-btn" data-bs-toggle="modal"
+                    data-bs-target="#add-new-brand">
+                    Add brand
+                  </button>
+                <?php endif ?>
               </div>
 
               <!-- end col-->
@@ -52,16 +56,23 @@
                       <td><?php echo $brand->getId() ?></td>
                       <td><?php echo $brand->getName() ?></td>
                       <td class="table-action">
-                      
-                        <button type="button" class="action-icon btn" data-bs-toggle="modal"
-                          data-bs-target="#change-brand" 
-                          data-brand-id="<?php echo $brand->getId() ?>">
-                          <i class="mdi mdi-square-edit-outline"></i>
-                        </button>
-                        <button type="button" class="action-icon btn delete-btn"
-                          data-brand-id="<?php echo $brand->getId() ?>">
-                          <i class="mdi mdi-delete"></i>
-                        </button>
+                        <?php
+                          if (isLoggedIn() && in_array('Br_Edit', $user->getPermissions())):
+                        ?>
+                          <button type="button" class="action-icon btn" data-bs-toggle="modal"
+                            data-bs-target="#change-brand" 
+                            data-brand-id="<?php echo $brand->getId() ?>">
+                            <i class="mdi mdi-square-edit-outline"></i>
+                          </button>
+                        <?php endif ?>
+                        <?php
+                          if (isLoggedIn() && in_array('Br_Delete', $user->getPermissions())):
+                        ?>
+                          <button type="button" class="action-icon btn delete-btn"
+                            data-brand-id="<?php echo $brand->getId() ?>">
+                            <i class="mdi mdi-delete"></i>
+                          </button>
+                        <?php endif ?>
                       </td>
                     </tr>
                     <?php endif ?>
@@ -121,28 +132,43 @@
 
 <script>
   $(document).ready(() => {
+    const brandList = '<?php echo json_encode(serialize($BrandList))?>';
     $('#create-form').submit(function (e) {
       e.preventDefault();
       var formData = new FormData(this);
-      $.ajax({
-        type: "POST",
-        url: "<?php echo getPath($routes, 'createBrands') ?>",
-        data: formData,
-        success: function (res) {
-          console.log(res)
-          Swal.fire({
-            title: 'Success!',
-            text: 'Product successfully added!',
-            icon: 'success',
-            confirmButtonTeNxt: 'Cool!'
+
+      // console.log(brandList.includes(`"${$("#product-line").val().trim()}"`))
+
+      if (brandList.includes(`"${$("#product-line").val().trim()}"`) || $("#product-line").val().trim().length == 0) {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Brand already existed or not valid!',
+            icon: 'error',
+            confirmButtonTeNxt: 'Oops!'
           })
           .then(() => {
-            location.reload();
+            return;
           })
-        },
-        contentType: false,
-        processData: false
-      })
+      } else {
+        $.ajax({
+          type: "POST",
+          url: "<?php echo getPath($routes, 'createBrands') ?>",
+          data: formData,
+          success: function (res) {
+            Swal.fire({
+              title: 'Success!',
+              text: 'Brand successfully added!',
+              icon: 'success',
+              confirmButtonTeNxt: 'Cool!'
+            })
+            .then(() => {
+              location.reload();
+            })
+          },
+          contentType: false,
+          processData: false
+        })
+      }
     })
   })
 </script>
@@ -165,7 +191,7 @@ $(document).ready(function () {
 <script>
   $(document).ready(function () {
     <?php
-    if (isLoggedIn() && in_array('P_Delete', $user->getPermissions())):
+    if (isLoggedIn() && in_array('Br_Delete', $user->getPermissions())):
       ?>
       $('.delete-btn').click(function (e) {
         let id = $(this).attr('data-brand-id');

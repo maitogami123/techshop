@@ -1,3 +1,7 @@
+<?php 
+  $user = getSessionUser();
+?>
+
 <?php foreach ($permissions->permissions as $permissionGroup => $groupPermissions): ?>
   <?php foreach ($groupPermissions as $groupName => $groupPermission): ?>
     <div class="col-lg-4">
@@ -25,13 +29,21 @@
                     <?php echo $permission->getPermissionName() ?>
                   </td>
                   <td style="width: 75px">
+                    <?php
+                      if (isLoggedIn() && in_array('Per_Edit', $user->getPermissions())):
+                    ?>
                     <input type="checkbox" id="<?php echo $permission->getPermissionId()?>" <?php if (in_array($permission->getPermissionId(), $permissions->activePermission))
                       echo "checked" ?> data-switch="success" 
                       data-permission-id="<?php echo $permission->getPermissionId()?>"
                       />
                       <label for="<?php echo $permission->getPermissionId()?>" data-on-label="Yes" data-off-label="No"></label>
-                    </td>
-                  </tr>
+                    <?php else: ?>
+                      <?php if((in_array($permission->getPermissionId(), $permissions->activePermission))) echo '<span class="badge badge-success-lighten">Active</span>';
+                            else echo '<span class="badge badge-danger-lighten">Deactive</span>'
+                      ?>
+                    <?php endif ?>
+                  </td>
+                </tr>
               <?php endforeach ?>
             <?php endif ?>
           </tbody>

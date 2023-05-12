@@ -26,10 +26,10 @@ class AdminController {
     startSession();
     $user = new User();
     $user = unserialize($_SESSION['user']);
-    // if (!in_array('P_View', $user->getPermissions())) {
-    //   redirect(getPath($routes, 'homepage'));
-    //   die();
-    // }
+    if (!in_array('P_View', $user->getPermissions())) {
+      redirect(getPath($routes, 'homepage'));
+      die();
+    }
     $warrantyList = new Warranties();
     $warrantyList->getAll();
     $productList = new Products();
@@ -44,6 +44,12 @@ class AdminController {
 
   public function indexOrderAction(RouteCollection $routes, Request $request) {
     startSession();
+    $user = new User();
+    $user = unserialize($_SESSION['user']);
+    if (!in_array('Or_View', $user->getPermissions())) {
+      redirect(getPath($routes, 'homepage'));
+      die();
+    }
     $statusCode = json_decode($_GET['statusCode'] ?? "0");
     $orders = new Orders();
     $orders->getAllOrders($statusCode);
@@ -58,6 +64,12 @@ class AdminController {
 
   public function indexUserAction(RouteCollection $routes, Request $request) {
     startSession();
+    $user = new User();
+    $user = unserialize($_SESSION['user']);
+    if (!in_array('U_View', $user->getPermissions())) {
+      redirect(getPath($routes, 'homepage'));
+      die();
+    }
     $name = 'users/index';
     $users = new Users();
     $users->getAllUsers();
@@ -68,6 +80,12 @@ class AdminController {
 
   public function indexBrandAction(RouteCollection $routes, Request $request) {
     startSession();
+    $user = new User();
+    $user = unserialize($_SESSION['user']);
+    if (!in_array('Br_View', $user->getPermissions())) {
+      redirect(getPath($routes, 'homepage'));
+      die();
+    }
     $name = 'brand/index';    
     $BrandList = new Brands();
     $BrandList->getAllBrands();
@@ -76,6 +94,12 @@ class AdminController {
 
   public function indexCategoryAction(RouteCollection $routes, Request $request) {
     startSession();
+    $user = new User();
+    $user = unserialize($_SESSION['user']);
+    if (!in_array('Ca_View', $user->getPermissions())) {
+      redirect(getPath($routes, 'homepage'));
+      die();
+    }
     $name = 'category/index';    
     $categories = new Categories();
     $categories->readAll();
@@ -83,6 +107,12 @@ class AdminController {
   }
   public function indexRoleAction(RouteCollection $routes, Request $request) {
     startSession();
+    $user = new User();
+    $user = unserialize($_SESSION['user']);
+    if (!in_array('R_View', $user->getPermissions())) {
+      redirect(getPath($routes, 'homepage'));
+      die();
+    }
     $roles = new Roles();
     $roles->getAll();
     $name = 'roles/index';
@@ -91,6 +121,12 @@ class AdminController {
 
   public function indexPermissionAction(RouteCollection $routes, Request $request) {
     startSession();
+    $user = new User();
+    $user = unserialize($_SESSION['user']);
+    if (!in_array('Per_View', $user->getPermissions())) {
+      redirect(getPath($routes, 'homepage'));
+      die();
+    }
     $roles = new Roles();
     $roles->getAll();
     $name = 'permissions/index';
@@ -99,6 +135,12 @@ class AdminController {
   
   public function indexPermissionGroupAction(RouteCollection $routes, Request $request) {
     startSession();
+    $user = new User();
+    $user = unserialize($_SESSION['user']);
+    if (!in_array('PerGr_View', $user->getPermissions())) {
+      redirect(getPath($routes, 'homepage'));
+      die();
+    }
     $permissionGroups = new PermissionGroups();
     $permissionGroups->getAll();
     $name = 'permissionGroups/index';

@@ -43,7 +43,7 @@
           console.log(res)
           Swal.fire({
             title: 'Success!',
-            text: 'Product successfully added!',
+            text: 'Role info updated!',
             icon: 'success',
             confirmButtonTeNxt: 'Cool!'
           }).then(() => {

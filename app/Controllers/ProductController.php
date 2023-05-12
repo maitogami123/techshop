@@ -31,7 +31,6 @@ class ProductController
     {
         startSession();
         $product = new Product();
-        print_r($_POST);
         $product->create($_POST, $_FILES);
     }
 

@@ -67,56 +67,91 @@ if (isLoggedIn()) {
             </a>
           </li>
           <hr>
-          <li class="side-nav-item">
-            <a href="/techshop/admin/product" class="side-nav-link">
-              <i class="uil-briefcase"></i>
-              <span> Product </span>
-            </a>
-          </li>
-          <li class="side-nav-item">
-            <a href="<?php echo getPath($routes, 'adminBrands')?>" class="side-nav-link">
-              <i class="uil-tag-alt"></i>
-              <span> Brands </span>
-            </a>
-          </li>
-          <li class="side-nav-item">
-            <a href="<?php echo getPath($routes, 'adminCategory')?>" class="side-nav-link">
-              <i class="uil-archive-alt"></i>
-              <span> Categories </span>
-            </a>
-          </li>
+          <?php
+            if (isLoggedIn() && in_array('P_View', $user->getPermissions())):
+          ?>
+            <li class="side-nav-item">
+              <a href="/techshop/admin/product" class="side-nav-link">
+                <i class="uil-briefcase"></i>
+                <span> Product </span>
+              </a>
+            </li>
+          <?php endif?>
+          <?php
+            if (isLoggedIn() && in_array('Br_View', $user->getPermissions())):
+          ?>
+            <li class="side-nav-item">
+              <a href="<?php echo getPath($routes, 'adminBrands')?>" class="side-nav-link">
+                <i class="uil-tag-alt"></i>
+                <span> Brands </span>
+              </a>
+            </li> 
+          <?php endif?>
+          <?php
+            if (isLoggedIn() && in_array('Ca_View', $user->getPermissions())):
+          ?>
+            <li class="side-nav-item">
+              <a href="<?php echo getPath($routes, 'adminCategory')?>" class="side-nav-link">
+                <i class="uil-archive-alt"></i>
+                <span> Categories </span>
+              </a>
+            </li>
+          <?php endif?>
+
           <hr>
-          <li class="side-nav-item">
-            <a href="/techshop/admin/orders" class="side-nav-link">
-              <i class="uil-file-check-alt"></i>
-              <span> Orders </span>
-            </a>
-          </li>
+          <?php
+            if (isLoggedIn() && in_array('Or_View', $user->getPermissions())):
+          ?>
+            <li class="side-nav-item">
+              <a href="/techshop/admin/orders" class="side-nav-link">
+                <i class="uil-file-check-alt"></i>
+                <span> Orders </span>
+              </a>
+            </li>
+          <?php endif?>
+
           <hr>
-          <li class="side-nav-item">
-            <a href="<?php echo getPath($routes, 'adminUsers')?>" class="side-nav-link">
-              <i class="uil-users-alt"></i>
-              <span> Users </span>
-            </a>
-          </li>
-          <li class="side-nav-item">
-            <a href="<?php echo getPath($routes, 'adminRoles')?>" class="side-nav-link">
-              <i class="uil-sign-left"></i>
-              <span> Roles </span>
-            </a>
-          </li>
-          <li class="side-nav-item">
-            <a href="<?php echo getPath($routes, 'adminPermissions')?>" class="side-nav-link">
-              <i class="uil-layers"></i>
-              <span> Permissions </span>
-            </a>
-          </li>
-          <li class="side-nav-item">
-            <a href="<?php echo getPath($routes, 'adminPermissionGroups')?>" class="side-nav-link">
-              <i class="uil-layer-group"></i>
-              <span> Permission Groups </span>
-            </a>
-          </li>
+          <?php
+            if (isLoggedIn() && in_array('U_View', $user->getPermissions())):
+          ?>
+            <li class="side-nav-item">
+              <a href="<?php echo getPath($routes, 'adminUsers')?>" class="side-nav-link">
+                <i class="uil-users-alt"></i>
+                <span> Users </span>
+              </a>
+            </li>
+          <?php endif?>
+          <?php
+            if (isLoggedIn() && in_array('R_View', $user->getPermissions())):
+          ?>
+            <li class="side-nav-item">
+              <a href="<?php echo getPath($routes, 'adminRoles')?>" class="side-nav-link">
+                <i class="uil-sign-left"></i>
+                <span> Roles </span>
+              </a>
+            </li>
+          <?php endif?>
+          <?php
+            if (isLoggedIn() && in_array('Per_View', $user->getPermissions())):
+          ?>
+            <li class="side-nav-item">
+              <a href="<?php echo getPath($routes, 'adminPermissions')?>" class="side-nav-link">
+                <i class="uil-layers"></i>
+                <span> Permissions </span>
+              </a>
+            </li>
+          <?php endif?>
+          <?php
+            if (isLoggedIn() && in_array('PerGr_View', $user->getPermissions())):
+          ?>
+            <li class="side-nav-item">
+              <a href="<?php echo getPath($routes, 'adminPermissionGroups')?>" class="side-nav-link">
+                <i class="uil-layer-group"></i>
+                <span> Permission Groups </span>
+              </a>
+            </li>
+          <?php endif?>
+
         </ul>
 
         <!-- Help Box -->
