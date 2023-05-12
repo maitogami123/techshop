@@ -104,6 +104,22 @@
     <div class="card">
       <div class="card-body">
         <h4 class="header-title mb-4">Revenue of month</h4>
+        <?php
+          $revenues = []; // Initialize an empty array to store monthly revenues
+
+          // Loop through 12 months of current year
+          for ($month = 1; $month <= 12; $month++) {
+            $revenue = 0; // Initialize revenue as 0
+            foreach ($RevenueOfMonth->RevenueOfMonth as $status) {
+              // Get the revenue for the current month if available
+              if ($status->getMonth() == $month ) {
+                $revenue = $status->getTotalRevenue();
+                break;
+              }
+            }
+            $revenues[] = $revenue; // Add monthly revenue to the array
+          }
+        ?>
         <div id="average-revenue" class="apex-charts mb-4 mt-4">
         </div>
       </div>
@@ -149,30 +165,13 @@
 
 </script>
 <script>
-  <?php
-  $revenues = []; // Initialize an empty array to store monthly revenues
-
-  // Loop through 12 months of current year
-  for ($month = 1; $month <= 12; $month++) {
-    $revenue = 0; // Initialize revenue as 0
-    foreach ($RevenueOfMonth->RevenueOfMonth as $status) {
-      // Get the revenue for the current month if available
-      if ($status->getMonth() == $month ) {
-        $revenue = $status->getTotalRevenue();
-        break;
-      }
-    }
-    $revenues[] = $revenue; // Add monthly revenue to the array
-  }
-  echo $revenue;
-  ?>
   $(document).ready(function() {
     var options = {
           series: [{
             name: "Desktops",
             data: [
-              <?php foreach ($revenues->revenues as $revenue): ?>
-                  <?php echo $revenue ?>,
+              <?php foreach ($revenues as $revenue): ?>
+              <?php echo $revenue ?>,
               <?php endforeach ?>
             ],
         }],
