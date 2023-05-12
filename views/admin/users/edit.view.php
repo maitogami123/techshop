@@ -63,7 +63,8 @@
           <label for="example-select" class="form__label u-margin-bottom-small">Role</label>
           <select class="form-select" name="role-id" id="example-select">
             <?php foreach ($roles->roles as $role): ?>
-              <option value=<?php echo $role->getRoleId() ?> <?php if($role->getRoleId() == $user->getUserGroup()) echo "selected"?>><?php echo $role->getRoleName() ?></option>
+              <option value=<?php echo $role->getRoleId() ?>   <?php if ($role->getRoleId() == $user->getUserGroup())
+                      echo "selected" ?>><?php echo $role->getRoleName() ?></option>
             <?php endforeach; ?>
           </select>
         </div>
@@ -95,7 +96,14 @@
         contentType: false,
         processData: false,
         success: function (res) {
-          console.log(res)
+          Swal.fire({
+            title: 'Success!',
+            text: 'Account info updated!',
+            icon: 'success',
+            confirmButtonTeNxt: 'Cool!'
+          }).then(() => {
+            location.reload();
+          })
         }
       })
     })

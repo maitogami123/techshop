@@ -22,10 +22,14 @@
       <div class="card-body">
         <div class="row mb-2">
           <div class="col-sm-4">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-new-permission-group">
-              <i class="mdi mdi-file-plus"></i>
-              Add new permission group
-            </button>
+            <?php
+              if (isLoggedIn() && in_array('PerGr_Create', $user->getPermissions())):
+            ?>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-new-permission-group">
+                <i class="mdi mdi-file-plus"></i>
+                Add new permission group
+              </button>
+            <?php endif ?>
           </div>
 
           <!-- end col-->
@@ -66,16 +70,24 @@
                       data-permission-group-name="<?php echo $permissionGroup->getName() ?>">
                       <i class="mdi mdi-eye"></i>
                     </button>
-                    <button type="button" class="action-icon btn edit-btn" data-bs-toggle="modal"
-                      data-bs-target="#edit-permission" data-permission-group-id="<?php echo $permissionGroup->getID() ?>"
-                      data-permission-group-name="<?php echo $permissionGroup->getName() ?>"
-                      >
-                      <i class="mdi mdi-square-edit-outline"></i>
-                    </button>
-                    <button type="button" class="action-icon btn add-btn" data-bs-toggle="modal"
-                      data-bs-target="#add-permission" data-role-id="<?php echo $permissionGroup->getID() ?>">
-                      <i class="mdi mdi-database-plus"></i>
-                    </button>
+                    <?php
+                      if (isLoggedIn() && in_array('PerGr_Edit', $user->getPermissions())):
+                    ?>
+                      <button type="button" class="action-icon btn edit-btn" data-bs-toggle="modal"
+                        data-bs-target="#edit-permission" data-permission-group-id="<?php echo $permissionGroup->getID() ?>"
+                        data-permission-group-name="<?php echo $permissionGroup->getName() ?>"
+                        >
+                        <i class="mdi mdi-square-edit-outline"></i>
+                      </button>
+                    <?php endif ?>
+                    <?php
+                      if (isLoggedIn() && in_array('PerGr_AddPer', $user->getPermissions())):
+                    ?>
+                      <button type="button" class="action-icon btn add-btn" data-bs-toggle="modal"
+                        data-bs-target="#add-permission" data-role-id="<?php echo $permissionGroup->getID() ?>">
+                        <i class="mdi mdi-database-plus"></i>
+                      </button>
+                    <?php endif ?>
                   </td>
                 </tr>
               <?php endforeach ?>
@@ -98,14 +110,14 @@
 </div>
 
 <div id="edit-permission" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content" id="editModal">
+  <div class="modal-dialog ">
+    <div class="modal-content " id="editModal">
     </div>
   </div>
 </div>
 
 <div id="detail-permission" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content" id="detailModal">
     </div>
   </div>
@@ -157,13 +169,14 @@
         data: formData,
         success: function (res) {
           console.log(res)
-          // Swal.fire({
-          //   title: 'Success!',
-          //   text: 'Product successfully added!',
-          //   icon: 'success',
-          //   confirmButtonTeNxt: 'Cool!'
-          // })
-          $('#create-form')[0].reset();
+          Swal.fire({
+            title: 'Success!',
+            text: 'Group successfully added!',
+            icon: 'success',
+            confirmButtonTeNxt: 'Cool!'
+          }).then(() => {
+            location.reload();            
+          })
         },
         contentType: false,
         processData: false

@@ -1,3 +1,8 @@
+<?php 
+  $user = getSessionUser();
+
+?>
+
 <div class="order-detail__container div-12-col">
   <h4 class="heading__territory u-margin-bottom-medium grid-full-app">
     Các sản phẩm từ hóa đơn <span class="order__id">#
@@ -5,32 +10,30 @@
     </span>
   </h4>
   <div class="col-sm-12">
-    <?php if($data['data']['StatusID'] == 5):?>
+    <?php if ($data['data']['StatusID'] == 5 || $data['data']['StatusID'] == 4 || !(in_array('Or_Edit', $user->getPermissions()))): ?>
       <div class="col-sm-6">
         <label for="status-select" class="form-label">Trạng thái đơn hàng</label>
-          <span class="badge <?php echo getOrderStatusClassAdmin($data['data']['StatusID']) ?>"><?php echo $data['data']['StatusName'] ?></span>
+        <span class="badge <?php echo getOrderStatusClassAdmin($data['data']['StatusID']) ?>"><?php echo $data['data']['StatusName'] ?></span>
         </select>
       </div>
-    <?php else:?>
+    <?php else: ?>
       <div class="col-sm-6">
         <label for="status-select" class="form-label">Trạng thái đơn hàng</label>
         <select class="form-select" name="order_status" id="status-select">
           <?php foreach ($statusList->statusList as $status): ?>
-            <option value=<?php echo $status->getStatusId() ?> 
-              <?php if ($data['data']['StatusID'] == $status->getStatusId())
-                 echo "selected" ?>
-            ><?php echo $status->getStatusName() ?>
+            <option value=<?php echo $status->getStatusId() ?>     <?php if ($data['data']['StatusID'] == $status->getStatusId())
+                      echo "selected" ?>><?php echo $status->getStatusName() ?>
             </option>
           <?php endforeach; ?>
         </select>
       </div>
       <div class="col-auto">
         <button class="btn btn-primary" type="submit" id="update-status-btn"
-          data-order-id="<?php echo $data['data']['OrderID']?>">
+          data-order-id="<?php echo $data['data']['OrderID'] ?>">
           Save change
         </button>
       </div>
-    <?php endif;?>
+    <?php endif; ?>
   </div>
   <div class="order-detail__wrapper">
     <div class="order-detail__titles div-8-col">
@@ -119,8 +122,8 @@
 
 <script>
 
-  $(document).ready(function() {
-    $('#update-status-btn').click(function() {
+  $(document).ready(function () {
+    $('#update-status-btn').click(function () {
       let orderStatus = $('#status-select').find(":selected").val()
       let orderId = $(this).attr('data-order-id');
       $.ajax({
@@ -130,8 +133,15 @@
           'orderStatus': JSON.stringify(orderStatus),
           'orderId': JSON.stringify(orderId),
         },
-        success: function(res) {
-          console.log(res);
+        success: function (res) {
+          Swal.fire({
+            title: 'Success!',
+            text: 'Order status updated!',
+            icon: 'success',
+            confirmButtonTeNxt: 'Cool!'
+          }).then(() => {
+            location.reload();
+          })
         }
       })
     })

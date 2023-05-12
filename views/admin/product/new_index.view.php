@@ -22,10 +22,14 @@
         <div class="card-body">
           <div class="row mb-2">
             <div class="col-sm-4">
+            <?php
+              if (isLoggedIn() && in_array('P_Create', $user->getPermissions())):
+            ?>
               <button type="button" class="btn btn-primary" id="add-product-btn" data-bs-toggle="modal"
                 data-bs-target="#add-new-product">
                 Add product
               </button>
+            <?php endif ?>
             </div>
           </div>
 
@@ -88,20 +92,32 @@
                         <i class="mdi mdi-eye"></i>
                       </button>
                       <?php if ($product->getDeletedAt() == null): ?>
-                        <button type="button" class="action-icon btn" data-bs-toggle="modal"
-                          data-bs-target="#change-product" 
-                          data-product-id="<?php echo $product->getProductLine() ?>">
-                          <i class="mdi mdi-square-edit-outline"></i>
-                        </button>
-                        <button type="button" class="action-icon btn" data-bs-toggle="modal"
-                          data-bs-target="#update-quantity-product" id="update-quantity-product-selected"
-                          data-product-id="<?php echo $product->getProductLine() ?>">
-                          <i class="mdi mdi-database-plus"></i>
-                        </button>
-                        <button type="button" class="action-icon btn delete-btn"
-                          data-product-id="<?php echo $product->getProductLine() ?>">
-                          <i class="mdi mdi-delete"></i>
-                        </button>
+                        <?php
+                          if (isLoggedIn() && in_array('P_Edit', $user->getPermissions())):
+                        ?>
+                          <button type="button" class="action-icon btn" data-bs-toggle="modal"
+                            data-bs-target="#change-product" 
+                            data-product-id="<?php echo $product->getProductLine() ?>">
+                            <i class="mdi mdi-square-edit-outline"></i>
+                          </button>
+                        <?php endif ?>
+                        <?php
+                          if (isLoggedIn() && in_array('P_AddQty', $user->getPermissions())):
+                        ?>
+                          <button type="button" class="action-icon btn" data-bs-toggle="modal"
+                            data-bs-target="#update-quantity-product" id="update-quantity-product-selected"
+                            data-product-id="<?php echo $product->getProductLine() ?>">
+                            <i class="mdi mdi-database-plus"></i>
+                          </button>
+                        <?php endif ?>
+                        <?php
+                          if (isLoggedIn() && in_array('P_Delete', $user->getPermissions())):
+                        ?>
+                          <button type="button" class="action-icon btn delete-btn"
+                            data-product-id="<?php echo $product->getProductLine() ?>">
+                            <i class="mdi mdi-delete"></i>
+                          </button>
+                        <?php endif ?>
                       <?php endif ?>
                     </td>
                   </tr>
@@ -286,37 +302,37 @@
 </script>
 <script>
   $(document).ready(() => {
-
-    $('#add-info').click((e) => {
-      e.preventDefault();
-      let newRow = `<input class="form-control" name='information[]' type='text' id="information">`
-      $('#information-group').append(newRow);
-    })
-    $('#add-sn').click((e) => {
-      e.preventDefault();
-      let newRow = `<input class="form-control" name='serial_number[]' type='text' id="serial_number">`
-      $('#serial_number-group').append(newRow);
-    })
-    $('#create-form').submit(function (e) {
-      e.preventDefault();
-      var formData = new FormData(this);
-      $.ajax({
-        type: "POST",
-        url: "<?php echo getPath($routes, 'createProduct') ?>",
-        data: formData,
-        success: function (res) {
-          Swal.fire({
-            title: 'Success!',
-            text: 'Product successfully added!',
-            icon: 'success',
-            confirmButtonTeNxt: 'Cool!'
-          })
-          $('#create-form')[0].reset();
-        },
-        contentType: false,
-        processData: false
+      $('#add-info').click((e) => {
+        e.preventDefault();
+        let newRow = `<input class="form-control" name='information[]' type='text' id="information">`
+        $('#information-group').append(newRow);
       })
-    })
+      $('#add-sn').click((e) => {
+        e.preventDefault();
+        let newRow = `<input class="form-control" name='serial_number[]' type='text' id="serial_number">`
+        $('#serial_number-group').append(newRow);
+      })
+      $('#create-form').submit(function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        formData.append('userID', "<?php echo $user->getUsername()?>")
+        $.ajax({
+          type: "POST",
+          url: "<?php echo getPath($routes, 'createProduct') ?>",
+          data: formData,
+          success: function (res) {
+            Swal.fire({
+              title: 'Success!',
+              text: 'Product successfully added!',
+              icon: 'success',
+              confirmButtonTeNxt: 'Cool!'
+            })
+            $('#create-form')[0].reset();
+          },
+          contentType: false,
+          processData: false
+        })
+      })
   })
 </script>
 <script>
@@ -351,7 +367,7 @@
       select: {
         style: "multi"
       },
-      order: [[1, "asc"]],
+      order: [[2, "desc"]],
       drawCallback: function () {
         $(".dataTables_paginate > .pagination").addClass("pagination-rounded"),
           $("#products-datatable_length label").addClass("form-label")

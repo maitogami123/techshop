@@ -23,10 +23,14 @@
       <div class="card-body">
         <div class="row mb-2">
           <div class="col-sm-4">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-new-role">
-              <i class="mdi mdi-file-plus"></i>
-              Add new role
-            </button>
+            <?php
+              if (isLoggedIn() && in_array('R_Create', $user->getPermissions())):
+            ?>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-new-role">
+                <i class="mdi mdi-file-plus"></i>
+                Add new role
+              </button>
+            <?php endif ?>
           </div>
 
           <!-- end col-->
@@ -52,19 +56,31 @@
                   <td><?php echo $role->getRoleDescription()?></td>
                   <td><?php echo $role->getCreatedAt()?></td>
                   <td>
-                    <input type="checkbox" id="<?php echo $role->getRoleId() ?>"  
-                    <?php if(!$role->getDisabled()) echo "checked"?>
-                    data-role-id="<?php echo $role->getRoleId() ?>"
-                    data-switch="success" />
-                    <label for="<?php echo $role->getRoleId() ?>" data-on-label="Yes" data-off-label="No"></label>
+                  <?php
+                    if (isLoggedIn() && in_array('R_UpdateStatus', $user->getPermissions())):
+                    ?>
+                      <input type="checkbox" id="<?php echo $role->getRoleId() ?>"  
+                      <?php if(!$role->getDisabled()) echo "checked"?>
+                      data-role-id="<?php echo $role->getRoleId() ?>"
+                      data-switch="success" />
+                      <label for="<?php echo $role->getRoleId() ?>" data-on-label="Yes" data-off-label="No"></label>
+                    <?php else: ?>
+                      <?php if(!$role->getDisabled()) echo '<span class="badge badge-success-lighten">Active</span>';
+                            else echo '<span class="badge badge-danger-lighten">Deactive</span>';
+                      ?>
+                    <?php endif ?>
                   </td>
   
                   <td class="table-action">
-                    <button type="button" class="action-icon btn edit-btn"
-                      data-bs-toggle="modal" data-bs-target="#change-role-info"
-                      data-role-id="<?php echo $role->getRoleId() ?>">
-                      <i class="mdi mdi-square-edit-outline"></i>
-                    </button>
+                    <?php
+                      if (isLoggedIn() && in_array('R_Edit', $user->getPermissions())):
+                    ?>
+                      <button type="button" class="action-icon btn edit-btn"
+                        data-bs-toggle="modal" data-bs-target="#change-role-info"
+                        data-role-id="<?php echo $role->getRoleId() ?>">
+                        <i class="mdi mdi-square-edit-outline"></i>
+                      </button>
+                    <?php endif ?>
                     <!-- <?php if($role->getDeteleAble()):?>
                       <button type="button" class="action-icon btn delete-btn"
                         data-role-id="<?php echo $role->getRoleId() ?>">
@@ -116,7 +132,7 @@
               Close
             </button>
             <button class="btn btn-primary" type="submit" id="submit">
-              Add new product
+              Add new role
             </button>
           </div>
         </form>
@@ -151,26 +167,37 @@
       })
     })
 
+    const roleIdArr = <?php echo json_encode(serialize($roles->roles))?>
+
     $('#create-form').submit(function (e) {
       e.preventDefault();
       var formData = new FormData(this);
-      $.ajax({
-        type: "POST",
-        url: "<?php echo getPath($routes, 'createRole') ?>",
-        data: formData,
-        success: function (res) {
-          // console.log(res)
-          Swal.fire({
-            title: 'Success!',
-            text: 'Product successfully added!',
-            icon: 'success',
-            confirmButtonTeNxt: 'Cool!'
-          })
-          $('#create-form')[0].reset();
-        },
-        contentType: false,
-        processData: false
-      })
+      if (roleIdArr.includes(`"${$('#role-id').val()}"`) || $('#role-id').val().trim().length == 0) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Role ID is not valid or already existed!',
+          icon: 'error',
+          confirmButtonTeNxt: 'Oops!'
+        })
+      } else {
+        $.ajax({
+          type: "POST",
+          url: "<?php echo getPath($routes, 'createRole') ?>",
+          data: formData,
+          success: function (res) {
+            Swal.fire({
+              title: 'Success!',
+              text: 'Role successfully added!',
+              icon: 'success',
+              confirmButtonTeNxt: 'Cool!'
+            }).then(() => {
+              location.reload();
+            })
+          },
+          contentType: false,
+          processData: false
+        })
+      }
     })
 
     $('#change-role-info').on('shown.bs.modal', function (event) {

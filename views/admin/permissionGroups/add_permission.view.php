@@ -33,20 +33,39 @@
 </div>
 <script>
   $(document).ready(function () {
+    const currentPermissionArr = (<?php echo json_encode(serialize($permissions))?>)
+  
     $('#create-form').submit(function (e) {
       e.preventDefault();
       var formData = new FormData(this);
       formData.append('permissionGroupId', <?php echo $permissionGroupId ?>)
-      $.ajax({
-        type: "POST",
-        url: "<?php echo getPath($routes, 'createPermission') ?>",
-        data: formData,
-        success: function (res) {
-          console.log(res)
-        },
-        contentType: false,
-        processData: false
-      })
+      if (currentPermissionArr.includes(`"${$('#perrmission-id').val()}"`) || $('#perrmission-id').val().trim().length == 0) {
+        Swal.fire({
+              title: 'Error!',
+              text: 'Permission Id is not valid or already existed!',
+              icon: 'error',
+              confirmButtonTeNxt: 'Oops!'
+            })
+      } else {
+        $.ajax({
+          type: "POST",
+          url: "<?php echo getPath($routes, 'createPermission') ?>",
+          data: formData,
+          success: function (res) {
+            Swal.fire({
+              title: 'Success!',
+              text: 'Permission successfully added!',
+              icon: 'success',
+              confirmButtonTeNxt: 'Cool!'
+            })
+            .then(() => {
+              location.reload();
+            })
+          },
+          contentType: false,
+          processData: false
+        })
+      }
     })
   })
 </script>

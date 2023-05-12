@@ -1,3 +1,7 @@
+<?php 
+  $loggedInUser = getSessionUser();
+?>
+
 <?php foreach ($users->userList as $user): ?>
   <tr>
     <td class="table-user">
@@ -26,15 +30,24 @@
     </td>
 
     <td style="width: 100px">
-      <button type="button" class="action-icon btn" data-bs-toggle="modal" data-bs-target="#change-user-info"
-        data-user-id="<?php echo $user->getUsername() ?>">
-        <i class="mdi mdi-square-edit-outline"></i>
-      </button>
-      <?php if ($user->getDeletedAt() == null): ?>
-        <button type="button" class="action-icon btn delete-btn" 
-        data-user-id="<?php echo $user->getUsername() ?>">
-          <i class="mdi mdi-delete"></i>
+      <?php
+        if (in_array('U_Edit', $loggedInUser->getPermissions())):
+      ?>
+        <button type="button" class="action-icon btn" data-bs-toggle="modal" data-bs-target="#change-user-info"
+          data-user-id="<?php echo $user->getUsername() ?>">
+          <i class="mdi mdi-square-edit-outline"></i>
         </button>
+      <?php endif ?>
+
+      <?php
+        if (isLoggedIn() && in_array('U_Delete', $loggedInUser->getPermissions())):
+      ?>
+        <?php if ($user->getDeletedAt() == null): ?>
+          <button type="button" class="action-icon btn delete-btn" 
+          data-user-id="<?php echo $user->getUsername() ?>">
+            <i class="mdi mdi-delete"></i>
+          </button>
+        <?php endif ?>
       <?php endif ?>
     </td>
   </tr>

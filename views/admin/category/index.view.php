@@ -24,10 +24,14 @@
           <div class="card-body">
             <div class="row mb-2">
               <div class="col-sm-4">
-              <button type="button" class="btn btn-primary" id="add-product-btn" data-bs-toggle="modal"
-                data-bs-target="#add-new-category">
-                Add Category
-              </button>
+                <?php
+                  if (isLoggedIn() && in_array('Ca_Create', $user->getPermissions())):
+                ?>
+                  <button type="button" class="btn btn-primary" id="add-product-btn" data-bs-toggle="modal"
+                    data-bs-target="#add-new-category">
+                    Add Category
+                  </button>
+                <?php endif ?>
               </div>
             </div>
 
@@ -50,16 +54,23 @@
                       <td><?php echo $category->getCategoryID() ?></td>
                       <td><?php echo $category->getCategoryName() ?></td>
                       <td class="table-action">
-                      
-                        <button type="button" class="action-icon btn" data-bs-toggle="modal"
-                          data-bs-target="#change-category" 
-                          data-category-id="<?php echo $category->getCategoryID() ?>">
-                          <i class="mdi mdi-square-edit-outline"></i>
-                        </button>
-                        <button type="button" class="action-icon btn delete-btn"
-                          data-category-id="<?php echo $category->getCategoryID() ?>">
-                          <i class="mdi mdi-delete"></i>
-                        </button>
+                        <?php
+                          if (isLoggedIn() && in_array('Ca_Edit', $user->getPermissions())):
+                        ?>
+                          <button type="button" class="action-icon btn" data-bs-toggle="modal"
+                            data-bs-target="#change-category" 
+                            data-category-id="<?php echo $category->getCategoryID() ?>">
+                            <i class="mdi mdi-square-edit-outline"></i>
+                          </button>
+                        <?php endif ?>
+                        <?php
+                          if (isLoggedIn() && in_array('Ca_Delete', $user->getPermissions())):
+                        ?>
+                          <button type="button" class="action-icon btn delete-btn"
+                            data-category-id="<?php echo $category->getCategoryID() ?>">
+                            <i class="mdi mdi-delete"></i>
+                          </button>
+                        <?php endif ?>
                       
                       </td>
                     </tr>
@@ -123,13 +134,11 @@
     $('#create-form').submit(function (e) {
       e.preventDefault();
       var formData = new FormData(this);
-      console.log(formData);
       $.ajax({
         type: "POST",
         url: "<?php echo getPath($routes, 'createCategory') ?>",
         data: formData,
         success: function (res) {
-          console.log(res)
           Swal.fire({
             title: 'Success!',
             text: 'Category successfully added!',
@@ -168,8 +177,8 @@ $(document).ready(function () {
 <script>
   $(document).ready(function () {
     <?php
-    if (isLoggedIn() && in_array('P_Delete', $user->getPermissions())):
-      ?>
+      if (isLoggedIn() && in_array('Ca_Delete', $user->getPermissions())):
+    ?>
       $('.delete-btn').click(function (e) {
         let id = $(this).attr('data-category-id');
         Swal.fire({

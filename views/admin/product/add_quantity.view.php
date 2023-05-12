@@ -7,7 +7,7 @@
 <div class="modal-body">
   <form class="ps-3 pe-3" action="" id="add-qty" method='post'>
     <div class="form-group mb-3">
-      <input name="product_line" hidden value="<?php echo $productId?>"/>
+      <input name="product_line" hidden value="<?php echo $productId ?>" />
       <label for="serial_number" class="form-label">Serial Number</label>
       <button id="add-more-sn" class="btn btn-link btn-sm" type='button'>
         More S/N
@@ -16,7 +16,7 @@
         <input class="form-control" name="serial_number[]" type="text" id="serial_number" />
       </div>
     </div>
-    
+
     <div class="mb-3 modal-footer">
       <button type="button" class="btn btn-light" data-bs-dismiss="modal">
         Close
@@ -28,14 +28,15 @@
   </form>
 </div>
 <script>
-  $(document).ready(function() {
-    $('#add-more-sn').click(function(e) {
+
+  $(document).ready(function () {
+    $('#add-more-sn').click(function (e) {
       e.preventDefault();
       let newRow = `<input class="form-control" name="serial_number[]" type="text" id="serial_number">`
       $('#serial_number-group-qty').append(newRow);
     })
 
-    $('#add-qty').submit(function(e) {
+    $('#add-qty').submit(function (e) {
       e.preventDefault();
       var formData = new FormData(this);
       $.ajax({
@@ -43,7 +44,14 @@
         url: "<?php echo getPath($routes, 'saveQty') ?>",
         data: formData,
         success: function (res) {
-          console.log(res)
+          Swal.fire({
+            title: 'Success!',
+            text: `${$('#serial_number-group-qty').children().length} product added!`,
+            icon: 'success',
+            confirmButtonTeNxt: 'Cool!'
+          }).then(() => {
+            location.reload();
+          })
         },
         contentType: false,
         processData: false

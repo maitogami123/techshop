@@ -22,10 +22,14 @@
           <div class="tab-pane show active" id="account-customers">
             <div class="row mb-2">
               <div class="col-sm-4">
-                <button type="button" class="btn btn-primary" id="add-user-btn" data-bs-toggle="modal"
-                  data-bs-target="#add-new-user">
-                  Add User
-                </button>
+                <?php
+                  if (in_array('U_create', $user->getPermissions())):
+                ?>
+                  <button type="button" class="btn btn-primary" id="add-user-btn" data-bs-toggle="modal"
+                    data-bs-target="#add-new-user">
+                    Add User
+                  </button>
+                <?php endif ?>
               </div>
 
               <!-- end col-->
@@ -144,15 +148,58 @@
 <script>
 
   $(document).ready(function () {
+
+    const userList = <?php echo json_encode(serialize($users->userList))?>
+
     $('#form-Register').submit(function (e) {
       e.preventDefault();
       var formData = new FormData(this);
+
+      if (userList.includes(`"${$('#Username').val()}"`) || $('#Username').val().trim().length == 0 || !/^[a-zA-Z0-9]+$/.test($('#Username').val())) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Username is not valid or already existed!',
+          icon: 'error',
+          confirmButtonTeNxt: 'Oops!'
+        }).then(() => {
+          return;
+        })
+      }
+
+      if ($('#password').val().trim().length < 8 ) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Passwords length length must have least 8 characters!',
+          icon: 'error',
+          confirmButtonTeNxt: 'Oops!'
+        }).then(() => {
+          return;
+        })
+      }
+
+      if ($('#password').val() != $('#re-password').val()) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Passwords is not matched!',
+          icon: 'error',
+          confirmButtonTeNxt: 'Oops!'
+        }).then(() => {
+          return;
+        })
+      }
       $.ajax({
         type: 'post',
         url: '/techshop/admin/createUser',
         data: formData,
         success: (function (res) {
-          console.log(res);
+         Swal.fire({  
+           title: 'Success!',
+           text: 'Account created successfully!',
+           icon: 'success',
+           confirmButtonTeNxt: 'Cool!'
+          }).then(() => {
+            location.reload();
+          })
         }),
         contentType: false,
         processData: false,

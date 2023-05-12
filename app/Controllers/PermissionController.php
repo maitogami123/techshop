@@ -10,6 +10,8 @@ class PermissionController {
 
   public function getPermissionFormAction(RouteCollection $routes, Request $request) {
     $permissionGroupId = json_decode($_GET['permissionGroupId']);
+    $permissions = new Permissions();
+    $permissions->getAll($permissionGroupId);
     require_once APP_ROOT . '/views/admin/permissionGroups/add_permission.view.php';
   }
   public function postPermissionFormAction(RouteCollection $routes, Request $request) {

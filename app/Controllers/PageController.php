@@ -110,21 +110,55 @@ class PageController
 		$productList->readByCategory($data->currentCategory);
 		$minPrice = $data->minPrice;
 		$maxPrice = $data->maxPrice;
+		$options = explode("_", $data->filterOptions);
 		$productList->productList = array_filter(
 			$productList->productList,
 			fn($item) => $item->getPrice() >= $minPrice && $item->getPrice() <= $maxPrice
 		);
-		if (!empty($productList->productList)) {
-			foreach ($productList->productList as $key => $row) {
-					$sort[$key] = $row->getPrice();
-			}
-	
-			array_multisort(
-				$sort,
-				SORT_DESC,
-				$productList->productList 
-			);
+		switch($data->filterOptions){
+			case "PRICE_ASC": case "PRICE_DESC":
+				if (!empty($productList->productList)) {
+					foreach ($productList->productList as $key => $row) {
+							$sort[$key] = $row->getPrice();
+					}
+					array_multisort(
+						$sort,
+						$options[1] == "ASC" ? SORT_ASC : SORT_DESC,
+						$productList->productList 
+					);
+				}
+				break;
+			case "NAME_ASC": case "NAME_DESC":
+				if (!empty($productList->productList)) {
+					foreach ($productList->productList as $key => $row) {
+							$sort[$key] = $row->getProductName();
+					}
+					array_multisort(
+						$sort,
+						$options[1] == "ASC" ? SORT_ASC : SORT_DESC,
+						$productList->productList 
+					);
+				}
+				break;
+			default:
+
 		}
+		
+		// $productList->productList = array_filter(
+		// 	$productList->productList,
+		// 	fn($item) => $item->getPrice() >= $minPrice && $item->getPrice() <= $maxPrice
+		// );
+		// if (!empty($productList->productList)) {
+		// 	foreach ($productList->productList as $key => $row) {
+		// 			$sort[$key] = $row->getPrice();
+		// 	}
+	
+		// 	array_multisort(
+		// 		$sort,
+		// 		SORT_DESC,
+		// 		$productList->productList 
+		// 	);
+		// }
 		require APP_ROOT . "/views/product_paginate.view.php";
 
 	}

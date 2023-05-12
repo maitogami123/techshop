@@ -37,7 +37,15 @@
         url: "<?php echo getPath($routes, 'updatePermissionGroup') ?>",
         data: formData,
         success: function (res) {
-          console.log(res)
+          Swal.fire({
+            title: 'Success!',
+            text: 'Group info updated!',
+            icon: 'success',
+            confirmButtonTeNxt: 'Cool!'
+          })
+          .then(() => {
+            location.reload();
+          })
         },
         contentType: false,
         processData: false

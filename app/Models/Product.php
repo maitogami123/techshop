@@ -467,7 +467,8 @@ class Product
         ]);
       }
 
-      $sql = "INSERT INTO `product_warranty` (`product_id`, `purchased_at`, `warranty_period`, `product_line`) VALUES (:product_id, NULL, NULL, :productLine)";
+      $sql = "INSERT INTO `product_warranty` (`product_id`, `purchased_at`, `warranty_period`, `product_line`) 
+              VALUES (:product_id, NULL, NULL, :productLine)";
       $statement = $db->prepare($sql);
       try {
         foreach ($data['serial_number'] as $serialNumber) {
@@ -486,8 +487,6 @@ class Product
     } else {
       throw new FileException('File corrupted!');
     }
-
-
   }
 
 

@@ -135,6 +135,10 @@ Validator.isUsername = function(selector){
         test: function(value,option){
             if (value.trim() == '') {//trim() loại bỏ khoảng trắng
                 return "Xin vui lòng nhập tên đăng nhập"
+            } 
+            let usernameRegex = /^[a-zA-Z0-9]+$/
+            if (!usernameRegex.test(value.trim())) {
+                return "Tên đăng nhập không được chứa kí tự đặc biệt"
             }
             for (let index = 0; index < option.Account.length; index++) {
                 if (option.Account[index].Username === value) {

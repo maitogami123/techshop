@@ -10,19 +10,19 @@ if (isLoggedIn()) {
 }
 // if (!isLoggedIn() || !in_array('P_Edit', $user->getPermissions()))
 //   redirect($routes->get('homepage')->getPath())
-    ?>
-  <div class="modal-header modal-colored-header bg-info">
-    <h4 class="modal-title" id="fill-info-modalLabel">
-      Change product's information
-    </h4>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-  </div>
-  <div class="modal-body">
-    <form class="ps-3 pe-3" action="" id="edit-form">
-      <div class="mb-3">
-        <label for="product-line" class="form-label">Line</label>
-        <input class="form-control" type="text" id="product-line" required="" placeholder=""
-          value="<?php echo $product->getProductLine() ?>" name='product_line' disabled />
+?>
+<div class="modal-header modal-colored-header bg-info">
+  <h4 class="modal-title" id="fill-info-modalLabel">
+    Change product's information
+  </h4>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+</div>
+<div class="modal-body">
+  <form class="ps-3 pe-3" action="" id="edit-form">
+    <div class="mb-3">
+      <label for="product-line" class="form-label">Line</label>
+      <input class="form-control" type="text" id="product-line" required="" placeholder=""
+        value="<?php echo $product->getProductLine() ?>" name='product_line' disabled />
       <input class="form-control" type="text" id="product-line" required="" placeholder=""
         value="<?php echo $product->getProductLine() ?>" name='product_line' hidden />
     </div>
@@ -259,8 +259,14 @@ if (isLoggedIn()) {
         contentType: false,
         processData: false,
         success: function (res) {
-          // console.log(res)
-          location.reload();
+          Swal.fire({
+            title: 'Success!',
+            text: 'Product updated!',
+            icon: 'success',
+            confirmButtonTeNxt: 'Cool!'
+          }).then(() => {
+            location.reload();
+          })
         },
 
       })
