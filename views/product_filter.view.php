@@ -30,19 +30,17 @@
 
     <div class="filter-options">
       <label for="status-select " class="form__label font-size-1">Filter:</label>
-      <select class="form-select form__input" id="status-select" style="
+      <select class="form-select form__input" id="status-select" name="filterType" style="
           font-size: 1.5rem;
       ">
-        <option selected value="0">Sản phẩm nổi bật</option>
-        <option value="1">Giá: Tăng dần</option>
-        <option value="2">Giá: Giảm dần</option>
-        <option value="3">Tên: A - Z</option>
-        <option value="4">Tên: Z - A</option>
-        <option value="5">Sản phẩm mới nhất</option>
-        <option value="6">Sản phẩm cũ nhất</option>
+        <option selected value="DEFAULT">Sản phẩm nổi bật</option>
+        <option value="PRICE_ASC">Giá: Tăng dần</option>
+        <option value="PRICE_DESC">Giá: Giảm dần</option>
+        <option value="NAME_ASC">Tên: A - Z</option>
+        <option value="NAME_DESC">Tên: Z - A</option>
       </select>
     </div>
-    <!-- <div class="filter-selections">
+    <div class="filter-selections">
       <div class="filter-selection filter-price-checkbox">
         <h4 class="font-size-1 text-color--3">Giá:</h4>
         <div class="form__checkbox-box">
@@ -73,12 +71,17 @@
           </div>
           <div class="form__field--inline">
             <input type="checkbox" class="form__input" id="price-range-6" data-range-min="50000000"
+              data-range-max='75000000' />
+            <label class="form-check-label" for="price-range-6">50.000.000đ - 75.000.000đ</label>
+          </div>
+          <div class="form__field--inline">
+            <input type="checkbox" class="form__input" id="price-range-7" data-range-min="75000000"
               data-range-max='100000000' />
-            <label class="form-check-label" for="price-range-6">50.000.000đ - 100.000.000đ</label>
+            <label class="form-check-label" for="price-range-7">75.000.000đ - 100.000.000đ</label>
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </section>
 <section class="container div-8-col u-margin-bottom-huge">
@@ -116,10 +119,10 @@
     connect: true,
     behaviour: "tap",
     step: 50000,
-    start: [50000, 100000000],
+    start: [50000, 50000000],
     range: {
       min: 50000,
-      max: 100000000,
+      max: 50000000,
     },
     format: wNumb({
       decimals: 0,
@@ -220,6 +223,104 @@
       })
     );
 
+    $('#status-select').change(function (e) {
+      let filter = {
+        "minPrice": nonLinearSlider.noUiSlider.get()[0].replace(/\D/g, ''),
+        "maxPrice": nonLinearSlider.noUiSlider.get()[1].replace(/\D/g, ''),
+        "filterOptions": $('#status-select').find(":selected").val(),
+        "currentCategory": '<?php echo $category ?>'
+      }
+      $.ajax({
+        type: 'get',
+        url: '/techshop/filter/category',
+        data: {
+          'data': JSON.stringify(filter)
+        },
+        success: function (res) {
+          $("#pagination-numbers").empty();
+          $('#product-container').html(res)
+          _paginationLimit = 4;
+          _pageCount = Math.ceil(_listItems.length / _paginationLimit);
+          currentPage = 1;
+          _paginationNumbers = document.getElementById("pagination-numbers");
+          _paginatedList = document.getElementById("render-cart");
+          _listItems = _paginatedList.querySelectorAll(".cart");
+
+          get_PaginationNumbers(_pageCount);
+          setCurrentPage(1);
+          _prevButton.addEventListener("click", () => {
+            setCurrentPage(currentPage - 1);
+          });
+          _nextButton.addEventListener("click", () => {
+            setCurrentPage(currentPage + 1);
+          });
+          document.querySelectorAll(".pagination-number").forEach((button) => {
+            const pageIndex = Number(button.getAttribute("page-index"));
+            if (pageIndex) {
+              button.addEventListener("click", () => {
+                setCurrentPage(pageIndex);
+              });
+            }
+          });
+        }
+      })
+    })
+
+    $('input[type=checkbox]').change(function (e) {
+      let myArray = (function () {
+        let a = [];
+        $(".form__input:checked").each(function () {
+          a.push(this.getAttribute('data-range-min'));
+          a.push(this.getAttribute('data-range-max'));
+        });
+        return a;
+      })()
+      if (myArray.length == 0) {
+        myArray.push(0);
+        myArray.push(100000000);
+
+      }
+      let filter = {
+        "minPrice": Math.min(...myArray),
+        "maxPrice": Math.max(...myArray),
+        "filterOptions": $('#status-select').find(":selected").val(),
+        "currentCategory": '<?php echo $category ?>'
+      }
+      $.ajax({
+        type: 'get',
+        url: '/techshop/filter/category',
+        data: {
+          'data': JSON.stringify(filter)
+        },
+        success: function (res) {
+          $("#pagination-numbers").empty();
+          $('#product-container').html(res)
+          _paginationLimit = 4;
+          _pageCount = Math.ceil(_listItems.length / _paginationLimit);
+          currentPage = 1;
+          _paginationNumbers = document.getElementById("pagination-numbers");
+          _paginatedList = document.getElementById("render-cart");
+          _listItems = _paginatedList.querySelectorAll(".cart");
+
+          get_PaginationNumbers(_pageCount);
+          setCurrentPage(1);
+          _prevButton.addEventListener("click", () => {
+            setCurrentPage(currentPage - 1);
+          });
+          _nextButton.addEventListener("click", () => {
+            setCurrentPage(currentPage + 1);
+          });
+          document.querySelectorAll(".pagination-number").forEach((button) => {
+            const pageIndex = Number(button.getAttribute("page-index"));
+            if (pageIndex) {
+              button.addEventListener("click", () => {
+                setCurrentPage(pageIndex);
+              });
+            }
+          });
+        }
+      })
+    })
   })
 
 </script>
