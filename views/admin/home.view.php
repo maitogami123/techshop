@@ -165,45 +165,6 @@
 
 </script>
 <script>
-  $(document).ready(function() {
-    var options = {
-          series: [{
-            name: "Desktops",
-            data: [
-              <?php foreach ($revenues as $revenue): ?>
-              <?php echo $revenue ?>,
-              <?php endforeach ?>
-            ],
-        }],
-          chart: {
-          height: 350,
-          type: 'line',
-          zoom: {
-            enabled: false
-          }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        stroke: {
-          curve: 'straight'
-        },
-        grid: {
-          row: {
-            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-            opacity: 0.5
-          },
-        },
-        xaxis: {
-          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-        }
-    };
-    var chart = new ApexCharts(document.querySelector("#average-revenue"), options);
-
-    chart.render();
-  })
-</script>
-<script>
   <?php
   $revenues = []; // Initialize an empty array to store monthly revenues
 
@@ -226,8 +187,8 @@
           series: [{
             name: "Desktops",
             data: [
-              <?php foreach ($revenues->revenues as $revenue): ?>
-                  <?php echo $revenue ?>,
+              <?php foreach ($revenues as $revenue): ?>
+              <?php echo $revenue ?>,
               <?php endforeach ?>
             ],
         }],
