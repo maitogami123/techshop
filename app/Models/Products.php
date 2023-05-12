@@ -69,7 +69,7 @@ class Products
       if ($stock == 0) 
         continue;
       $product = new Product();
-      $product->setStock($countStm->fetchColumn());
+      $product->setStock($stock);
       $product->setProductLine($item['Product_Line']);
       $product->setProductName($item['Product_Name']);
       $product->setThumbNail($item['Thumbnail']);

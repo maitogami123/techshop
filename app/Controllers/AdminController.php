@@ -61,6 +61,8 @@ class AdminController {
     $name = 'users/index';
     $users = new Users();
     $users->getAllUsers();
+    $roles = new Roles();
+    $roles->getAll();
     require_once APP_ROOT . '/views/admin/layout.view.php';
   }
 

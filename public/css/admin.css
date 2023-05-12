@@ -61,3 +61,86 @@
   display: block;
   color: #28a745;
   font-style: italic; }
+
+
+  .form {
+    width: 100%;
+    padding: 2rem;
+    background-color: #f9fafb;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -2px rgba(0, 0, 0, 0.05);
+    display: grid; }
+    .form__container--right {
+      grid-column: 6 / span 3;
+      width: 100%; }
+    .form__container--center {
+      grid-column: 3 / span 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: fit-content;
+      width: 100%;
+      padding-bottom: 10rem; }
+    .form-request-code {
+      width: max-content; }
+    .form__field {
+      display: flex;
+      flex-direction: column;
+      font-weight: 500;
+      color: #111928; }
+      .form__field-box {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(min-content, 1fr));
+        gap: 2rem; }
+      .form__field--inline {
+        display: flex;
+        align-items: center;
+        gap: 2rem; }
+    .form__input {
+      display: block;
+      border: 1px solid #d1d5db;
+      background-color: inherit;
+      border-radius: 10px;
+      padding: 0.8rem; }
+      .form__input:focus {
+        outline: none; }
+      .form__input:focus::-webkit-input-placeholder {
+        opacity: 0; }
+      .form__input::-webkit-input-placeholder {
+        opacity: 1;
+        transition: all 0.1s; }
+      .form__input::-webkit-outer-spin-button, .form__input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0; }
+      .form__input[type="number"] {
+        -moz-appearance: textfield; }
+      .form__input + .form__input {
+        margin-left: 1rem; }
+      .form__input[type="checkbox"] {
+        border-radius: 10px;
+        display: inline-block;
+        accent-color: #1c64f2; }
+        .form__input[type="checkbox"]:checked ~ label {
+          color: #1c64f2 !important; }
+    .form__option {
+      font-size: 1.6rem;
+      color: #6b7280; }
+    .form__label {
+      display: block; }
+    .form button {
+      width: 100%; }
+    .form a {
+      margin: 0 auto; }
+    .form__checkbox-box {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      gap: 2rem 5rem; }
+
+.btn__primary {
+  padding: 0.8rem 1.2rem;
+  transition: all 0.3; }
+  .btn__primary--active, .btn__primary:hover {
+    background-color: #1c64f2;
+    color: #ffffff !important;
+    outline: none; }

@@ -83,4 +83,10 @@ class RegisterController
             $user->createAccountGroup($username);
         }
     }
+
+    public function createUserAction(RouteCollection $routes, Request $request) {
+        print_r($_POST);
+        $user = new User();
+        $user->createUser($_POST);
+    }
 }

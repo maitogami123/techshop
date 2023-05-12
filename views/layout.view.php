@@ -91,8 +91,8 @@ if (isLoggedIn()) {
           </nav>
         <?php endif ?>
         <?php if ($_SESSION['isLoggedIn'] == false): ?>
-          <a href="login" class="btn btn__secondary">Đăng nhập</a>
-          <a href="register" class="btn btn__secondary btn__secondary--active">Đăng kí</a>
+          <a href="/techshop/login" class="btn btn__secondary">Đăng nhập</a>
+          <a href="/techshop/register" class="btn btn__secondary btn__secondary--active">Đăng kí</a>
         <?php endif ?>
         </nav>
       </div>

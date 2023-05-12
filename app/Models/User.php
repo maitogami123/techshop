@@ -357,7 +357,33 @@ class User
   }
 
   public function updateUserDetail($data) {
+    $db = connect();
+    $updateInfoSql = "UPDATE userdetail SET userdetail.FirstName= :FirstName, 
+            userdetail.LastName= :LastName, 
+            userdetail.Email= :Email, 
+            userdetail.detailedAddress= :detailedAddress, 
+            userdetail.District= :District,
+            userdetail.`City/Province`= :City, 
+            userdetail.Phone_Number= :Phone_Number
+            WHERE userdetail.username= :username";
+    $updateInfoStm = $db->prepare($updateInfoSql);
+    $updateInfoStm->execute([
+      ":FirstName" => $data["user__first-name"],
+      ":LastName" => $data["user__last-name"],
+      ":Email" => $data["user__email"],
+      ":City" => $data["order__address-city"],
+      ":District" => $data["order__address-district"],
+      ":detailedAddress" => $data["order__address"],
+      ":Phone_Number" => $data["user__tel"],
+      ":username" => $data["username"],
+    ]);
 
+    $updateRoleSql = "UPDATE `accountgroup` SET `accountypeid` = :roleId WHERE `accountgroup`.`username` = :username ";
+    $updateRoleStm = $db->prepare($updateRoleSql);
+    $updateRoleStm->execute([
+      ":roleId" => $data["role-id"],
+      ":username" => $data["username"],
+    ]);
   }
 
   public function createAccountGroup($username)
@@ -431,23 +457,63 @@ class User
     return $this;
   }
 
-  // update user information
-  public function update(string $username, $formData)
+  public function getUser(string $username)
   {
-    
-  }
-  public function delete()
-  {
+    $db = connect();
 
+    $sql = "SELECT `account`.*, `accountgroup`.`accountypeid`, `accountpermission`.`PermissionID`
+    FROM `account` 
+      LEFT JOIN `accountgroup` ON `accountgroup`.`username` = `account`.`Username`, `accountpermission`
+    WHERE `account`.`Username` = :username";
+
+    $statement = $db->prepare($sql);
+    $statement->execute(
+      array(
+        ':username' => $username,
+      )
+    );
+    $data = $statement->fetch(PDO::FETCH_ASSOC);
+
+    $this->username = $data['Username'];
+    $this->password = $data['Password'];
+    $this->createdAt = $data['Created_at'];
+    $this->modifiedAt = $data['Modified_at'];
+    $this->deletedAt = $data['Deleted_at'];
+    $this->userGroup = $data['accountypeid'];
+
+    $sql = "SELECT * FROM `userdetail` WHERE `username` = :username";
+    $statement = $db -> prepare($sql);
+    $statement -> bindParam(':username', $username);
+    $statement->execute();
+
+    $data = $statement->fetch(PDO::FETCH_ASSOC);
+
+    $this->firstName = $data['FirstName'] ?? "";
+    $this->lastName = $data['LastName'] ?? "";
+    $this->email = $data['Email'] ?? "";
+    $this->detailedAddress = $data['detailedAddress'] ?? "";
+    $this->district = $data['District'] ?? "";
+    $this->province = $data['City/Province'] ?? "";
+    $this->phoneNumber = $data['Phone_Number'] ?? "";
+
+    $sql = null;
+    $db = null;
+
+    return $this;
   }
   
-public function UpdateUserInfo($userName,$lastName, $firstName, $email, $phoneNumber, $City, $District, $detailAddress){
-  $db = connect();
-  $sql = "UPDATE userdetail SET userdetail.FirstName='$firstName', userdetail.LastName='$lastName', userdetail.Email='$email', userdetail.detailedAddress='$detailAddress', userdetail.District='$District',userdetail.`City/Province`='$City', userdetail.Phone_Number='$phoneNumber' WHERE userdetail.username='$userName'";
-  $result = $db->prepare($sql);
-  $result -> execute();
-  // echo $sql;
-}
+  public function UpdateUserInfo($userName,$lastName, $firstName, $email, $phoneNumber, $City, $District, $detailAddress){
+    $db = connect();
+    $sql = "UPDATE userdetail SET userdetail.FirstName='$firstName', 
+            userdetail.LastName='$lastName', 
+            userdetail.Email='$email', 
+            userdetail.detailedAddress='$detailAddress', 
+            userdetail.District='$District',userdetail.`City/Province`='$City', 
+            userdetail.Phone_Number='$phoneNumber' 
+            WHERE userdetail.username='$userName'";
+    $result = $db->prepare($sql);
+    $result -> execute();
+  }
 
 
   public function getAccountInDB(){
@@ -514,5 +580,45 @@ public function UpdateUserInfo($userName,$lastName, $firstName, $email, $phoneNu
     $stm = $db->query($sql);
     return $stm->fetch();
   }
-  
+
+  public function createUser(array $data) {
+    $db = connect();
+    $createUserSql = "INSERT INTO `account` (`Username`, `Password`, `Created_at`, `Modified_at`, `Deleted_at`)
+                       VALUES (:username, :pwd, current_timestamp(), NULL, NULL)";
+    $createUserStm = $db->prepare($createUserSql);
+    $createUserStm->execute([
+      ":username" => $data['Username'],
+      ":pwd" => $data['password'],
+    ]);
+
+    $addBasicInfoSql = "INSERT INTO `userdetail` (`userdetailID`, `username`, `FirstName`, `LastName`, 
+                        `Email`, `detailedAddress`, `District`, `City/Province`, `Phone_Number`) 
+                        VALUES (NULL, :username, :firstName, :lastName, :email, NULL, '', '', '')";
+    $addBasicInfoStm = $db->prepare($addBasicInfoSql);
+    $addBasicInfoStm->execute([
+      ":username" => $data['Username'],
+      ":firstName" => $data['fist-name'],
+      ":lastName" => $data['Last-name'],
+      ":email" => $data['email'],
+    ]);
+
+    $addUserToGroupSql = "INSERT INTO `accountgroup` (`ID`, `username`, `accountypeid`) 
+                          VALUES (NULL, :username, :roleId)";
+    $addUserToGroupStm = $db->prepare($addUserToGroupSql);
+    $addUserToGroupStm->execute([
+      ":username" => $data['Username'],
+      ":roleId" => $data['role-id'],
+    ]);
+  }
+
+  public function deactiveUser(string $username) {
+    $db = connect();
+    $deactiveSql = "UPDATE `account` 
+                    SET `Deleted_at` = current_timestamp()
+                    WHERE `account`.`Username` = :username";
+    $deactiveStm = $db->prepare($deactiveSql);
+    $deactiveStm->execute([
+      ":username" => $username,
+    ]);
+  }
 }
