@@ -1,6 +1,7 @@
 <div class="modal-header modal-colored-header bg-info">
   <h4 class="modal-title" id="fill-info-modalLabel">
-    Change <?php echo $user->getUsername() ?>'s information
+    Change
+    <?php echo $user->getUsername() ?>'s information
   </h4>
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
 </div>
@@ -57,6 +58,16 @@
           placeholder="Số nhà, tên đường, xã, phường, thị trấn,..." class="form__input form-js" />
         <span class="error font-error"></span>
       </div>
+      <div class="form__field-box mt-2">
+        <div class="form__field u-margin-bottom-medium">
+          <label for="example-select" class="form__label u-margin-bottom-small">Role</label>
+          <select class="form-select" name="role-id" id="example-select">
+            <?php foreach ($roles->roles as $role): ?>
+              <option value=<?php echo $role->getRoleId() ?> <?php if($role->getRoleId() == $user->getUserGroup()) echo "selected"?>><?php echo $role->getRoleName() ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
       <div class="mt-3 modal-footer">
         <button type="button" class="btn btn-light" data-bs-dismiss="modal">
           Cancel
@@ -72,8 +83,8 @@
 
 <script>
 
-  $(document).ready(function() {
-    $('#userInfo').submit(function(e) {
+  $(document).ready(function () {
+    $('#userInfo').submit(function (e) {
       e.preventDefault();
       var formData = new FormData(this);
       formData.append('username', "<?php echo $user->getUsername() ?>")
@@ -83,7 +94,7 @@
         data: formData,
         contentType: false,
         processData: false,
-        success:function(res) {
+        success: function (res) {
           console.log(res)
         }
       })

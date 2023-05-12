@@ -21,6 +21,8 @@ class UserController {
     startSession();
     $user = new User();
     $user -> getUser(json_decode($_GET['username']));
+    $roles = new Roles();
+    $roles->getAll();
     require_once APP_ROOT . '/views/admin/users/edit.view.php';
   }
 

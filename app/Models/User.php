@@ -358,7 +358,7 @@ class User
 
   public function updateUserDetail($data) {
     $db = connect();
-    $sql = "UPDATE userdetail SET userdetail.FirstName= :FirstName, 
+    $updateInfoSql = "UPDATE userdetail SET userdetail.FirstName= :FirstName, 
             userdetail.LastName= :LastName, 
             userdetail.Email= :Email, 
             userdetail.detailedAddress= :detailedAddress, 
@@ -366,8 +366,8 @@ class User
             userdetail.`City/Province`= :City, 
             userdetail.Phone_Number= :Phone_Number
             WHERE userdetail.username= :username";
-    $statement = $db->prepare($sql);
-    $statement->execute([
+    $updateInfoStm = $db->prepare($updateInfoSql);
+    $updateInfoStm->execute([
       ":FirstName" => $data["user__first-name"],
       ":LastName" => $data["user__last-name"],
       ":Email" => $data["user__email"],
@@ -375,6 +375,13 @@ class User
       ":District" => $data["order__address-district"],
       ":detailedAddress" => $data["order__address"],
       ":Phone_Number" => $data["user__tel"],
+      ":username" => $data["username"],
+    ]);
+
+    $updateRoleSql = "UPDATE `accountgroup` SET `accountypeid` = :roleId WHERE `accountgroup`.`username` = :username ";
+    $updateRoleStm = $db->prepare($updateRoleSql);
+    $updateRoleStm->execute([
+      ":roleId" => $data["role-id"],
       ":username" => $data["username"],
     ]);
   }
