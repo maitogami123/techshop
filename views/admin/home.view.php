@@ -165,23 +165,6 @@
 
 </script>
 <script>
-  <?php
-  $revenues = []; // Initialize an empty array to store monthly revenues
-
-  // Loop through 12 months of current year
-  for ($month = 1; $month <= 12; $month++) {
-    $revenue = 0; // Initialize revenue as 0
-    foreach ($RevenueOfMonth->RevenueOfMonth as $status) {
-      // Get the revenue for the current month if available
-      if ($status->getMonth() == $month ) {
-        $revenue = $status->getTotalRevenue();
-        break;
-      }
-    }
-    $revenues[] = $revenue; // Add monthly revenue to the array
-  }
-  echo $revenue;
-  ?>
   $(document).ready(function() {
     var options = {
           series: [{
