@@ -8,7 +8,21 @@ This project created for **study** purpose!
 - Nguyen Truong Tan Loc
 
 # Project Features:
->WIP
+* App features:
+  * View, search product, filter by tag and price.
+  * Login, register.
+* User features:
+  * Make purchase and manage orders.
+  * Manage users information
+* Admin features:
+  * Statistic: order, selling
+  * Manage (CRUD):
+    * Product
+    * Category
+    * Brand
+    * Order
+    * User
+  * Dynamic role and app permission management
 
 # How to run project:
 - First, you need to install [Composer](https://getcomposer.org/download/)
